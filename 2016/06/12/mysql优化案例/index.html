@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="索引无索引案例问题描述：用户系统打开缓慢，数据库 CPU 100%问题排查：发现数据库中大量的慢sql， 执行时间超过了2s慢SQL：SELECT uid FROM user WHERE mo=13772556391 LIMIT 0,1;执行计划">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql优化案例">
+<meta property="og:url" content="http://www.jeffxue.cn/2016/06/12/mysql优化案例/index.html">
+<meta property="og:site_name" content="Blog of Jeff Xue">
+<meta property="og:description" content="索引无索引案例问题描述：用户系统打开缓慢，数据库 CPU 100%问题排查：发现数据库中大量的慢sql， 执行时间超过了2s慢SQL：SELECT uid FROM user WHERE mo=13772556391 LIMIT 0,1;执行计划">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T15:14:54.462Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql优化案例">
+<meta name="twitter:description" content="索引无索引案例问题描述：用户系统打开缓慢，数据库 CPU 100%问题排查：发现数据库中大量的慢sql， 执行时间超过了2s慢SQL：SELECT uid FROM user WHERE mo=13772556391 LIMIT 0,1;执行计划">
+  <link rel="canonical" href="http://www.jeffxue.cn/2016/06/12/mysql优化案例/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>mysql优化案例 | Blog of Jeff Xue</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96f1d393e90bf8f44a8792351515c9b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog of Jeff Xue</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Tags</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/06/12/mysql优化案例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">mysql优化案例
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-06-12 09:28:27" itemprop="dateCreated datePublished" datetime="2016-06-12T09:28:27+08:00">2016-06-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-31 23:14:54" itemprop="dateModified" datetime="2019-07-31T23:14:54+08:00">2019-07-31</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/性能优化/" itemprop="url" rel="index"><span itemprop="name">性能优化</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="无索引案例"><a href="#无索引案例" class="headerlink" title="无索引案例"></a>无索引案例</h2><p>问题描述：用户系统打开缓慢，数据库 CPU 100%<br>问题排查：发现数据库中大量的慢sql， 执行时间超过了2s<br>慢SQL：SELECT uid FROM user WHERE mo=13772556391 LIMIT 0,1;<br>执行计划</p>
+<a id="more"></a>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; explain SELECT uid FROM user WHERE mo=13772556391 LIMIT 0,1</span><br><span class="line">************************** 1. row *********************************</span><br><span class="line">id: 1</span><br><span class="line">select_type: SIMPLE</span><br><span class="line">table: user</span><br><span class="line">type: ALL</span><br><span class="line">possible_keys: NULL</span><br><span class="line">key: NULL</span><br><span class="line">key_len: NULL</span><br><span class="line">ref: NULL</span><br><span class="line">rows: 70725</span><br><span class="line">Extra: Using where</span><br></pre></td></tr></table></figure>
+
+<p>表结构：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`user`</span>(</span><br><span class="line">    <span class="string">`uid`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'id'</span>,</span><br><span class="line">    <span class="string">`pid`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> DEFALUT <span class="string">'0'</span>,</span><br><span class="line">    <span class="string">`email`</span> <span class="built_in">char</span>(<span class="number">60</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`name`</span> <span class="built_in">char</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> DEFALUT <span class="string">''</span>,</span><br><span class="line">    <span class="string">`mo`</span> <span class="built_in">char</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> DEFALUT <span class="string">''</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span>(<span class="string">`uid`</span>),</span><br><span class="line">    <span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> <span class="string">`email`</span>(<span class="string">`email`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="string">`pid`</span> (<span class="string">`pid`</span>)</span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">97260</span> DEFALUT <span class="keyword">CHARSET</span>=utf<span class="number">-8</span>;</span><br></pre></td></tr></table></figure>
+
+<p>优化方案：<br>添加索引</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter table user add index ind_mo(mo);</span><br></pre></td></tr></table></figure>
+
+<p>执行时间：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT uid FROM user WHERE mo=13772556391 LIMIT 0,1;</span><br><span class="line">Empty <span class="keyword">set</span>(<span class="number">0.05</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>执行计划：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; explain SELECT uid FROM user WHERE mo=13772556391 LIMIT 0,1</span><br><span class="line">************************** 1. row *********************************</span><br><span class="line">id: 1</span><br><span class="line">select_type: SIMPLE</span><br><span class="line">table: user</span><br><span class="line">type: index</span><br><span class="line">possible_keys: ind_mo</span><br><span class="line">key: ind_mo</span><br><span class="line">key_len: 33</span><br><span class="line">ref: NULL</span><br><span class="line">rows: 70725</span><br><span class="line">Extra: Using where; Using index</span><br></pre></td></tr></table></figure>
+
+<h2 id="隐式转换案例"><a href="#隐式转换案例" class="headerlink" title="隐式转换案例"></a>隐式转换案例</h2><p><strong>为什么索引的过滤性这么差</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain extended SELECT uid FROM user WHERE mo=13772556391 LIMIT 0,1</span><br><span class="line">mysql&gt; show warnings;</span><br><span class="line">Warning1: cannot <span class="keyword">use</span> <span class="keyword">index</span> <span class="string">'ind_mo'</span> due <span class="keyword">to</span> <span class="keyword">type</span> <span class="keyword">or</span> <span class="keyword">collation</span> conversion <span class="keyword">on</span> <span class="keyword">field</span> <span class="string">'mo'</span></span><br></pre></td></tr></table></figure>
+
+<p>优化方案：<br>调整sql mo字段类型</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> uid <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> mo=‘<span class="number">13772556391</span>’ <span class="keyword">LIMIT</span> <span class="number">0</span>,<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>执行时间：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myql&gt; SELECT uid FROM user WHERE mo=‘13772556391’ LIMIT 0,1;</span><br><span class="line">Empty <span class="keyword">set</span>(<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>执行计划：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; explain SELECT uid FROM user WHERE mo=‘13772556391’ LIMIT 0,1</span><br><span class="line">************************** 1. row *********************************</span><br><span class="line">id: 1</span><br><span class="line">select_type: SIMPLE</span><br><span class="line">table: user</span><br><span class="line">type: ref</span><br><span class="line">possible_keys: ind_mo</span><br><span class="line">key: ind_mo</span><br><span class="line">key_len: 33</span><br><span class="line">ref: NULL</span><br><span class="line">rows:1</span><br><span class="line">Extra: Using where; Using index</span><br></pre></td></tr></table></figure>
+
+<h2 id="索引最佳事件"><a href="#索引最佳事件" class="headerlink" title="索引最佳事件"></a>索引最佳事件</h2><ul>
+<li>通过explain查看sql执行计划：判断是否使用了索引以及隐式转换</li>
+<li>常见的隐式转换：包括字段数据类型以及字符集定义不当导致</li>
+<li>设计开发阶段：避免数据库字段定义与应用程序参数定义出现不一致，不支持函数索引，避免在查询条件加入函数date(a.gmt_create)</li>
+<li>SQL审核：所有上线的sql都要经过严格的审核，创建合适的索引</li>
+</ul>
+<h1 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h1><h2 id="分页优化案例"><a href="#分页优化案例" class="headerlink" title="分页优化案例"></a>分页优化案例</h2><p>普通写法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> buyer <span class="keyword">where</span> sellerid=<span class="number">100</span> <span class="keyword">limit</span> <span class="number">100000</span>,<span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p>普通limit M, N 的翻页写法，在越往后翻页的过程中速度越慢，原因mysql会读取表中前M+N条数据，M越大，性能就越差</p>
+<p>优化写法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t1.* <span class="keyword">from</span> buyer t1, (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> buyer <span class="keyword">where</span> sellerid=<span class="number">100</span> <span class="keyword">limit</span> <span class="number">100000</span>,<span class="number">20</span> ) t2 <span class="keyword">where</span> t1.id=t2.id</span><br></pre></td></tr></table></figure>
+
+<p>需要在t表中的sellerid字段中创建索引，id为表的主键</p>
+<h2 id="子查询优化"><a href="#子查询优化" class="headerlink" title="子查询优化"></a>子查询优化</h2><p>典型子查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name <span class="keyword">FROM</span> employees <span class="keyword">WHERE</span> emp_no <span class="keyword">IN</span> (<span class="keyword">SELECT</span> emp_no <span class="keyword">FROM</span> salaries_2000 <span class="keyword">WHERE</span> salary=<span class="number">5000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>mysql的处理逻辑是遍历employees表中的每一条就，代入子查询中去</p>
+<p>改成子查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name <span class="keyword">FROM</span> employees emp, (<span class="keyword">SELECT</span> emp_no <span class="keyword">FROM</span> salaries_2000 <span class="keyword">WHERE</span> salary=<span class="number">5000</span>) sal <span class="keyword">WHERE</span> emp.emp_no = sal.emp_mo</span><br></pre></td></tr></table></figure>
+
+<h2 id="SQL优化最佳实践"><a href="#SQL优化最佳实践" class="headerlink" title="SQL优化最佳实践"></a>SQL优化最佳实践</h2><ul>
+<li>分页优化：采用高效的limit写法，避免分页查询给数据库带来的性能影响</li>
+<li>子查询优化：子查询在5.1，5.5版本中存在较大风险，将子查询改为关联，使用mysql5.6版本，可以避免麻烦的子查询改写</li>
+</ul>
+<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h2><p>Innodb与Myisam<br>引擎     | 支持事务 | 并发             | 索引损坏 | 锁级别 | 在线备份</p>
+<ul>
+<li>| -            | -                  | -            | -         | -<br>Myisam | 不支持    | 查询堵塞更新 | 索引损坏 | 表       | 不支持<br>Innodb  | 支持       | 不堵塞          | 不损坏    | 行       | 支持</li>
+</ul>
+<p>myisam 查询会堵塞数据更新操作，同时在DDL过程中注意数据库中大长事务，大查询</p>
+<h2 id="锁问题最佳实践"><a href="#锁问题最佳实践" class="headerlink" title="锁问题最佳实践"></a>锁问题最佳实践</h2><ul>
+<li><p>设计开发阶段</p>
+<ul>
+<li>避免使用myisam存储引擎，改用innodb引擎</li>
+<li>避免大事务，长事务导致事务在数据库中运行时间加长</li>
+<li>选择升级到mysql5.6版本，支持online ddl</li>
+</ul>
+</li>
+<li><p>管理运维阶段</p>
+<ul>
+<li>在业务低峰期执行上述操作，比如创建索引，添加字段</li>
+<li>在结构变更前，观察数据库中是否存在长SQL，大事务</li>
+<li>结构变更期间，监控数据库的线程状态是否存在lock wait</li>
+</ul>
+</li>
+</ul>
+<h1 id="延迟"><a href="#延迟" class="headerlink" title="延迟"></a>延迟</h1><p>阿里云RDS：只读实例架构（数据库需要升级到5.6版本，最多支持5个节点，采用mysql复制原理实现数据同步）</p>
+<ul>
+<li>DDL导致延迟，常见DDL：create index, repair, optimze table, alter table add column</li>
+<li>大事务：create …as select , insert…select , load …data , delete …from, update…from</li>
+<li>MDL锁导致延迟：通过执行show processlist查看链接状态；锁会阻塞复制线程导致复制延迟</li>
+<li>资源问题导致延迟：压力（同步压力+只读业务压力），效率（CPU+IOPS）</li>
+</ul>
+<h2 id="延迟问题最佳实践"><a href="#延迟问题最佳实践" class="headerlink" title="延迟问题最佳实践"></a>延迟问题最佳实践</h2><ul>
+<li>排查思路<ul>
+<li>一看资源是否达到瓶颈</li>
+<li>二看线程状态是否有锁</li>
+<li>三判断是否存在大事务</li>
+</ul>
+</li>
+<li>最佳实践<ul>
+<li>使用innodb存储引擎</li>
+<li>只读实例规格不低于主实例</li>
+<li>大事务拆分为小事务</li>
+<li>DDL变更期间观察是否有大查询</li>
+</ul>
+</li>
+</ul>
+<h1 id="参数优化"><a href="#参数优化" class="headerlink" title="参数优化"></a>参数优化</h1><p>背景介绍: 某客户正在将本地的业务系统迁移上云，在rds上运行时间明显要比线下自建数据库运行时间要慢一倍，导致客户系统割接延期风险</p>
+<p>经验分析：</p>
+<ul>
+<li>数据库是否跨平台迁移</li>
+<li>是否跨版本升级</li>
+<li>检查执行计划、优化器、参数配置，硬件配置</li>
+</ul>
+<p>确定参数配置：<br>用户配置：<br>join_buffer_size = 128m<br>read_rnd_buffer_size =128m<br>tmp_table_size = 128m</p>
+<p>RDS配置：<br>join_buffer_size = 1m<br>read_rnd_buffer_size =1m<br>tmp_table_size = 256k</p>
+<p>验证阶段：将tmp_table_size调整为128M</p>
+<h2 id="参数最佳实践"><a href="#参数最佳实践" class="headerlink" title="参数最佳实践"></a>参数最佳实践</h2><ul>
+<li>排查思路<ul>
+<li>查看sql执行计划</li>
+<li>查看数据库版本和优化器规则</li>
+<li>对比参数设置</li>
+<li>对比硬件配置</li>
+</ul>
+</li>
+<li>最佳实践<ul>
+<li>query_cache_size</li>
+<li>tmp_table_size</li>
+<li>tokudb_buffer_pool_ratio</li>
+<li>back_log</li>
+</ul>
+</li>
+</ul>
+<h1 id="cpu-100"><a href="#cpu-100" class="headerlink" title="cpu 100%"></a>cpu 100%</h1><p>三大因素： 慢sql，锁，资源</p>
+<ul>
+<li>慢sql问题: 通过优化索引，子查询，隐式转换，分页改写等优化</li>
+<li>锁等待问题: 通过设计开发和管理运维优化锁等待</li>
+<li>资源问题： 通过参数优化，弹性升级，读写分离，数据库拆分等</li>
+</ul>
+<h1 id="conn-100"><a href="#conn-100" class="headerlink" title="conn 100%"></a>conn 100%</h1><ul>
+<li>慢sql问题: 通过优化索引，子查询，隐式转换，分页改写等优化</li>
+<li>锁等待问题: 通过设计开发和管理运维优化锁等待</li>
+<li>配置问题： 客户端连接池参数配置超出实际最大连接数，弹性升级RDS的规格配置</li>
+</ul>
+<h1 id="iops-100"><a href="#iops-100" class="headerlink" title="iops 100%"></a>iops 100%</h1><ul>
+<li>慢sql问题: 通过优化索引，子查询，隐式转换，分页改写等优化</li>
+<li>DDL: create index, optimze table, alter table add column</li>
+<li>配置问题：内存规格不足，弹性升级RDS规格配置</li>
+</ul>
+<h1 id="disk-100"><a href="#disk-100" class="headerlink" title="disk 100%"></a>disk 100%</h1><p>磁盘空间组成：数据文件，日志文件，临时文件</p>
+<ul>
+<li>数据空间问题<ul>
+<li>采用optimize table收缩表空间</li>
+<li>删除不必要的索引</li>
+<li>使用tokudb压缩引擎</li>
+</ul>
+</li>
+<li>日志空间问题<ul>
+<li>减少大字段的使用</li>
+<li>使用truncate替代delete from</li>
+</ul>
+</li>
+<li>临时空间问题<ul>
+<li>适当调大sort_buffer_size</li>
+<li>创建合适索引避免排序</li>
+</ul>
+</li>
+</ul>
+<h1 id="mem-100"><a href="#mem-100" class="headerlink" title="mem 100%"></a>mem 100%</h1><ul>
+<li>buffer pool size<ul>
+<li>创建合适的索引，避免大量的数据扫描</li>
+<li>去除不必要的索引，降低内存的消耗</li>
+</ul>
+</li>
+<li>thread cost memory<ul>
+<li>创建合适的索引避免排序</li>
+<li>只查询应用所需要的数据</li>
+</ul>
+</li>
+<li>dictionary memory<ul>
+<li>不要过度分表</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！.</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/wechat.png" alt="Jeff Xue WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpeg" alt="Jeff Xue Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2016/05/27/《癌症-真相-医生也在读》摘录/" rel="next" title="《癌症.真相:医生也在读》摘录">
+                <i class="fa fa-chevron-left"></i> 《癌症.真相:医生也在读》摘录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2016/06/12/redis集群方案比较/" rel="prev" title="redis集群方案比较">
+                redis集群方案比较 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/img/avatar4.jpg"
+      alt="Jeff Xue">
+  <p class="site-author-name" itemprop="name">Jeff Xue</p>
+  <div class="site-description motion-element" itemprop="description">Think Bigger, Start Simple!</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/JeffXue" title="GitHub &rarr; https://github.com/JeffXue" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#索引"><span class="nav-number">1.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无索引案例"><span class="nav-number">1.1.</span> <span class="nav-text">无索引案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式转换案例"><span class="nav-number">1.2.</span> <span class="nav-text">隐式转换案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引最佳事件"><span class="nav-number">1.3.</span> <span class="nav-text">索引最佳事件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL优化"><span class="nav-number">2.</span> <span class="nav-text">SQL优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分页优化案例"><span class="nav-number">2.1.</span> <span class="nav-text">分页优化案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子查询优化"><span class="nav-number">2.2.</span> <span class="nav-text">子查询优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL优化最佳实践"><span class="nav-number">2.3.</span> <span class="nav-text">SQL优化最佳实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁"><span class="nav-number">3.</span> <span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表级锁"><span class="nav-number">3.1.</span> <span class="nav-text">表级锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁问题最佳实践"><span class="nav-number">3.2.</span> <span class="nav-text">锁问题最佳实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#延迟"><span class="nav-number">4.</span> <span class="nav-text">延迟</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#延迟问题最佳实践"><span class="nav-number">4.1.</span> <span class="nav-text">延迟问题最佳实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参数优化"><span class="nav-number">5.</span> <span class="nav-text">参数优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数最佳实践"><span class="nav-number">5.1.</span> <span class="nav-text">参数最佳实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cpu-100"><span class="nav-number">6.</span> <span class="nav-text">cpu 100%</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conn-100"><span class="nav-number">7.</span> <span class="nav-text">conn 100%</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iops-100"><span class="nav-number">8.</span> <span class="nav-text">iops 100%</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#disk-100"><span class="nav-number">9.</span> <span class="nav-text">disk 100%</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mem-100"><span class="nav-number">10.</span> <span class="nav-text">mem 100%</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Xue</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

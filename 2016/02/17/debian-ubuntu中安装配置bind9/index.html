@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="安装bind91sudo apt-get install bind9 -y  安装后修改配置文件，若需要修改本地DNS，可修改/etc/resolve.conf 配置文件说明安装后配置文件默认在/etc/bind/目录下  named.conf 123include &quot;/etc/bind/named.conf.options&quot;;include &quot;/etc/bind/named.conf.local">
+<meta name="keywords" content="BIND9,DNS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="debian&#x2F;ubuntu中安装配置bind9">
+<meta property="og:url" content="http://www.jeffxue.cn/2016/02/17/debian-ubuntu中安装配置bind9/index.html">
+<meta property="og:site_name" content="Blog of Jeff Xue">
+<meta property="og:description" content="安装bind91sudo apt-get install bind9 -y  安装后修改配置文件，若需要修改本地DNS，可修改/etc/resolve.conf 配置文件说明安装后配置文件默认在/etc/bind/目录下  named.conf 123include &quot;/etc/bind/named.conf.options&quot;;include &quot;/etc/bind/named.conf.local">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T15:14:54.459Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="debian&#x2F;ubuntu中安装配置bind9">
+<meta name="twitter:description" content="安装bind91sudo apt-get install bind9 -y  安装后修改配置文件，若需要修改本地DNS，可修改/etc/resolve.conf 配置文件说明安装后配置文件默认在/etc/bind/目录下  named.conf 123include &quot;/etc/bind/named.conf.options&quot;;include &quot;/etc/bind/named.conf.local">
+  <link rel="canonical" href="http://www.jeffxue.cn/2016/02/17/debian-ubuntu中安装配置bind9/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>debian/ubuntu中安装配置bind9 | Blog of Jeff Xue</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96f1d393e90bf8f44a8792351515c9b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog of Jeff Xue</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Tags</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/02/17/debian-ubuntu中安装配置bind9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">debian/ubuntu中安装配置bind9
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-02-17 22:14:18" itemprop="dateCreated datePublished" datetime="2016-02-17T22:14:18+08:00">2016-02-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-31 23:14:54" itemprop="dateModified" datetime="2019-07-31T23:14:54+08:00">2019-07-31</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="安装bind9"><a href="#安装bind9" class="headerlink" title="安装bind9"></a>安装bind9</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install bind9 -y</span><br></pre></td></tr></table></figure>
+
+<p>安装后修改配置文件，若需要修改本地DNS，可修改/etc/resolve.conf</p>
+<h1 id="配置文件说明"><a href="#配置文件说明" class="headerlink" title="配置文件说明"></a>配置文件说明</h1><p>安装后配置文件默认在/etc/bind/目录下</p>
+<ul>
+<li>named.conf <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">include <span class="string">"/etc/bind/named.conf.options"</span>;</span><br><span class="line">include <span class="string">"/etc/bind/named.conf.local"</span>;</span><br><span class="line">include <span class="string">"/etc/bind/named.conf.default-zones"</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<a id="more"></a>
+
+<p> 设置一般的named参数，指向该服务器使用的域数据库的信息源，配置语句：<br>命令|用法<br>—-|—-<br>acl | 定义IP地址的访问控制清单<br>control | 定义ndc使用的控制通道<br>include | 把其他文件包含到配置文件中<br>key | 定义授权的安全密钥<br>logging | 定义日志写什么，写到哪<br>options | 定义全局配置选项和缺省值<br>server | 定义远程服务器的特征<br>trunsted-keys | 为服务器定义DNSSEC加密密钥<br>zone | 定义一个区</p>
+<ul>
+<li><p>named.conf.options<br>全局选项</p>
+</li>
+<li><p>named.conf.default-zones</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// prime the server with knowledge of the root servers</span><br><span class="line">zone <span class="string">"."</span> &#123;</span><br><span class="line">    <span class="built_in">type</span> hint;</span><br><span class="line">    file <span class="string">"/etc/bind/db.root"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// be authoritative <span class="keyword">for</span> the localhost forward and reverse zones, and <span class="keyword">for</span> </span><br><span class="line">// broadcast zones as per RFC 1912</span><br><span class="line"></span><br><span class="line">zone <span class="string">"localhost"</span> &#123;    //提供localhost正向地址解析</span><br><span class="line">    <span class="built_in">type</span> master;    //定义此区为主服务器；若为slave则是辅助域名服务器；若为hint则为互联网中根域名服务器</span><br><span class="line">    file <span class="string">"/etc/bind/db.local"</span>;    //指定区资源文件的位置</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">"127.in-addr.arpa"</span> &#123;</span><br><span class="line">    <span class="built_in">type</span> master;</span><br><span class="line">    file <span class="string">"/etc/bind/db.127"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">"0.in-addr.arpa"</span> &#123;</span><br><span class="line">    <span class="built_in">type</span> master;</span><br><span class="line">    file <span class="string">"/etc/bind/db.0"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">"255.in-addr.arpa"</span> &#123;</span><br><span class="line">    <span class="built_in">type</span> master;</span><br><span class="line">    file <span class="string">"/etc/bind/db.255"</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>db.root<br>根服务器指向文件， 由Internet NIC创建和维护， 无需修改， 但是需要定期更新</p>
+</li>
+<li><p>db.local<br>localhost正向区文件，用于将名字localhost转换为本地回送IP地址 (127.0.0.1)</p>
+</li>
+<li><p>db.127<br>localhost反向区文件，用于将本地回送IP地址(127.0.0.1)转换为名字localhost</p>
+</li>
+</ul>
+<h1 id="添加区和资源文件"><a href="#添加区和资源文件" class="headerlink" title="添加区和资源文件"></a>添加区和资源文件</h1><p>编辑named.conf添加一下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">zone <span class="string">"test.com"</span> <span class="keyword">in</span> &#123; //提供test.com域的地址接卸</span><br><span class="line">    <span class="built_in">type</span> master;</span><br><span class="line">    file <span class="string">"/etc/bind/db.test.com"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">"1.168.192.in-addr.arpa"</span> &#123; //提供192.168.1.x地址段的反向映射功能</span><br><span class="line">    <span class="built_in">type</span> master;</span><br><span class="line">    file <span class="string">"/etc/bind/db.192"</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>创建区资源文件/etc/bind/db.test.com，并添加一下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">;</span><br><span class="line">; BIND data file <span class="keyword">for</span> domain test.com</span><br><span class="line">;</span><br><span class="line"><span class="variable">$TTL</span>	604800    ;TTL设定，生存时间记录字段。它以秒为单位定义该资源记录中的信息存放在高速缓存中的时间长度</span><br><span class="line"><span class="variable">$ORIGIN</span> test.com.    ;说明下面记录出处，最后有一点</span><br><span class="line">@	IN	SOA	test.com. root.test.com. ( ;SOA记录设定，特殊字符@为ORIGIN的意思，接在SOA后面的是授权主机和管理者信箱</span><br><span class="line">			      1		; Serial</span><br><span class="line">			 604800		; Refresh</span><br><span class="line">			  86400		; Retry</span><br><span class="line">			2419200		; Expire</span><br><span class="line">			 604800 )	; Negative Cache TTL</span><br><span class="line">;</span><br><span class="line">       IN    NS     ns                ;NS表明负责这个域的name server 是test.com这台主机</span><br><span class="line">       IN    MX     0  mail.test.com  ;MX标明发往test.com域的邮件由mail.test.com这台服务器接收</span><br><span class="line">@      IN    A      192.168.1.101</span><br><span class="line">ns     IN    A      192.168.1.101     ;A记录标明IP地址和域名之间的对应关系</span><br><span class="line">www    IN    A	    192.168.1.101</span><br><span class="line">webserver   IN    CNAME  www</span><br></pre></td></tr></table></figure>
+
+<p>创建区资源文件/etc/bind/db.192，并添加一下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$TTL</span>	604800</span><br><span class="line">@	IN	SOA	test.com. root.test.com. (</span><br><span class="line">			      1		; Serial</span><br><span class="line">			 604800		; Refresh</span><br><span class="line">			  86400		; Retry</span><br><span class="line">			2419200		; Expire</span><br><span class="line">			 604800 )	; Negative Cache TTL</span><br><span class="line">;</span><br><span class="line">@      IN    NS    test.com.</span><br><span class="line">101    IN    PTR    www.test.com    ;PTR记录用来解析IP地址对应的域名</span><br></pre></td></tr></table></figure>
+
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><ul>
+<li><p>带调试信息启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/sbin/named -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后台启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/sbin/named -u <span class="built_in">bind</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="nsloopup命令"><a href="#nsloopup命令" class="headerlink" title="nsloopup命令"></a>nsloopup命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nslookup www.test.com</span><br><span class="line">nslookup 192.168.1.101</span><br></pre></td></tr></table></figure>
+
+<h1 id="rndc命令"><a href="#rndc命令" class="headerlink" title="rndc命令"></a>rndc命令</h1><ul>
+<li><p>查询状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rndc status</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重载配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rndc reload</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="浅谈DNS负载均衡技术"><a href="#浅谈DNS负载均衡技术" class="headerlink" title="浅谈DNS负载均衡技术"></a>浅谈DNS负载均衡技术</h1><p>负载均衡技术能够平衡服务器集群中所有的服务器和请求应用之间的通信负载，根据实时响应时间进行判断，将任务交由负载最轻的服务器来处理，以实现真正的智能通信管理和最佳的服务器群性能，从而使网站始终保持运行和保证其可访问性。</p>
+<p>最早使用的负载均衡技术是通过DNS服务中的随机名字解析来实现的。这就是通常所说的DNS负载均衡技术。</p>
+<p>DNS负载均衡技术的实现原理是在DNS服务器中为同一个主机名配置多个IP地址，在应答DNS查询时，DNS服务器对每个查询将以DNS文件中主机记录的IP地址按顺序返回不同的解析结果，将客户端的访问引导到不同的机器上去，使得不同的客户端访问不同的服务器，从而达到负载均衡的目的。</p>
+<p>DNS负载均衡技术主要有以下优缺点：</p>
+<p>主要优点：</p>
+<ol>
+<li>技术实现比较灵活，方便，简单易行，成本低，适用于大多数TCP/IP应用</li>
+<li>对于Web应用，不需要对代码进行任何的修改</li>
+<li>Web服务器可以位于互联网的任意位置</li>
+</ol>
+<p>主要缺点：</p>
+<ol>
+<li>不能够按照Web服务器的处理能力分配负载。DNS负载均衡采用的是简单的轮询负载算法，最慢的Web服务器将成为系统的瓶颈</li>
+<li>不支持高可靠性，没有考虑容错</li>
+<li>可能会造成额外的网络问题</li>
+<li>修改了DNS设置，还要等足够的时间（刷新时间）才能发挥作用</li>
+</ol>
+<p>总结：<br>DNS负载均衡技术方案不应该算是真正意义上的负载均衡，不能够稳定、可靠、高效地满足企业对Web服务器的需求，也不能满足网络用户对网站访问的及时响应和可用性，所以现在很多Web站点方案中，已经很少采用这种方案了</p>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！.</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/wechat.png" alt="Jeff Xue WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpeg" alt="Jeff Xue Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/BIND9/" rel="tag"># BIND9</a>
+          
+            <a href="/tags/DNS/" rel="tag"># DNS</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2016/01/13/2016书单/" rel="next" title="2016书单（pending）">
+                <i class="fa fa-chevron-left"></i> 2016书单（pending）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2016/02/28/《管理者的实践-成为优秀的管理者》培训摘录/" rel="prev" title="《管理者的实践--成为优秀的管理者》培训摘录">
+                《管理者的实践--成为优秀的管理者》培训摘录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/img/avatar4.jpg"
+      alt="Jeff Xue">
+  <p class="site-author-name" itemprop="name">Jeff Xue</p>
+  <div class="site-description motion-element" itemprop="description">Think Bigger, Start Simple!</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/JeffXue" title="GitHub &rarr; https://github.com/JeffXue" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装bind9"><span class="nav-number">1.</span> <span class="nav-text">安装bind9</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件说明"><span class="nav-number">2.</span> <span class="nav-text">配置文件说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加区和资源文件"><span class="nav-number">3.</span> <span class="nav-text">添加区和资源文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动"><span class="nav-number">4.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nsloopup命令"><span class="nav-number">5.</span> <span class="nav-text">nsloopup命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rndc命令"><span class="nav-number">6.</span> <span class="nav-text">rndc命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浅谈DNS负载均衡技术"><span class="nav-number">7.</span> <span class="nav-text">浅谈DNS负载均衡技术</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Xue</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

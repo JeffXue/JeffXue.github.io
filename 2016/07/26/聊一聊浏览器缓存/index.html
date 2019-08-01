@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="先说明下在高性能网站建设指南的14条性能规则中的其中几条：  减少HTTP请求 添加Expires头 禁用/配置Etag头  而这些恰恰就是跟浏览器缓存相关的内容。作为用户访问的最后一英里：浏览器，浏览器缓存对改善用户体验有着很重要的作用 但是浏览器缓存在不同浏览器的操作和首部字段的情况下，都会有不同的表现简单的抛出几个场景：  地址栏输出地址后，点击回车，response是200, 304还是">
+<meta name="keywords" content="缓存,浏览器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="聊一聊浏览器缓存">
+<meta property="og:url" content="http://www.jeffxue.cn/2016/07/26/聊一聊浏览器缓存/index.html">
+<meta property="og:site_name" content="Blog of Jeff Xue">
+<meta property="og:description" content="先说明下在高性能网站建设指南的14条性能规则中的其中几条：  减少HTTP请求 添加Expires头 禁用/配置Etag头  而这些恰恰就是跟浏览器缓存相关的内容。作为用户访问的最后一英里：浏览器，浏览器缓存对改善用户体验有着很重要的作用 但是浏览器缓存在不同浏览器的操作和首部字段的情况下，都会有不同的表现简单的抛出几个场景：  地址栏输出地址后，点击回车，response是200, 304还是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T15:14:54.472Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="聊一聊浏览器缓存">
+<meta name="twitter:description" content="先说明下在高性能网站建设指南的14条性能规则中的其中几条：  减少HTTP请求 添加Expires头 禁用/配置Etag头  而这些恰恰就是跟浏览器缓存相关的内容。作为用户访问的最后一英里：浏览器，浏览器缓存对改善用户体验有着很重要的作用 但是浏览器缓存在不同浏览器的操作和首部字段的情况下，都会有不同的表现简单的抛出几个场景：  地址栏输出地址后，点击回车，response是200, 304还是">
+  <link rel="canonical" href="http://www.jeffxue.cn/2016/07/26/聊一聊浏览器缓存/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>聊一聊浏览器缓存 | Blog of Jeff Xue</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96f1d393e90bf8f44a8792351515c9b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog of Jeff Xue</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Tags</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/07/26/聊一聊浏览器缓存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">聊一聊浏览器缓存
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-07-26 21:18:42" itemprop="dateCreated datePublished" datetime="2016-07-26T21:18:42+08:00">2016-07-26</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-31 23:14:54" itemprop="dateModified" datetime="2019-07-31T23:14:54+08:00">2019-07-31</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端性能/" itemprop="url" rel="index"><span itemprop="name">前端性能</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>先说明下在高性能网站建设指南的14条性能规则中的其中几条：</p>
+<ul>
+<li>减少HTTP请求</li>
+<li>添加Expires头</li>
+<li>禁用/配置Etag头</li>
+</ul>
+<p>而这些恰恰就是跟浏览器缓存相关的内容。作为用户访问的最后一英里：浏览器，浏览器缓存对改善用户体验有着很重要的作用</p>
+<p>但是浏览器缓存在不同浏览器的操作和首部字段的情况下，都会有不同的表现<br>简单的抛出几个场景：</p>
+<ol>
+<li>地址栏输出地址后，点击回车，response是200, 304还是 200（from cache）？</li>
+<li>点击浏览器刷新/F5刷新，response是200, 304还是 200（from cache）？</li>
+<li>chrome中打开开发者工具的情况下，上面两种场景又是怎么样的情况？</li>
+</ol>
+<h1 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h1><p>先来看看与缓存相关的报文首部字段，加粗为现在经常使用到的</p>
+<h2 id="通用首部字段"><a href="#通用首部字段" class="headerlink" title="通用首部字段"></a>通用首部字段</h2><p>通用首部字段：请求报文和响应报文都会使用的首部</p>
+<table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Cache-Control</strong></td>
+<td>控制缓存的行为</td>
+</tr>
+<tr>
+<td>Pragma</td>
+<td>报文指令，http1.0的遗留物，值为“no-cache”时禁用缓存</td>
+</tr>
+</tbody></table>
+<a id="more"></a>
+
+<h2 id="请求首部字段"><a href="#请求首部字段" class="headerlink" title="请求首部字段"></a>请求首部字段</h2><table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>If-Match</td>
+<td>比较实体标记（ETag）</td>
+</tr>
+<tr>
+<td><strong>If-None-Match</strong></td>
+<td>比较实体标记（与If-Match相反）</td>
+</tr>
+<tr>
+<td><strong>If-Modified-Since</strong></td>
+<td>比较资源的更新时间</td>
+</tr>
+<tr>
+<td>If-Unmodified-Since</td>
+<td>比较资源的更新时间（与If-Modified-Since相反）</td>
+</tr>
+</tbody></table>
+<h2 id="响应首部字段"><a href="#响应首部字段" class="headerlink" title="响应首部字段"></a>响应首部字段</h2><table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ETag</strong></td>
+<td>资源的匹配信息</td>
+</tr>
+</tbody></table>
+<h2 id="实体首部字段"><a href="#实体首部字段" class="headerlink" title="实体首部字段"></a>实体首部字段</h2><p>实体首部字段：针对请求报文和响应报文的实体部分使用的首部</p>
+<table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Expires</strong></td>
+<td>实体主体过期的日期时间，http1.0的遗留物</td>
+</tr>
+<tr>
+<td><strong>Last-Modified</strong></td>
+<td>资源的最后修改日期时间</td>
+</tr>
+</tbody></table>
+<h1 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h1><h2 id="首部字段的演变"><a href="#首部字段的演变" class="headerlink" title="首部字段的演变"></a>首部字段的演变</h2><p>在HTTP1.0的时代，Web服务器使用<code>Expires</code>头来告诉浏览器对该实体主体进行缓存，在到达该日期之前，均可以使用该实体主体的缓存。</p>
+<p>但是存在问题是服务器和客户端的时间并非一致，这就是<code>Expires</code>头的限制：要求两端时间同步。为了解决这个限制，在HTTP1.1时代引入了<code>Cache-Control</code>，<code>Cache-Control</code>使用<code>max-age</code>指令指定组件被缓存多久，它以秒为单位定义了一个更新窗，对于不兼容HTTP1.1的浏览器，仍需保留<code>Expires</code></p>
+<p>而ETag是Web服务器和浏览器用于确认缓存组件的有效性的一种机制，但是需要留意ETag是依赖于服务器，后端为多台服务器，且不保持会话的情况下，ETag基本失效，导致不必要的请求，另外If-None-Match比If-Modified-Since具有更高的优先级，如果请求中同时出现了这两个头，则原始服务器禁止返回304，除非请求中的条件头字段全部一致。实际上如果没有If-None-Match头反而会更好一些（具体ETag建议见<a href="http://www.jeffxue.cn/2016/07/22/%E3%80%8A%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E6%8C%87%E5%8D%97%E3%80%8B%E6%91%98%E5%BD%95/">高性能网站建设指南 Rule13: Configure ETags</a> ）</p>
+<h2 id="浏览器缓存-1"><a href="#浏览器缓存-1" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h2><p>从上面可以看出浏览器缓存主要是有HTTP消息头中的<code>Cache-control</code>来控制的，常见的取值有：<code>private</code>,<code>no-cache</code>,<code>max-age</code>,<code>must-revalidate</code>,默认为<code>private</code>，其作用根据不同的浏览方式分为以下几种。</p>
+<h3 id="打开新窗口"><a href="#打开新窗口" class="headerlink" title="打开新窗口"></a>打开新窗口</h3><ul>
+<li>没有缓存情况下，访问服务器，返回response status则为200</li>
+<li>之前请求头中<code>Cache-control</code>指定了max-age（有浏览器缓存），且缓存在有效期内，直接使用缓存，此时返回response status则为200 （from cache）</li>
+<li>之前请求头中<code>Cache-control</code>指定了max-age（有浏览器缓存），且缓存已失效，则请求服务器，请求头带上<code>If-Modified-Since</code>和<code>If-None-Match</code>，若资源未发生变更，则返回304，否则返回资源</li>
+</ul>
+<h3 id="在地址栏回车"><a href="#在地址栏回车" class="headerlink" title="在地址栏回车"></a>在地址栏回车</h3><ul>
+<li><code>Cache-control</code>为<code>private</code>或<code>must-revalidate</code>, 则只有第一次访问时会访问服务器（暂未验证过）</li>
+<li>之前请求头中<code>Cache-control</code>指定了max-age（有浏览器缓存），且缓存在有效期内，直接使用缓存，此时返回response status则为200 （from cache）</li>
+<li>之前请求头中<code>Cache-control</code>指定了max-age（有浏览器缓存），且缓存已失效，则请求服务器，请求头带上<code>If-Modified-Since</code>和<code>If-None-Match</code>，若资源未发生变更，则返回304，否则返回资源</li>
+<li><code>Cache-control： no-cache</code>，则每次都会访问服务器</li>
+</ul>
+<h3 id="按后退按钮"><a href="#按后退按钮" class="headerlink" title="按后退按钮"></a>按后退按钮</h3><ul>
+<li><code>Cache-control</code>为<code>private</code>、<code>must-revalidate</code>、<code>max-age</code>, 不会重新访问服务器</li>
+<li><code>Cache-control： no-cache</code>，则每次都会访问服务器</li>
+</ul>
+<h3 id="按刷新按钮"><a href="#按刷新按钮" class="headerlink" title="按刷新按钮"></a>按刷新按钮</h3><p>无论<code>Cache-control</code>为何值，均会重新访问服务器，因为刷新时浏览器请求头加入了<code>Cache-Control:max-age=0</code></p>
+<p>另外在打开chrome开发者工具时，基本行为跟之前说明一致，如果勾选<code>disable cache</code>，则无论是地址栏输入地址回车访问，还是刷新访问，均会访问服务器，因为请求头中加入了<code>Cache-Control:no-cache</code>和<code>Pragma:no-cache</code></p>
+<h1 id="Web服务器开启Expires-ETag"><a href="#Web服务器开启Expires-ETag" class="headerlink" title="Web服务器开启Expires/ETag"></a>Web服务器开启Expires/ETag</h1><p>apache配置<code>Expires</code>可见<a href="http://www.jeffxue.cn/2016/03/08/apache%E4%BD%BF%E7%94%A8mod_expires%E6%A8%A1%E5%9D%97/">apache使用mod_expires模块</a><br>nginx配置<code>Expires</code>可见<a href="http://www.jeffxue.cn/2016/03/22/ngx-http-headers-module%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/">ngx_http_headers_module模块使用说明</a></p>
+<p>另外对于ETag的取舍可见<a href="http://www.jeffxue.cn/2016/07/22/%E3%80%8A%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E6%8C%87%E5%8D%97%E3%80%8B%E6%91%98%E5%BD%95/">高性能网站建设指南 Rule13: Configure ETags</a></p>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！.</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/wechat.png" alt="Jeff Xue WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpeg" alt="Jeff Xue Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/缓存/" rel="tag"># 缓存</a>
+          
+            <a href="/tags/浏览器/" rel="tag"># 浏览器</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2016/07/25/如何隐藏你的Linux命令行历史/" rel="next" title="如何隐藏你的Linux命令行历史">
+                <i class="fa fa-chevron-left"></i> 如何隐藏你的Linux命令行历史
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2016/08/02/JVM堆内存配置导致的一次异常/" rel="prev" title="JVM堆内存配置导致的一次异常">
+                JVM堆内存配置导致的一次异常 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/img/avatar4.jpg"
+      alt="Jeff Xue">
+  <p class="site-author-name" itemprop="name">Jeff Xue</p>
+  <div class="site-description motion-element" itemprop="description">Think Bigger, Start Simple!</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/JeffXue" title="GitHub &rarr; https://github.com/JeffXue" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP报文"><span class="nav-number">1.</span> <span class="nav-text">HTTP报文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用首部字段"><span class="nav-number">1.1.</span> <span class="nav-text">通用首部字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求首部字段"><span class="nav-number">1.2.</span> <span class="nav-text">请求首部字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应首部字段"><span class="nav-number">1.3.</span> <span class="nav-text">响应首部字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体首部字段"><span class="nav-number">1.4.</span> <span class="nav-text">实体首部字段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器缓存"><span class="nav-number">2.</span> <span class="nav-text">浏览器缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#首部字段的演变"><span class="nav-number">2.1.</span> <span class="nav-text">首部字段的演变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器缓存-1"><span class="nav-number">2.2.</span> <span class="nav-text">浏览器缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开新窗口"><span class="nav-number">2.2.1.</span> <span class="nav-text">打开新窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在地址栏回车"><span class="nav-number">2.2.2.</span> <span class="nav-text">在地址栏回车</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按后退按钮"><span class="nav-number">2.2.3.</span> <span class="nav-text">按后退按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按刷新按钮"><span class="nav-number">2.2.4.</span> <span class="nav-text">按刷新按钮</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web服务器开启Expires-ETag"><span class="nav-number">3.</span> <span class="nav-text">Web服务器开启Expires/ETag</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Xue</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

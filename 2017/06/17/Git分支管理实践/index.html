@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="Git分支管理实践Git分支管理的引入其实在团队逐步扩大，开发特性逐步增多的情况下引入时，其优势才会突显，否则将会带来为谓管理开销。 不同的Git分支管理 Master单分支当团队较小时，往往只需要单独的master分支，大家都在本地master分支上进行特性开发，完成后即可推送到远程分支，推送后触发CI构建，单元测试，集成测试等，通过后即可上线发布。 此时的迭代周期应该较短，发布频率会比较高，上">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git分支管理实践">
+<meta property="og:url" content="http://www.jeffxue.cn/2017/06/17/Git分支管理实践/index.html">
+<meta property="og:site_name" content="Blog of Jeff Xue">
+<meta property="og:description" content="Git分支管理实践Git分支管理的引入其实在团队逐步扩大，开发特性逐步增多的情况下引入时，其优势才会突显，否则将会带来为谓管理开销。 不同的Git分支管理 Master单分支当团队较小时，往往只需要单独的master分支，大家都在本地master分支上进行特性开发，完成后即可推送到远程分支，推送后触发CI构建，单元测试，集成测试等，通过后即可上线发布。 此时的迭代周期应该较短，发布频率会比较高，上">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.jeffxue.cn/img/20170617_git-master.png">
+<meta property="og:image" content="http://www.jeffxue.cn/img/20170617_git-develop.png">
+<meta property="og:image" content="http://www.jeffxue.cn/img/20170617_gitflow.jpeg">
+<meta property="og:updated_time" content="2019-07-31T15:14:54.456Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git分支管理实践">
+<meta name="twitter:description" content="Git分支管理实践Git分支管理的引入其实在团队逐步扩大，开发特性逐步增多的情况下引入时，其优势才会突显，否则将会带来为谓管理开销。 不同的Git分支管理 Master单分支当团队较小时，往往只需要单独的master分支，大家都在本地master分支上进行特性开发，完成后即可推送到远程分支，推送后触发CI构建，单元测试，集成测试等，通过后即可上线发布。 此时的迭代周期应该较短，发布频率会比较高，上">
+<meta name="twitter:image" content="http://www.jeffxue.cn/img/20170617_git-master.png">
+  <link rel="canonical" href="http://www.jeffxue.cn/2017/06/17/Git分支管理实践/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Git分支管理实践 | Blog of Jeff Xue</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96f1d393e90bf8f44a8792351515c9b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog of Jeff Xue</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Tags</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2017/06/17/Git分支管理实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Git分支管理实践
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-06-17 17:23:03" itemprop="dateCreated datePublished" datetime="2017-06-17T17:23:03+08:00">2017-06-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-31 23:14:54" itemprop="dateModified" datetime="2019-07-31T23:14:54+08:00">2019-07-31</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/研发流程/" itemprop="url" rel="index"><span itemprop="name">研发流程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Git分支管理实践"><a href="#Git分支管理实践" class="headerlink" title="Git分支管理实践"></a>Git分支管理实践</h1><p>Git分支管理的引入其实在团队逐步扩大，开发特性逐步增多的情况下引入时，其优势才会突显，否则将会带来为谓管理开销。</p>
+<h1 id="不同的Git分支管理"><a href="#不同的Git分支管理" class="headerlink" title="不同的Git分支管理"></a>不同的Git分支管理</h1><hr>
+<h2 id="Master单分支"><a href="#Master单分支" class="headerlink" title="Master单分支"></a>Master单分支</h2><p>当团队较小时，往往只需要单独的master分支，大家都在本地master分支上进行特性开发，完成后即可推送到远程分支，推送后触发CI构建，单元测试，集成测试等，通过后即可上线发布。</p>
+<p>此时的迭代周期应该较短，发布频率会比较高，上线后发现的问题可以快速的通过新版本迭代进行修复，生产环境的bug fix和新功能可以同步进行。</p>
+<p><img src="http://www.jeffxue.cn/img/20170617_git-master.png" alt="master"></p>
+<p>但是随着业务的逐步扩张，业务复杂度开始增加，上线后出现的问题较多，同时迭代周期逐步被拉长的时候，就无法快速响应生产环境的bug fix。而实际情况下我们团队采用了局部包的方式为生产环境打补丁，但是在bug验证的过程中无法保证验证环境与生产环境一致，会引入一定的风险。</p>
+<hr>
+<a id="more"></a>
+
+<h2 id="Develop-Master"><a href="#Develop-Master" class="headerlink" title="Develop + Master"></a>Develop + Master</h2><p>后续引入了develop分支作为开发分支，master分支用于发布和生产环境的bug fix。</p>
+<p><img src="http://www.jeffxue.cn/img/20170617_git-develop.png" alt="develop+master"></p>
+<p>此时可以在开发新功能的同时对生产环境的bug进行修复发布</p>
+<p>但是随着新需求的逐步增多，在临近发布日期的情况下，部分需求会存在无法完全交付的情况，但是部分代码已经提交到了develop上（我们会有部分提测的情况），导致发布时develop上到带有不可控的代码，存在隐形风险。在前期我们采取了入口屏蔽，代码抽取/代码回滚的方式去解决，但是当代码耦合度较高的时候，仍存在较大的风险，因此开始了gitflow的引入</p>
+<hr>
+<h2 id="GitFlow"><a href="#GitFlow" class="headerlink" title="GitFlow"></a>GitFlow</h2><p>gitflow的流程是比较复杂的，会引入了release发布分支和hotfix的分支，而想完整的执行该模式对每位开发人员的要求也是较高的，需要对gitflow有明确的理解，还需要有较强的git实践能力。</p>
+<p>实际执行gitflow的情况下，我们会遇到以下的问题：</p>
+<ul>
+<li><p>仓库数量非常多（十几个），hotfixes步骤多，合并频繁，人的要求十分高</p>
+</li>
+<li><p>release的过程中，生产bug fix如何解决？</p>
+</li>
+<li><p>会存在超长生命周期的分支，如何管理？</p>
+</li>
+</ul>
+<p>最后根据实际情况对gitflow进行了以下改造:</p>
+<ul>
+<li><p>非release过程，生产环境bug fix直接基于master进行修复</p>
+</li>
+<li><p>拉出release分支之前，需要将master merge到develop，以便带上生产环境的bug fix</p>
+</li>
+<li><p>拉出release分支后，生产环境bug fix可以直接基于relese进行修复</p>
+</li>
+<li><p>在发布后，需要将develop合并到长生命周期的分支</p>
+</li>
+</ul>
+<p>并且对每个关键步骤进行了详细说明：</p>
+<p><img src="http://www.jeffxue.cn/img/20170617_gitflow.jpeg" alt="tps"></p>
+<p>另外除了git flow流程外还有github flow，gitlab flow，详细可见<a href="http://www.ruanyifeng.com/blog/2015/12/git-workflow.html" target="_blank" rel="noopener">git-workflow</a></p>
+<hr>
+<p>参考：</p>
+<p><a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">http://nvie.com/posts/a-successful-git-branching-model/</a><br><a href="http://blog.jobbole.com/109466/" target="_blank" rel="noopener">http://blog.jobbole.com/109466/</a><br><a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a><br><a href="http://www.ruanyifeng.com/blog/2015/12/git-workflow.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2015/12/git-workflow.html</a></p>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！.</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/wechat.png" alt="Jeff Xue WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpeg" alt="Jeff Xue Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2017/06/17/利用redis登录漏洞入侵服务器/" rel="next" title="利用redis登录漏洞入侵服务器">
+                <i class="fa fa-chevron-left"></i> 利用redis登录漏洞入侵服务器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2017/06/19/《番茄工作法》脑图/" rel="prev" title="《番茄工作法》脑图">
+                《番茄工作法》脑图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/img/avatar4.jpg"
+      alt="Jeff Xue">
+  <p class="site-author-name" itemprop="name">Jeff Xue</p>
+  <div class="site-description motion-element" itemprop="description">Think Bigger, Start Simple!</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/JeffXue" title="GitHub &rarr; https://github.com/JeffXue" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git分支管理实践"><span class="nav-number">1.</span> <span class="nav-text">Git分支管理实践</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不同的Git分支管理"><span class="nav-number">2.</span> <span class="nav-text">不同的Git分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Master单分支"><span class="nav-number">2.1.</span> <span class="nav-text">Master单分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Develop-Master"><span class="nav-number">2.2.</span> <span class="nav-text">Develop + Master</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitFlow"><span class="nav-number">2.3.</span> <span class="nav-text">GitFlow</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Xue</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

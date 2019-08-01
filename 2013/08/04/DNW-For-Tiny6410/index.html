@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="由于开发环境迁移到了Redhat6.2环境上，估重新整理了dnw for linux，以下代码均已通过验证">
+<meta name="keywords" content="Tiny6410,DNW">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DNW_For_Tiny6410">
+<meta property="og:url" content="http://www.jeffxue.cn/2013/08/04/DNW-For-Tiny6410/index.html">
+<meta property="og:site_name" content="Blog of Jeff Xue">
+<meta property="og:description" content="由于开发环境迁移到了Redhat6.2环境上，估重新整理了dnw for linux，以下代码均已通过验证">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T15:14:54.456Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DNW_For_Tiny6410">
+<meta name="twitter:description" content="由于开发环境迁移到了Redhat6.2环境上，估重新整理了dnw for linux，以下代码均已通过验证">
+  <link rel="canonical" href="http://www.jeffxue.cn/2013/08/04/DNW-For-Tiny6410/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>DNW_For_Tiny6410 | Blog of Jeff Xue</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96f1d393e90bf8f44a8792351515c9b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog of Jeff Xue</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Tags</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2013/08/04/DNW-For-Tiny6410/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">DNW_For_Tiny6410
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2013-08-04 13:51:00" itemprop="dateCreated datePublished" datetime="2013-08-04T13:51:00+08:00">2013-08-04</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-31 23:14:54" itemprop="dateModified" datetime="2019-07-31T23:14:54+08:00">2019-07-31</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>由于开发环境迁移到了Redhat6.2环境上，估重新整理了dnw for linux，以下代码均已通过验证</p>
+<a id="more"></a>
+
+<pre><code class="c"><span class="comment">/* dnw linux main file. This depends on libusb.  </span>
+<span class="comment">* You should use lsusb to find out the actual vender ID &amp; product ID of board.  </span>
+<span class="comment">* License:    GPL  </span>
+<span class="comment">*/</span>  
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;usb.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">define</span> QQ2440_VENDOR_ID        0x5345   </span>
+<span class="meta">#<span class="meta-keyword">define</span> QQ2440_PRODUCT_ID       0x1234   </span>
+<span class="meta">#<span class="meta-keyword">define</span> FS2410_VENDOR_ID        0x5345   </span>
+<span class="meta">#<span class="meta-keyword">define</span> FS2410_PRODUCT_ID       0x1234   </span>
+<span class="meta">#<span class="meta-keyword">define</span> EZ6410_VENDOR_ID        0x5345   </span>
+<span class="meta">#<span class="meta-keyword">define</span> EZ6410_PRODUCT_ID       0x1234   </span>
+<span class="meta">#<span class="meta-keyword">define</span> EZ6410_RAM_BASE         0x50200000   </span>
+<span class="meta">#<span class="meta-keyword">define</span> FS2410_RAM_BASE         0x30200000   </span>
+<span class="comment">/*  </span>
+<span class="comment">// FS2410  </span>
+<span class="comment">#define RAM_BASE            FS2410_RAM_BASE  </span>
+<span class="comment">#define VENDOR_ID           FS2410_VENDOR_ID  </span>
+<span class="comment">#define PRODUCT_ID          FS2410_PRODUCT_ID  </span>
+<span class="comment">*/</span>  
+<span class="comment">// EZ6410   </span>
+<span class="meta">#<span class="meta-keyword">define</span> RAM_BASE            EZ6410_RAM_BASE   </span>
+<span class="meta">#<span class="meta-keyword">define</span> VENDOR_ID           EZ6410_VENDOR_ID   </span>
+<span class="meta">#<span class="meta-keyword">define</span> PRODUCT_ID          EZ6410_PRODUCT_ID   </span>
+<span class="function">struct usb_dev_handle * <span class="title">open_port</span><span class="params">()</span>   </span>
+<span class="function"></span>{   
+    <span class="class"><span class="keyword">struct</span> <span class="title">usb_bus</span> *<span class="title">busses</span>, *<span class="title">bus</span>;</span>   
+    usb_init();   
+    usb_find_busses();   
+    usb_find_devices();   
+    busses = usb_get_busses();   
+    <span class="keyword">for</span>(bus=busses;bus;bus=bus-&gt;next)   
+    {   
+        <span class="class"><span class="keyword">struct</span> <span class="title">usb_device</span> *<span class="title">dev</span>;</span>   
+        <span class="keyword">for</span>(dev=bus-&gt;devices;dev;dev=dev-&gt;next)   
+        {   
+            <span class="keyword">if</span>( VENDOR_ID==dev-&gt;descriptor.idVendor   
+            &amp;&amp;  PRODUCT_ID==dev-&gt;descriptor.idProduct)   
+            {   
+                <span class="built_in">printf</span>(<span class="string">"Target usb device found!\n"</span>);   
+                <span class="class"><span class="keyword">struct</span> <span class="title">usb_dev_handle</span> *<span class="title">hdev</span> = <span class="title">usb_open</span>(<span class="title">dev</span>);</span>   
+                <span class="keyword">if</span>(!hdev)   
+                {   
+                    perror(<span class="string">"Cannot open device"</span>);      
+                }   
+                <span class="keyword">else</span>  
+                {   
+                    <span class="keyword">if</span>(<span class="number">0</span>!=usb_claim_interface(hdev, <span class="number">0</span>))   
+                    {   
+                        perror(<span class="string">"Cannot claim interface"</span>);   
+                        usb_close(hdev);   
+                        hdev = <span class="literal">NULL</span>;   
+                    }   
+                }   
+                <span class="keyword">return</span> hdev;   
+            }   
+        }   
+    }   
+
+    <span class="built_in">printf</span>(<span class="string">"Target usb device not found!\n"</span>);   
+    <span class="keyword">return</span> <span class="literal">NULL</span>;   
+}   
+<span class="function"><span class="keyword">void</span> <span class="title">usage</span><span class="params">()</span>   </span>
+<span class="function"></span>{   
+    <span class="built_in">printf</span>(<span class="string">"Usage: dnw2 &lt;file&gt;\n\n"</span>);   
+}   
+<span class="function"><span class="keyword">static</span> u_int16_t <span class="title">ace_csum</span><span class="params">(<span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *data, <span class="keyword">u_int32_t</span> len)</span>   </span>
+<span class="function"></span>{   
+        <span class="keyword">u_int16_t</span> csum = <span class="number">0</span>;   
+        <span class="keyword">int</span> j;   
+        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; len; j ++) {   
+                csum += data[j];   
+        }   
+        <span class="keyword">return</span> csum;   
+}   
+<span class="function"><span class="keyword">unsigned</span> <span class="keyword">char</span>* <span class="title">prepare_write_buf</span><span class="params">(<span class="keyword">char</span> *filename, <span class="keyword">unsigned</span> <span class="keyword">int</span> *len)</span>   </span>
+<span class="function"></span>{   
+    <span class="keyword">unsigned</span> <span class="keyword">char</span> *write_buf = <span class="literal">NULL</span>;   
+    <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">fs</span>;</span>   
+    <span class="keyword">int</span> fd = open(filename, O_RDONLY);   
+    <span class="keyword">if</span>(<span class="number">-1</span>==fd)   
+    {   
+        perror(<span class="string">"Cannot open file"</span>);   
+        <span class="keyword">return</span> <span class="literal">NULL</span>;   
+    }   
+    <span class="keyword">if</span>(<span class="number">-1</span>==fstat(fd, &amp;fs))   
+    {   
+        perror(<span class="string">"Cannot get file size"</span>);   
+        <span class="keyword">goto</span> error;   
+    }   
+    write_buf = (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)<span class="built_in">malloc</span>(fs.st_size+<span class="number">10</span>);   
+    <span class="keyword">if</span>(<span class="literal">NULL</span>==write_buf)   
+    {   
+        perror(<span class="string">"malloc failed"</span>);   
+        <span class="keyword">goto</span> error;   
+    }   
+    <span class="keyword">if</span>(fs.st_size != read(fd, write_buf+<span class="number">8</span>, fs.st_size))   
+    {   
+        perror(<span class="string">"Reading file failed"</span>);   
+        <span class="keyword">goto</span> error;   
+    }   
+    <span class="built_in">printf</span>(<span class="string">"Filename : %s\n"</span>, filename);   
+    <span class="built_in">printf</span>(<span class="string">"Filesize : %lu bytes\n"</span>, fs.st_size);   
+    *((<span class="keyword">u_int32_t</span>*)write_buf) = RAM_BASE;        <span class="comment">//download address   </span>
+    *((<span class="keyword">u_int32_t</span>*)write_buf+<span class="number">1</span>) = fs.st_size + <span class="number">10</span>;    <span class="comment">//download size;   </span>
+    *len = fs.st_size + <span class="number">10</span>;   
+
+    <span class="comment">// calculate checksum value   </span>
+    <span class="keyword">u_int16_t</span> csum = ace_csum(write_buf+<span class="number">8</span>, fs.st_size);   
+    *(write_buf+fs.st_size+<span class="number">8</span>) = csum &amp; <span class="number">0xff</span>;   
+    *(write_buf+fs.st_size+<span class="number">9</span>) = (csum &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span>;   
+    <span class="keyword">return</span> write_buf;   
+error:   
+    <span class="keyword">if</span>(fd!=<span class="number">-1</span>) close(fd);   
+    <span class="keyword">if</span>(<span class="literal">NULL</span>!=write_buf) <span class="built_in">free</span>(write_buf);   
+    fs.st_size = <span class="number">0</span>;   
+    <span class="keyword">return</span> <span class="literal">NULL</span>;   
+
+}   
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span>   </span>
+<span class="function"></span>{   
+    <span class="keyword">if</span>(<span class="number">2</span>!=argc)   
+    {   
+        usage();   
+        <span class="keyword">return</span> <span class="number">1</span>;   
+    }   
+    <span class="class"><span class="keyword">struct</span> <span class="title">usb_dev_handle</span> *<span class="title">hdev</span> = <span class="title">open_port</span>();</span>   
+    <span class="keyword">if</span>(!hdev)   
+    {   
+        <span class="keyword">return</span> <span class="number">1</span>;   
+    }   
+    <span class="keyword">unsigned</span> <span class="keyword">int</span> len = <span class="number">0</span>;   
+    <span class="keyword">unsigned</span> <span class="keyword">char</span>* write_buf = prepare_write_buf(argv[<span class="number">1</span>], &amp;len);   
+    <span class="keyword">if</span>(<span class="literal">NULL</span>==write_buf) <span class="keyword">return</span> <span class="number">1</span>;   
+    <span class="keyword">unsigned</span> <span class="keyword">int</span> remain = len;   
+    <span class="keyword">unsigned</span> <span class="keyword">int</span> towrite;   
+    <span class="built_in">printf</span>(<span class="string">"Writing data ...\n"</span>);   
+    <span class="keyword">while</span>(remain)   
+    {   
+        towrite = remain&gt;<span class="number">512</span> ? <span class="number">512</span> : remain;   
+        <span class="keyword">if</span>(towrite != usb_bulk_write(hdev, <span class="number">0x02</span>, write_buf+(len-remain), towrite, <span class="number">3000</span>))   
+        {   
+            perror(<span class="string">"usb_bulk_write failed"</span>);   
+            <span class="keyword">break</span>;   
+        }   
+        remain-=towrite;   
+        <span class="built_in">printf</span>(<span class="string">"\r%d%%\t %d bytes     "</span>, (len-remain)*<span class="number">100</span>/len, len-remain);   
+        fflush(<span class="built_in">stdout</span>);   
+    }   
+    <span class="keyword">if</span>(<span class="number">0</span>==remain) <span class="built_in">printf</span>(<span class="string">"Done!\n"</span>);   
+    <span class="keyword">return</span> <span class="number">0</span>;   
+}  
+
+
+由于开发环境迁移到了Redhat6<span class="number">.2</span>环境上，估重新整理了dnw <span class="keyword">for</span> linux，以下代码均已通过验证
+<span class="comment">/* dnw linux main file. This depends on libusb.  </span>
+<span class="comment">* You should use lsusb to find out the actual vender ID &amp; product ID of board.  </span>
+<span class="comment">* License:    GPL  </span>
+<span class="comment">*/</span>  
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;usb.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;   </span></span>
+<span class="meta">#<span class="meta-keyword">define</span> QQ2440_VENDOR_ID        0x5345   </span>
+<span class="meta">#<span class="meta-keyword">define</span> QQ2440_PRODUCT_ID       0x1234   </span>
+<span class="meta">#<span class="meta-keyword">define</span> FS2410_VENDOR_ID        0x5345   </span>
+<span class="meta">#<span class="meta-keyword">define</span> FS2410_PRODUCT_ID       0x1234   </span>
+<span class="meta">#<span class="meta-keyword">define</span> EZ6410_VENDOR_ID        0x5345   </span>
+<span class="meta">#<span class="meta-keyword">define</span> EZ6410_PRODUCT_ID       0x1234   </span>
+<span class="meta">#<span class="meta-keyword">define</span> EZ6410_RAM_BASE         0x50200000   </span>
+<span class="meta">#<span class="meta-keyword">define</span> FS2410_RAM_BASE         0x30200000   </span>
+<span class="comment">/*  </span>
+<span class="comment">// FS2410  </span>
+<span class="comment">#define RAM_BASE            FS2410_RAM_BASE  </span>
+<span class="comment">#define VENDOR_ID           FS2410_VENDOR_ID  </span>
+<span class="comment">#define PRODUCT_ID          FS2410_PRODUCT_ID  </span>
+<span class="comment">*/</span>  
+<span class="comment">// EZ6410   </span>
+<span class="meta">#<span class="meta-keyword">define</span> RAM_BASE            EZ6410_RAM_BASE   </span>
+<span class="meta">#<span class="meta-keyword">define</span> VENDOR_ID           EZ6410_VENDOR_ID   </span>
+<span class="meta">#<span class="meta-keyword">define</span> PRODUCT_ID          EZ6410_PRODUCT_ID   </span>
+<span class="function">struct usb_dev_handle * <span class="title">open_port</span><span class="params">()</span>   </span>
+<span class="function"></span>{   
+    <span class="class"><span class="keyword">struct</span> <span class="title">usb_bus</span> *<span class="title">busses</span>, *<span class="title">bus</span>;</span>   
+    usb_init();   
+    usb_find_busses();   
+    usb_find_devices();   
+    busses = usb_get_busses();   
+    <span class="keyword">for</span>(bus=busses;bus;bus=bus-&gt;next)   
+    {   
+        <span class="class"><span class="keyword">struct</span> <span class="title">usb_device</span> *<span class="title">dev</span>;</span>   
+        <span class="keyword">for</span>(dev=bus-&gt;devices;dev;dev=dev-&gt;next)   
+        {   
+            <span class="keyword">if</span>( VENDOR_ID==dev-&gt;descriptor.idVendor   
+            &amp;&amp;  PRODUCT_ID==dev-&gt;descriptor.idProduct)   
+            {   
+                <span class="built_in">printf</span>(<span class="string">"Target usb device found!\n"</span>);   
+                <span class="class"><span class="keyword">struct</span> <span class="title">usb_dev_handle</span> *<span class="title">hdev</span> = <span class="title">usb_open</span>(<span class="title">dev</span>);</span>   
+                <span class="keyword">if</span>(!hdev)   
+                {   
+                    perror(<span class="string">"Cannot open device"</span>);      
+                }   
+                <span class="keyword">else</span>  
+                {   
+                    <span class="keyword">if</span>(<span class="number">0</span>!=usb_claim_interface(hdev, <span class="number">0</span>))   
+                    {   
+                        perror(<span class="string">"Cannot claim interface"</span>);   
+                        usb_close(hdev);   
+                        hdev = <span class="literal">NULL</span>;   
+                    }   
+                }   
+                <span class="keyword">return</span> hdev;   
+            }   
+        }   
+    }   
+
+    <span class="built_in">printf</span>(<span class="string">"Target usb device not found!\n"</span>);   
+    <span class="keyword">return</span> <span class="literal">NULL</span>;   
+}   
+<span class="function"><span class="keyword">void</span> <span class="title">usage</span><span class="params">()</span>   </span>
+<span class="function"></span>{   
+    <span class="built_in">printf</span>(<span class="string">"Usage: dnw2 &lt;file&gt;\n\n"</span>);   
+}   
+<span class="function"><span class="keyword">static</span> u_int16_t <span class="title">ace_csum</span><span class="params">(<span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *data, <span class="keyword">u_int32_t</span> len)</span>   </span>
+<span class="function"></span>{   
+        <span class="keyword">u_int16_t</span> csum = <span class="number">0</span>;   
+        <span class="keyword">int</span> j;   
+        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; len; j ++) {   
+                csum += data[j];   
+        }   
+        <span class="keyword">return</span> csum;   
+}   
+<span class="function"><span class="keyword">unsigned</span> <span class="keyword">char</span>* <span class="title">prepare_write_buf</span><span class="params">(<span class="keyword">char</span> *filename, <span class="keyword">unsigned</span> <span class="keyword">int</span> *len)</span>   </span>
+<span class="function"></span>{   
+    <span class="keyword">unsigned</span> <span class="keyword">char</span> *write_buf = <span class="literal">NULL</span>;   
+    <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">fs</span>;</span>   
+    <span class="keyword">int</span> fd = open(filename, O_RDONLY);   
+    <span class="keyword">if</span>(<span class="number">-1</span>==fd)   
+    {   
+        perror(<span class="string">"Cannot open file"</span>);   
+        <span class="keyword">return</span> <span class="literal">NULL</span>;   
+    }   
+    <span class="keyword">if</span>(<span class="number">-1</span>==fstat(fd, &amp;fs))   
+    {   
+        perror(<span class="string">"Cannot get file size"</span>);   
+        <span class="keyword">goto</span> error;   
+    }   
+    write_buf = (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)<span class="built_in">malloc</span>(fs.st_size+<span class="number">10</span>);   
+    <span class="keyword">if</span>(<span class="literal">NULL</span>==write_buf)   
+    {   
+        perror(<span class="string">"malloc failed"</span>);   
+        <span class="keyword">goto</span> error;   
+    }   
+    <span class="keyword">if</span>(fs.st_size != read(fd, write_buf+<span class="number">8</span>, fs.st_size))   
+    {   
+        perror(<span class="string">"Reading file failed"</span>);   
+        <span class="keyword">goto</span> error;   
+    }   
+    <span class="built_in">printf</span>(<span class="string">"Filename : %s\n"</span>, filename);   
+    <span class="built_in">printf</span>(<span class="string">"Filesize : %lu bytes\n"</span>, fs.st_size);   
+    *((<span class="keyword">u_int32_t</span>*)write_buf) = RAM_BASE;        <span class="comment">//download address   </span>
+    *((<span class="keyword">u_int32_t</span>*)write_buf+<span class="number">1</span>) = fs.st_size + <span class="number">10</span>;    <span class="comment">//download size;   </span>
+    *len = fs.st_size + <span class="number">10</span>;   
+
+    <span class="comment">// calculate checksum value   </span>
+    <span class="keyword">u_int16_t</span> csum = ace_csum(write_buf+<span class="number">8</span>, fs.st_size);   
+    *(write_buf+fs.st_size+<span class="number">8</span>) = csum &amp; <span class="number">0xff</span>;   
+    *(write_buf+fs.st_size+<span class="number">9</span>) = (csum &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span>;   
+    <span class="keyword">return</span> write_buf;   
+error:   
+    <span class="keyword">if</span>(fd!=<span class="number">-1</span>) close(fd);   
+    <span class="keyword">if</span>(<span class="literal">NULL</span>!=write_buf) <span class="built_in">free</span>(write_buf);   
+    fs.st_size = <span class="number">0</span>;   
+    <span class="keyword">return</span> <span class="literal">NULL</span>;   
+
+}   
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span>   </span>
+<span class="function"></span>{   
+    <span class="keyword">if</span>(<span class="number">2</span>!=argc)   
+    {   
+        usage();   
+        <span class="keyword">return</span> <span class="number">1</span>;   
+    }   
+    <span class="class"><span class="keyword">struct</span> <span class="title">usb_dev_handle</span> *<span class="title">hdev</span> = <span class="title">open_port</span>();</span>   
+    <span class="keyword">if</span>(!hdev)   
+    {   
+        <span class="keyword">return</span> <span class="number">1</span>;   
+    }   
+    <span class="keyword">unsigned</span> <span class="keyword">int</span> len = <span class="number">0</span>;   
+    <span class="keyword">unsigned</span> <span class="keyword">char</span>* write_buf = prepare_write_buf(argv[<span class="number">1</span>], &amp;len);   
+    <span class="keyword">if</span>(<span class="literal">NULL</span>==write_buf) <span class="keyword">return</span> <span class="number">1</span>;   
+    <span class="keyword">unsigned</span> <span class="keyword">int</span> remain = len;   
+    <span class="keyword">unsigned</span> <span class="keyword">int</span> towrite;   
+    <span class="built_in">printf</span>(<span class="string">"Writing data ...\n"</span>);   
+    <span class="keyword">while</span>(remain)   
+    {   
+        towrite = remain&gt;<span class="number">512</span> ? <span class="number">512</span> : remain;   
+        <span class="keyword">if</span>(towrite != usb_bulk_write(hdev, <span class="number">0x02</span>, write_buf+(len-remain), towrite, <span class="number">3000</span>))   
+        {   
+            perror(<span class="string">"usb_bulk_write failed"</span>);   
+            <span class="keyword">break</span>;   
+        }   
+        remain-=towrite;   
+        <span class="built_in">printf</span>(<span class="string">"\r%d%%\t %d bytes     "</span>, (len-remain)*<span class="number">100</span>/len, len-remain);   
+        fflush(<span class="built_in">stdout</span>);   
+    }   
+    <span class="keyword">if</span>(<span class="number">0</span>==remain) <span class="built_in">printf</span>(<span class="string">"Done!\n"</span>);   
+    <span class="keyword">return</span> <span class="number">0</span>;   
+}</code></pre>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！.</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/wechat.png" alt="Jeff Xue WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpeg" alt="Jeff Xue Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Tiny6410/" rel="tag"># Tiny6410</a>
+          
+            <a href="/tags/DNW/" rel="tag"># DNW</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2013/03/13/pcDuino安装synergy/" rel="next" title="pcDuino安装synergy">
+                <i class="fa fa-chevron-left"></i> pcDuino安装synergy
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2013/08/05/pcDuino安装vnc进行远程控制/" rel="prev" title="pcDuino安装vnc进行远程控制">
+                pcDuino安装vnc进行远程控制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/img/avatar4.jpg"
+      alt="Jeff Xue">
+  <p class="site-author-name" itemprop="name">Jeff Xue</p>
+  <div class="site-description motion-element" itemprop="description">Think Bigger, Start Simple!</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/JeffXue" title="GitHub &rarr; https://github.com/JeffXue" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Xue</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

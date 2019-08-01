@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="生产环境redis一直处于单节点运行模式，如果出现故障，则会无法提供服务，因此需要提高redis服务的高可用性，因为本身访问量并不是十分大，另外并无运维人力投入进行维护，因此并不考虑集群方案。通过综合考虑研究采用redis主从，加上redis sentinel组件搭建高可用的redis方案。 redis主从保证了数据的可靠性，而redis sentinel可以提升其可用性。redis sentin">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis主从+Sentinel高可用方案">
+<meta property="og:url" content="http://www.jeffxue.cn/2016/06/12/redis主从-Sentinel高可用方案/index.html">
+<meta property="og:site_name" content="Blog of Jeff Xue">
+<meta property="og:description" content="生产环境redis一直处于单节点运行模式，如果出现故障，则会无法提供服务，因此需要提高redis服务的高可用性，因为本身访问量并不是十分大，另外并无运维人力投入进行维护，因此并不考虑集群方案。通过综合考虑研究采用redis主从，加上redis sentinel组件搭建高可用的redis方案。 redis主从保证了数据的可靠性，而redis sentinel可以提升其可用性。redis sentin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T15:14:54.466Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis主从+Sentinel高可用方案">
+<meta name="twitter:description" content="生产环境redis一直处于单节点运行模式，如果出现故障，则会无法提供服务，因此需要提高redis服务的高可用性，因为本身访问量并不是十分大，另外并无运维人力投入进行维护，因此并不考虑集群方案。通过综合考虑研究采用redis主从，加上redis sentinel组件搭建高可用的redis方案。 redis主从保证了数据的可靠性，而redis sentinel可以提升其可用性。redis sentin">
+  <link rel="canonical" href="http://www.jeffxue.cn/2016/06/12/redis主从-Sentinel高可用方案/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>redis主从+Sentinel高可用方案 | Blog of Jeff Xue</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96f1d393e90bf8f44a8792351515c9b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog of Jeff Xue</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Tags</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/06/12/redis主从-Sentinel高可用方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">redis主从+Sentinel高可用方案
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-06-12 15:12:12" itemprop="dateCreated datePublished" datetime="2016-06-12T15:12:12+08:00">2016-06-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-31 23:14:54" itemprop="dateModified" datetime="2019-07-31T23:14:54+08:00">2019-07-31</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>生产环境redis一直处于单节点运行模式，如果出现故障，则会无法提供服务，因此需要提高redis服务的高可用性，因为本身访问量并不是十分大，另外并无运维人力投入进行维护，因此并不考虑集群方案。通过综合考虑研究采用redis主从，加上redis sentinel组件搭建高可用的redis方案。</p>
+<p>redis主从保证了数据的可靠性，而redis sentinel可以提升其可用性。redis sentinel为redis主从集群提供了：1)master存活检测、2)集群主从服务监控、3) 自动故障转移<br>一般情况下,最小redis主从集群单元由一个maste和slave组成,当master失效后,sentinel可以帮助我们自动将slave提升为master；有了sentinel组件,可以减少系统管理员的人工切换slave的操作过程。</p>
+<p>但是一般情况下，主从分别部署在不同的服务器上，对外服务IP不同，当sentinel进行了主从切换后，应用程序如何切换访问新的master。而实际上应用程序可以通过访问sentinel获取最新master，从而达到无缝的切换（Jedis提供了JedisSentinelPool，但在主从切换后需主动重新获取新的连接；而spring-data-redis中使用RedisTemplates进行调用不会有该问题，具体见后面章节）</p>
+<a id="more"></a>
+
+<h1 id="redis-主从"><a href="#redis-主从" class="headerlink" title="redis 主从"></a>redis 主从</h1><p>redis的主从配置十分简单，只需要在slave中设置slaveof <masterip> <masterport>即可</masterport></masterip></p>
+<p>例如：<br>master配置redis_6380.conf：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">################################ GENERAL  #####################################</span><br><span class="line">daemonize yes</span><br><span class="line">pidfile &quot;/jeffxue/log/redis/redis_6380.pid&quot;</span><br><span class="line">port 6380</span><br><span class="line">tcp-backlog 511</span><br><span class="line">bind 192.168.1.100</span><br><span class="line"># unixsocket /tmp/redis.sock</span><br><span class="line"># unixsocketperm 700</span><br><span class="line">timeout 300</span><br><span class="line">tcp-keepalive 0</span><br><span class="line">loglevel notice</span><br><span class="line">logfile &quot;/jeffxue/log/redis/redis_6380.log&quot;</span><br><span class="line"># syslog-enabled no</span><br><span class="line"># syslog-ident redis</span><br><span class="line"># syslog-facility local0</span><br><span class="line">databases 16</span><br><span class="line"></span><br><span class="line">################################ SNAPSHOTTING  ################################</span><br><span class="line"># save &quot;&quot;</span><br><span class="line">stop-writes-on-bgsave-error yes</span><br><span class="line">rdbcompression yes</span><br><span class="line">rdbchecksum yes</span><br><span class="line">dbfilename &quot;dump_6380.rdb&quot;</span><br><span class="line">dir &quot;/jeffxue/redis-data&quot;</span><br><span class="line"></span><br><span class="line">################################# REPLICATION #################################</span><br><span class="line"># slaveof &lt;masterip&gt; &lt;masterport&gt;</span><br><span class="line">masterauth &quot;123456&quot;</span><br><span class="line">slave-serve-stale-data yes</span><br><span class="line">slave-read-only yes</span><br><span class="line">repl-diskless-sync no</span><br><span class="line">repl-diskless-sync-delay 5</span><br><span class="line"># repl-ping-slave-period 10</span><br><span class="line"># repl-timeout 60</span><br><span class="line">repl-disable-tcp-nodelay no</span><br><span class="line"># repl-backlog-size 1mb</span><br><span class="line"># repl-backlog-ttl 3600</span><br><span class="line">slave-priority 100</span><br><span class="line"># min-slaves-to-write 3</span><br><span class="line"># min-slaves-max-lag 10</span><br><span class="line"></span><br><span class="line">################################## SECURITY ###################################</span><br><span class="line">requirepass &quot;123456&quot;</span><br><span class="line"># rename-command CONFIG &quot;&quot;</span><br><span class="line"></span><br><span class="line">################################### LIMITS ####################################</span><br><span class="line">maxclients 10000</span><br><span class="line">maxmemory 1gb</span><br><span class="line">maxmemory-policy volatile-lru</span><br><span class="line"># maxmemory-samples 3</span><br><span class="line"></span><br><span class="line">############################## APPEND ONLY MODE ###############################</span><br><span class="line">appendonly no</span><br><span class="line">appendfilename &quot;appendonly.aof&quot;</span><br><span class="line">appendfsync everysec</span><br><span class="line">no-appendfsync-on-rewrite no</span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br><span class="line">aof-load-truncated yes</span><br><span class="line"></span><br><span class="line">################################ LUA SCRIPTING  ###############################</span><br><span class="line">lua-time-limit 5000</span><br><span class="line"></span><br><span class="line">################################## SLOW LOG ###################################</span><br><span class="line">slowlog-log-slower-than 10000</span><br><span class="line">slowlog-max-len 128</span><br><span class="line"></span><br><span class="line">################################ LATENCY MONITOR ##############################</span><br><span class="line">latency-monitor-threshold 0</span><br><span class="line"></span><br><span class="line">############################# Event notification ##############################</span><br><span class="line">notify-keyspace-events &quot;&quot;</span><br><span class="line"></span><br><span class="line">############################### ADVANCED CONFIG ###############################</span><br><span class="line">hash-max-ziplist-entries 512</span><br><span class="line">hash-max-ziplist-value 64</span><br><span class="line">list-max-ziplist-entries 512</span><br><span class="line">list-max-ziplist-value 64</span><br><span class="line">set-max-intset-entries 512</span><br><span class="line">zset-max-ziplist-entries 128</span><br><span class="line">zset-max-ziplist-value 64</span><br><span class="line">hll-sparse-max-bytes 3000</span><br><span class="line">activerehashing yes</span><br><span class="line">client-output-buffer-limit normal 0 0 0</span><br><span class="line">client-output-buffer-limit slave 256mb 64mb 60</span><br><span class="line">client-output-buffer-limit pubsub 32mb 8mb 60</span><br><span class="line">hz 10</span><br><span class="line">aof-rewrite-incremental-fsync yes</span><br></pre></td></tr></table></figure>
+
+<p>slave配置redis_6381.conf:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">################################ GENERAL  #####################################</span><br><span class="line">daemonize yes</span><br><span class="line">pidfile &quot;/jeffxue/log/redis/redis_6381.pid&quot;</span><br><span class="line">port 6381</span><br><span class="line">tcp-backlog 511</span><br><span class="line">bind 192.168.1.101</span><br><span class="line"># unixsocket /tmp/redis.sock</span><br><span class="line"># unixsocketperm 700</span><br><span class="line">timeout 300</span><br><span class="line">tcp-keepalive 0</span><br><span class="line">loglevel notice</span><br><span class="line">logfile &quot;/jeffxue/log/redis/redis_6381.log&quot;</span><br><span class="line"># syslog-enabled no</span><br><span class="line"># syslog-ident redis</span><br><span class="line"># syslog-facility local0</span><br><span class="line">databases 16</span><br><span class="line"></span><br><span class="line">################################ SNAPSHOTTING  ################################</span><br><span class="line"># save &quot;&quot;</span><br><span class="line">stop-writes-on-bgsave-error yes</span><br><span class="line">rdbcompression yes</span><br><span class="line">rdbchecksum yes</span><br><span class="line">dbfilename &quot;dump_6381.rdb&quot;</span><br><span class="line">dir &quot;/jeffxue/redis-data&quot;</span><br><span class="line"></span><br><span class="line">################################# REPLICATION #################################</span><br><span class="line">slaveof 192.168.1.100 6380</span><br><span class="line">masterauth &quot;123456&quot;</span><br><span class="line">slave-serve-stale-data yes</span><br><span class="line">slave-read-only yes</span><br><span class="line">repl-diskless-sync no</span><br><span class="line">repl-diskless-sync-delay 5</span><br><span class="line"># repl-ping-slave-period 10</span><br><span class="line"># repl-timeout 60</span><br><span class="line">repl-disable-tcp-nodelay no</span><br><span class="line"># repl-backlog-size 1mb</span><br><span class="line"># repl-backlog-ttl 3600</span><br><span class="line">slave-priority 100</span><br><span class="line"># min-slaves-to-write 3</span><br><span class="line"># min-slaves-max-lag 10</span><br><span class="line"></span><br><span class="line">################################## SECURITY ###################################</span><br><span class="line">requirepass &quot;123456&quot;</span><br><span class="line"># rename-command CONFIG &quot;&quot;</span><br><span class="line"></span><br><span class="line">################################### LIMITS ####################################</span><br><span class="line">maxclients 10000</span><br><span class="line">maxmemory 3gb</span><br><span class="line"># maxmemory-policy volatile-lru</span><br><span class="line"># maxmemory-samples 3</span><br><span class="line"></span><br><span class="line">############################## APPEND ONLY MODE ###############################</span><br><span class="line">appendonly no</span><br><span class="line">appendfilename &quot;appendonly.aof&quot;</span><br><span class="line">appendfsync everysec</span><br><span class="line">no-appendfsync-on-rewrite no</span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br><span class="line">aof-load-truncated yes</span><br><span class="line"></span><br><span class="line">################################ LUA SCRIPTING  ###############################</span><br><span class="line">lua-time-limit 5000</span><br><span class="line"></span><br><span class="line">################################## SLOW LOG ###################################</span><br><span class="line">slowlog-log-slower-than 10000</span><br><span class="line">slowlog-max-len 128</span><br><span class="line"></span><br><span class="line">################################ LATENCY MONITOR ##############################</span><br><span class="line">latency-monitor-threshold 0</span><br><span class="line"></span><br><span class="line">############################# Event notification ##############################</span><br><span class="line">notify-keyspace-events &quot;&quot;</span><br><span class="line"></span><br><span class="line">############################### ADVANCED CONFIG ###############################</span><br><span class="line">hash-max-ziplist-entries 512</span><br><span class="line">hash-max-ziplist-value 64</span><br><span class="line">list-max-ziplist-entries 512</span><br><span class="line">list-max-ziplist-value 64</span><br><span class="line">set-max-intset-entries 512</span><br><span class="line">zset-max-ziplist-entries 128</span><br><span class="line">zset-max-ziplist-value 64</span><br><span class="line">hll-sparse-max-bytes 3000</span><br><span class="line">activerehashing yes</span><br><span class="line">client-output-buffer-limit normal 0 0 0</span><br><span class="line">client-output-buffer-limit slave 256mb 64mb 60</span><br><span class="line">client-output-buffer-limit pubsub 32mb 8mb 60</span><br><span class="line">hz 10</span><br><span class="line">aof-rewrite-incremental-fsync yes</span><br></pre></td></tr></table></figure>
+
+<p>启动master和slave：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./redis-server redis_6380.conf</span><br><span class="line">./redis-server redis_6381.conf</span><br></pre></td></tr></table></figure>
+
+<p>观察对应的日志看见主从连接正常，slave配置为只读，手工从master中进行set操作后，可以在slave中get得到相应数据</p>
+<p>它们各自的redis.conf配置项中,除了port不同外,要求其他的配置完全一样(包括aof/snap,memory,rename以及授权密码等);原因是基于sentinel做故障转移,所有的server运行机制都必须一样,它们只不过在运行时”角色”不同,而且它们的角色可能在故障时会被转换;slave在某些时刻也会成为master,尽管在一般情况下,slave的数据持久方式经常采取snapshot,而master为aof,不过基于sentinel之后,slave和master均要采取aof(通过bgsave,手动触发snapshot备份)</p>
+<h1 id="redis-sentinel"><a href="#redis-sentinel" class="headerlink" title="redis sentinel"></a>redis sentinel</h1><h2 id="sentinel工作基本原理"><a href="#sentinel工作基本原理" class="headerlink" title="sentinel工作基本原理"></a>sentinel工作基本原理</h2><p>首先解释2个名词:SDOWN和ODOWN.</p>
+<ul>
+<li>SDOWN:subjectively down,直接翻译的为”主观”失效,即当前sentinel实例认为某个redis服务为”不可用”状态.</li>
+<li>ODOWN:objectively down,直接翻译为”客观”失效,即多个sentinel实例都认为master处于”SDOWN”状态,那么此时master将处于ODOWN,ODOWN可以简单理解为master已经被集群确定为”不可用”,将会开启failover.<br>SDOWN适合于master和slave,但是ODOWN只会使用于master;当slave失效超过”down-after-milliseconds”后,那么所有sentinel实例都会将其标记为”SDOWN”.</li>
+</ul>
+<h3 id="SDOWN与ODOWN转换过程"><a href="#SDOWN与ODOWN转换过程" class="headerlink" title="SDOWN与ODOWN转换过程"></a>SDOWN与ODOWN转换过程</h3><ol>
+<li>每个sentinel实例在启动后,都会和已知的slaves/master以及其他sentinels建立TCP连接,并周期性发送PING(默认为1秒)</li>
+<li>在交互中,如果redis-server无法在”down-after-milliseconds”时间内响应或者响应错误信息,都会被认为此redis-server处于SDOWN状态.</li>
+<li>如果步骤2中SDOWN的server为master,那么此时sentinel实例将会向其他sentinel间歇性(一秒)发送”is-master-down-by-addr <ip> <port>“指令并获取响应信息,如果足够多的sentinel实例检测到master处于SDOWN,那么此时当前sentinel实例标记master为ODOWN…其他sentinel实例做同样的交互操作.配置项”sentinel monitor <mastername> <masterip> <masterport> <quorum>“,如果检测到master处于SDOWN状态的sentinel个数达到<quorum>,那么此时此sentinel实例将会认为master处于ODOWN.</quorum></quorum></masterport></masterip></mastername></port></ip></li>
+<li>每个sentinel实例将会间歇性(10秒)向master和slaves发送”INFO”指令,如果master失效且没有新master选出时,每1秒发送一次”INFO”;”INFO”的主要目的就是获取并确认当前集群环境中slaves和master的存活情况.<br>经过上述过程后,所有的sentinel对master失效达成一致后,开始failover.</li>
+</ol>
+<h3 id="sentinel与slaves”自动发现”机制"><a href="#sentinel与slaves”自动发现”机制" class="headerlink" title="sentinel与slaves”自动发现”机制"></a>sentinel与slaves”自动发现”机制</h3><p>在sentinel的配置文件中,都指定了port,此port就是sentinel实例侦听其他sentinel实例建立链接的端口.在集群稳定后,最终会每个sentinel实例之间都会建立一个tcp链接,此链接中发送”PING”以及类似于”is-master-down-by-addr”指令集,可用用来检测其他sentinel实例的有效性以及”ODOWN”和”failover”过程中信息的交互.</p>
+<p>在sentinel之间建立连接之前,sentinel将会尽力和配置文件中指定的master建立连接.sentinel与master的连接中的通信主要是基于pub/sub来发布和接收信息,发布的信息内容包括当前sentinel实例的侦听端口:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sentinel sentinel 127.0.0.1:26579 127.0.0.1 26579 ....</span><br></pre></td></tr></table></figure>
+
+<p>发布的主题名称为”<strong>sentinel</strong>:hello”;同时sentinel实例也是”订阅”此主题,以获得其他sentinel实例的信息.由此可见,环境首次构建时,在默认master存活的情况下,所有的sentinel实例可以通过pub/sub即可获得所有的sentinel信息,此后每个sentinel实例即可以根据+sentinel信息中的”ip+port”和其他sentinel逐个建立tcp连接即可.不过需要提醒的是,每个sentinel实例均会间歇性(5秒)向”<strong>sentinel</strong>:hello”主题中发布自己的ip+port,目的就是让后续加入集群的sentinel实例也能或得到自己的信息.</p>
+<p>根据上文,我们知道在master有效的情况下,即可通过”INFO”指令获得当前master中已有的slave列表;此后任何slave加入集群,master都会向”主题中”发布”+slave 127.0.0.1:6579 ..”,那么所有的sentinel也将立即获得slave信息,并和slave建立链接并通过PING检测其存活性.</p>
+<p>补充一下,每个sentinel实例都会保存其他sentinel实例的列表以及现存的master/slaves列表,各自的列表中不会有重复的信息(不可能出现多个tcp连接),对于sentinel将使用ip+port做唯一性标记,对于master/slaver将使用runid做唯一性标记,其中redis-server的runid在每次启动时都不同.</p>
+<h3 id="Leader选举"><a href="#Leader选举" class="headerlink" title="Leader选举"></a>Leader选举</h3><p>其实在sentinels故障转移中，仍然需要一个“Leader”来调度整个过程：master的选举以及slave的重配置和同步。当集群中有多个sentinel实例时，如何选举其中一个sentinel为leader呢？</p>
+<p>在配置文件中“can-failover” “quorum”参数，以及“is-master-down-by-addr”指令配合来完成整个过程。</p>
+<ol>
+<li>“can-failover”用来表明当前sentinel是否可以参与“failover”过程，如果为“YES”则表明它将有能力参与“Leader”的选举，否则它将作为“Observer”，observer参与leader选举投票但不能被选举；</li>
+<li>“quorum”不仅用来控制master ODOWN状态确认，同时还用来选举leader时最小“赞同票”数；</li>
+<li>“is-master-down-by-addr”，在上文中以及提到，它可以用来检测“ip + port”的master是否已经处于SDOWN状态，不过此指令不仅能够获得master是否处于SDOWN，同时它还额外的返回当前sentinel本地“投票选举”的Leader信息(runid);</li>
+</ol>
+<p>每个sentinel实例都持有其他的sentinels信息，在Leader选举过程中(当为leader的sentinel实例失效时，有可能master server并没失效，注意分开理解)，sentinel实例将从所有的sentinels集合中去除“can-failover = no”和状态为SDOWN的sentinels，在剩余的sentinels列表中按照runid按照“字典”顺序排序后，取出runid最小的sentinel实例，并将它“投票选举”为Leader，并在其他sentinel发送的“is-master-down-by-addr”指令时将推选的runid追加到响应中。每个sentinel实例都会检测“is-master-down-by-addr”的响应结果，如果“投票选举”的leader为自己，且状态正常的sentinels实例中，“赞同者”的自己的sentinel个数不小于(&gt;=) 50% + 1,且不小与<quorum>，那么此sentinel就会认为选举成功且leader为自己。</quorum></p>
+<p>在sentinel.conf文件中，我们期望有足够多的sentinel实例配置“can-failover yes”，这样能够确保当leader失效时，能够选举某个sentinel为leader，以便进行failover。如果leader无法产生，比如较少的sentinels实例有效，那么failover过程将无法继续.</p>
+<h3 id="failover过程"><a href="#failover过程" class="headerlink" title="failover过程:"></a>failover过程:</h3><p>在Leader触发failover之前，首先wait数秒(随即0~5)，以便让其他sentinel实例准备和调整(有可能多个leader??),如果一切正常，那么leader就需要开始将一个salve提升为master，此slave必须为状态良好(不能处于SDOWN/ODOWN状态)且权重值最低(redis.conf中)的，当master身份被确认后，开始failover</p>
+<pre><code>A）“+failover-triggered”： Leader开始进行failover，此后紧跟着“+failover-state-wait-start”，wait数秒。
+B）“+failover-state-select-slave”： Leader开始查找合适的slave
+C）“+selected-slave”： 已经找到合适的slave
+D）“+failover-state-sen-slaveof-noone”： Leader向slave发送“slaveof no one”指令，此时slave已经完成角色转换，此slave即为master
+E）“+failover-state-wait-promotition”： 等待其他sentinel确认slave
+F）“+promoted-slave”：确认成功
+G）“+failover-state-reconf-slaves”： 开始对slaves进行reconfig操作。
+H）“+slave-reconf-sent”：向指定的slave发送“slaveof”指令，告知此slave跟随新的master
+I）“+slave-reconf-inprog”：此slave正在执行slaveof + SYNC过程，如过slave收到“+slave-reconf-sent”之后将会执行slaveof操作。
+J）“+slave-reconf-done”：此slave同步完成，此后leader可以继续下一个slave的reconfig操作。循环G）
+K）“+failover-end”：故障转移结束
+L）“+switch-master”：故障转移成功后，各个sentinel实例开始监控新的master。</code></pre><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>根据声明Leader选举规则可知，sentinel的数量应为奇数，次数配置3个sentinel</p>
+<p>sentinel_26379.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes</span><br><span class="line">port 26379</span><br><span class="line">dir &quot;/tmp&quot;</span><br><span class="line">logfile &quot;/jeffxue/log/redis/sentinel_26379.log&quot;</span><br><span class="line"># sentinel announce-ip 1.2.3.4</span><br><span class="line">sentinel monitor mymaster 192.168.1.100 6380 2</span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br><span class="line">sentinel failover-timeout mymaster 60000</span><br><span class="line">sentinel auth-pass mymaster 123456</span><br></pre></td></tr></table></figure>
+
+<p>sentinel_26380.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes</span><br><span class="line">port 26380</span><br><span class="line">dir &quot;/tmp&quot;</span><br><span class="line">logfile &quot;/jeffxue/log/redis/sentinel_26380.log&quot;</span><br><span class="line"># sentinel announce-ip 1.2.3.4</span><br><span class="line">sentinel monitor mymaster 192.168.1.100 6380 2</span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br><span class="line">sentinel failover-timeout mymaster 60000</span><br><span class="line">sentinel auth-pass mymaster 123456</span><br></pre></td></tr></table></figure>
+
+<p>sentinel_26381.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes</span><br><span class="line">port 26381</span><br><span class="line">dir &quot;/tmp&quot;</span><br><span class="line">logfile &quot;/jeffxue/log/redis/sentinel_26381.log&quot;</span><br><span class="line"># sentinel announce-ip 1.2.3.4</span><br><span class="line">sentinel monitor mymaster 192.168.1.100 6380 2</span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br><span class="line">sentinel failover-timeout mymaster 60000</span><br><span class="line">sentinel auth-pass mymaster 123456</span><br></pre></td></tr></table></figure>
+
+<p>启动sentinel：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./redis-sentinel sentinel_26379.conf --sentinel</span><br><span class="line">./redis-sentinel sentinel_26380.conf --sentinel</span><br><span class="line">./redis-sentinel sentinel_26381.conf --sentinel</span><br></pre></td></tr></table></figure>
+
+<h1 id="应用程序访问"><a href="#应用程序访问" class="headerlink" title="应用程序访问"></a>应用程序访问</h1><h2 id="jedis"><a href="#jedis" class="headerlink" title="jedis"></a>jedis</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.jeffxue.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.pool2.impl.GenericObjectPoolConfig;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisSentinelPool;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JedisTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        Set&lt;String&gt; sentinels = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">        GenericObjectPoolConfig poolConfig = <span class="keyword">new</span> GenericObjectPoolConfig();</span><br><span class="line">        poolConfig.setMaxTotal(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">        sentinels.add(<span class="string">"192.168.1.102:26379"</span>);</span><br><span class="line">        sentinels.add(<span class="string">"192.168.1.103:26380"</span>);</span><br><span class="line">        sentinels.add(<span class="string">"192.168.1.104:26381"</span>);</span><br><span class="line"></span><br><span class="line">        JedisSentinelPool sentinelPool = <span class="keyword">new</span> JedisSentinelPool(<span class="string">"mymaster"</span>, sentinels, poolConfig, <span class="number">300</span>, <span class="string">"123456"</span>);</span><br><span class="line"></span><br><span class="line">        Jedis jedis = sentinelPool.getResource();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"current Host:"</span> + sentinelPool.getCurrentHostMaster());</span><br><span class="line"></span><br><span class="line">        String key = <span class="string">"mykey"</span>;</span><br><span class="line"></span><br><span class="line">        String cacheData = jedis.get(key);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (cacheData == <span class="keyword">null</span>) &#123;</span><br><span class="line">            jedis.del(key);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 写入</span></span><br><span class="line">        jedis.set(key, <span class="string">"first write"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 读取</span></span><br><span class="line">        System.out.println(jedis.get(key));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// down掉master，观察slave是否被提升为master</span></span><br><span class="line">        System.out.println(<span class="string">"current Host:"</span> + sentinelPool.getCurrentHostMaster());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 测试新master的写入，此处将抛出异常</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            jedis.set(key, <span class="string">"second write"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 观察读取是否正常，此处将抛出异常</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(jedis.get(key));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"current Host:"</span> + sentinelPool.getCurrentHostMaster());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//重新获取</span></span><br><span class="line">        jedis = sentinelPool.getResource();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 观察读取是否正常</span></span><br><span class="line">        jedis.set(key, <span class="string">"third write"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 观察读取是否正常</span></span><br><span class="line">        System.out.println(jedis.get(key));</span><br><span class="line"></span><br><span class="line">        sentinelPool.close();</span><br><span class="line">        jedis.close();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="spring-data-redis"><a href="#spring-data-redis" class="headerlink" title="spring-data-redis"></a>spring-data-redis</h2><p>具体见：<a href="http://www.cnblogs.com/yjmyzz/p/integrate-redis-with-spring.html" target="_blank" rel="noopener">http://www.cnblogs.com/yjmyzz/p/integrate-redis-with-spring.html</a></p>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！.</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/wechat.png" alt="Jeff Xue WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpeg" alt="Jeff Xue Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/redis/" rel="tag"># redis</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2016/06/12/redis集群方案比较/" rel="next" title="redis集群方案比较">
+                <i class="fa fa-chevron-left"></i> redis集群方案比较
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2016/06/12/mysql单机双实例/" rel="prev" title="mysql单机双实例">
+                mysql单机双实例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/img/avatar4.jpg"
+      alt="Jeff Xue">
+  <p class="site-author-name" itemprop="name">Jeff Xue</p>
+  <div class="site-description motion-element" itemprop="description">Think Bigger, Start Simple!</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/JeffXue" title="GitHub &rarr; https://github.com/JeffXue" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-主从"><span class="nav-number">1.</span> <span class="nav-text">redis 主从</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-sentinel"><span class="nav-number">2.</span> <span class="nav-text">redis sentinel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sentinel工作基本原理"><span class="nav-number">2.1.</span> <span class="nav-text">sentinel工作基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SDOWN与ODOWN转换过程"><span class="nav-number">2.1.1.</span> <span class="nav-text">SDOWN与ODOWN转换过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sentinel与slaves”自动发现”机制"><span class="nav-number">2.1.2.</span> <span class="nav-text">sentinel与slaves”自动发现”机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Leader选举"><span class="nav-number">2.1.3.</span> <span class="nav-text">Leader选举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#failover过程"><span class="nav-number">2.1.4.</span> <span class="nav-text">failover过程:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用程序访问"><span class="nav-number">3.</span> <span class="nav-text">应用程序访问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jedis"><span class="nav-number">3.1.</span> <span class="nav-text">jedis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-data-redis"><span class="nav-number">3.2.</span> <span class="nav-text">spring-data-redis</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Xue</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

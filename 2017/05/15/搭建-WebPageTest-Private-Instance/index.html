@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="WebPageTestWebPageTest是google的一个开源项目“make the web faster”的子项目，后来在2008年基于BSD开源详情可见：官方文档 WebPageTest服务端基于PHP，而客户端会有不同的形式，可以部署在window/linux以及手机上，以下主要针对说明window上的agent。后续将web server部署在debian上，agent部署在wind">
+<meta name="keywords" content="WebPageTest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建 WebPageTest Private Instance">
+<meta property="og:url" content="http://www.jeffxue.cn/2017/05/15/搭建-WebPageTest-Private-Instance/index.html">
+<meta property="og:site_name" content="Blog of Jeff Xue">
+<meta property="og:description" content="WebPageTestWebPageTest是google的一个开源项目“make the web faster”的子项目，后来在2008年基于BSD开源详情可见：官方文档 WebPageTest服务端基于PHP，而客户端会有不同的形式，可以部署在window/linux以及手机上，以下主要针对说明window上的agent。后续将web server部署在debian上，agent部署在wind">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T15:14:54.471Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搭建 WebPageTest Private Instance">
+<meta name="twitter:description" content="WebPageTestWebPageTest是google的一个开源项目“make the web faster”的子项目，后来在2008年基于BSD开源详情可见：官方文档 WebPageTest服务端基于PHP，而客户端会有不同的形式，可以部署在window/linux以及手机上，以下主要针对说明window上的agent。后续将web server部署在debian上，agent部署在wind">
+  <link rel="canonical" href="http://www.jeffxue.cn/2017/05/15/搭建-WebPageTest-Private-Instance/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>搭建 WebPageTest Private Instance | Blog of Jeff Xue</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96f1d393e90bf8f44a8792351515c9b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog of Jeff Xue</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Tags</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2017/05/15/搭建-WebPageTest-Private-Instance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">搭建 WebPageTest Private Instance
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-05-15 22:22:31" itemprop="dateCreated datePublished" datetime="2017-05-15T22:22:31+08:00">2017-05-15</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-31 23:14:54" itemprop="dateModified" datetime="2019-07-31T23:14:54+08:00">2019-07-31</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端性能/" itemprop="url" rel="index"><span itemprop="name">前端性能</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="WebPageTest"><a href="#WebPageTest" class="headerlink" title="WebPageTest"></a>WebPageTest</h1><p>WebPageTest是google的一个开源项目“make the web faster”的子项目，后来在2008年基于BSD开源<br>详情可见：<a href="https://sites.google.com/a/webpagetest.org/docs/" target="_blank" rel="noopener">官方文档</a></p>
+<p>WebPageTest服务端基于PHP，而客户端会有不同的形式，可以部署在window/linux以及手机上，以下主要针对说明window上的agent。<br>后续将web server部署在debian上，agent部署在window上</p>
+<a id="more"></a>
+
+<h1 id="Web-Server"><a href="#Web-Server" class="headerlink" title="Web Server"></a>Web Server</h1><h2 id="安装配置webpagetest"><a href="#安装配置webpagetest" class="headerlink" title="安装配置webpagetest"></a>安装配置webpagetest</h2><ul>
+<li>下载<a href="https://github.com/WPO-Foundation/webpagetest/releases" target="_blank" rel="noopener">webpagetest_3.0.zip</a>，解压后，将www目录拷贝到/usr/local/apps/webpagetest/目录下</li>
+<li>修改目录权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/apps/webpagetest/www/</span><br><span class="line">mkdir temp results</span><br><span class="line">chmod -R  777  work temp results logs dat</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改location.ini</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[locations]</span><br><span class="line">1=Office</span><br><span class="line">default=Office</span><br><span class="line"></span><br><span class="line">; These are the top-level locations that are listed in the location dropdown</span><br><span class="line">; Each one points to one or more browser configurations</span><br><span class="line"></span><br><span class="line">[Office]</span><br><span class="line">1=Office_wptdriver</span><br><span class="line">label=&quot;Office LAN (Chrome,Firefox,IE)&quot;</span><br><span class="line"></span><br><span class="line">; These are the browser-specific configurations that match the configurations</span><br><span class="line">; defined in the top-level locations.  Each one of these MUST match the location</span><br><span class="line">; name configured on the test agent (urlblast.ini or wptdriver.ini)</span><br><span class="line"></span><br><span class="line">[Office_wptdriver]</span><br><span class="line">browser=Chrome,Firefox,IE</span><br><span class="line">label=&quot;Office LAN&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置connectivity,settings<br>具体可根据settings里面的说明项进行配置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp connectivity.ini.sample connectivity.ini</span><br><span class="line">cp settings.ini.sample settings.ini</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>安装nginx，具体可见<a href="https://raw.githubusercontent.com/JeffXue/common-scripts/master/install_nginx1.8.sh" target="_blank" rel="noopener">nginx安装脚本</a></p>
+<p>配置nginx.conf：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    server_name webpagetest.jeffxue.com;</span><br><span class="line">    root    /usr/local/apps/webpagetest/www;</span><br><span class="line">    include /usr/local/apps/webpagetest/www/nginx.conf;</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        include        fastcgi.conf;</span><br><span class="line">        fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动nginx：<code>/usr/local/nginx/sbin/nginx</code></p>
+<h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><p>安装php，具体可见<a href="https://raw.githubusercontent.com/JeffXue/common-scripts/master/install_php5.6.sh" target="_blank" rel="noopener">php安装脚本</a></p>
+<p>配置php.ini（修改以下配置）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">memory_limit = 256M</span><br><span class="line">display_errors = On</span><br><span class="line">error_log = /usr/local/php/php_errors.log</span><br><span class="line">post_max_size = 10M</span><br><span class="line">upload_max_filesize = 10M</span><br></pre></td></tr></table></figure>
+
+<p>启动php-fpm：<code>/usr/local/php/sbin/php-fpm</code></p>
+<h2 id="检查依赖"><a href="#检查依赖" class="headerlink" title="检查依赖"></a>检查依赖</h2><p>访问<code>http://webpagetest.jeffxue.com/install/</code>（需先使用ihosts修改本地host，将域名指向对应的服务器）<br>检查对应的依赖是否为<code>yes</code>即可，若为<code>no</code>，则安装具体的依赖即可</p>
+<p>ffmpeg(–enable-libx264)可通过源码进行编译安装：</p>
+<ul>
+<li>yasm</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/yasm/yasm.git</span><br><span class="line">cd yasm</span><br><span class="line">./autogen.sh</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>libx264</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone git://git.videolan.org/x264.git</span><br><span class="line">cd x264</span><br><span class="line">./configure --enable-static --enable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ffmpeg</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar xvzf FFmpeg-n3.3.tar.gz</span><br><span class="line">cd FFmpeg-n3.3</span><br><span class="line">./configure --enable-gpl --enable-libx264</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<h1 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h1><p>以下操作均在window 7中执行</p>
+<ul>
+<li>下载<a href="https://github.com/WPO-Foundation/webpagetest/releases" target="_blank" rel="noopener">webpagetest_3.0.zip</a>，解压后，将agent目录拷贝到window中</li>
+<li>配置默认使用administrator登录</li>
+<li>安装chrome、firefox、IE11</li>
+<li>设置不休眠</li>
+<li>关闭防火墙</li>
+<li>关闭UAC</li>
+<li>设置稳定时钟，cmd中运行<code>bcdedit /set {default} useplatformclock true</code></li>
+<li>安装python2.7<ul>
+<li>安装selenium<code>pip install selenium</code></li>
+<li>安装pyWin32（注意window操作系统是否为x64）</li>
+<li>安装<a href="https://www.imagemagick.org/script/binary-releases.php#windows" target="_blank" rel="noopener">Imagemagick</a></li>
+<li>安装<a href="https://msdn.microsoft.com/en-us/windows/hardware/commercialize/test/wpt/index?f=255&MSPPError=-2147217396" target="_blank" rel="noopener">Windows Performance Toolkit</a></li>
+</ul>
+</li>
+<li>单台window只支持单个版本IE，若需要测试多个IE，需要配置多台window，或使用多个虚拟机</li>
+<li>设置开启启动任务，开机启动wptdriver.exe</li>
+<li>配置wptdriver.ini（单独打开<a href="http://www.webpagetest.org/installers/software.dat，下载安装对应的一些依赖软件）" target="_blank" rel="noopener">http://www.webpagetest.org/installers/software.dat，下载安装对应的一些依赖软件）</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[WebPagetest]</span><br><span class="line">url=http://webpagetest.jeffxue.com/</span><br><span class="line">location=Office_wptdriver</span><br><span class="line">browser=Chrome</span><br><span class="line">Time Limit=120</span><br><span class="line">;key=TestKey123</span><br><span class="line">;Automatically install and update support software (Flash, Silverlight, etc)</span><br><span class="line">;software=http://www.webpagetest.org/installers/software.dat</span><br><span class="line"></span><br><span class="line">[Chrome]</span><br><span class="line">exe=&quot;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe&quot;</span><br><span class="line">options=&apos;--load-extension=&quot;%WPTDIR%\extension&quot; --user-data-dir=&quot;%PROFILE%&quot; --no-proxy-server&apos;</span><br><span class="line">;installer=http://www.webpagetest.org/installers/browsers/chrome.dat</span><br><span class="line"></span><br><span class="line">[Firefox]</span><br><span class="line">exe=&quot;C:\Program Files (x86)\Mozilla Firefox\firefox.exe&quot;</span><br><span class="line">options=&apos;-profile &quot;%PROFILE%&quot; -no-remote&apos;</span><br><span class="line">;installer=http://www.webpagetest.org/installers/browsers/firefox.dat</span><br><span class="line">;template=firefox</span><br><span class="line"></span><br><span class="line">[IE]</span><br><span class="line">exe=&quot;C:\Program Files\Internet Explorer\iexplore.exe&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>若运行测试时结果显示没有找到ipfw，则需要安装agent目录下的dummynet，在高级网络设置中安装对应的ipfw，并将对应的目录下的文件拷贝到dummynet目录下</li>
+</ul>
+<p>启动agent：直接运行<code>wptdriver.exe</code>即可，显示waiting for work即正常，再次访问<code>http://webpagetest.jeffxue.com/install/</code>检查agent是否已经连上server</p>
+<h1 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h1><p>访问webpagetest.jeffxue.com</p>
+<h2 id="指定URL"><a href="#指定URL" class="headerlink" title="指定URL"></a>指定URL</h2><p>输入URL，选择浏览器，即可开始测试</p>
+<h2 id="使用script"><a href="#使用script" class="headerlink" title="使用script"></a>使用script</h2><p>点开高级设置，选择scirpt，输入对应的脚本，即可进行测试<br>具体script的语法可见：<a href="https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/scripting" target="_blank" rel="noopener">scripting</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">logData	0</span><br><span class="line"></span><br><span class="line">navigate	https://sso.jeffxue.com</span><br><span class="line"></span><br><span class="line">setValue	name=username test</span><br><span class="line">setValue	name=password	123456</span><br><span class="line">clickAndWait	id=loginBtn</span><br><span class="line">clickAndWait	class=ant-modal-close-x</span><br><span class="line"></span><br><span class="line">logData	1</span><br><span class="line">setTimeout	10</span><br><span class="line">navigate	https://corp.jeffxue.com/xxx/#/order/indent</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！.</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/wechat.png" alt="Jeff Xue WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpeg" alt="Jeff Xue Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/WebPageTest/" rel="tag"># WebPageTest</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2017/05/15/前端性能测试工具对比/" rel="next" title="前端性能测试工具对比">
+                <i class="fa fa-chevron-left"></i> 前端性能测试工具对比
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2017/06/17/利用redis登录漏洞入侵服务器/" rel="prev" title="利用redis登录漏洞入侵服务器">
+                利用redis登录漏洞入侵服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/img/avatar4.jpg"
+      alt="Jeff Xue">
+  <p class="site-author-name" itemprop="name">Jeff Xue</p>
+  <div class="site-description motion-element" itemprop="description">Think Bigger, Start Simple!</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/JeffXue" title="GitHub &rarr; https://github.com/JeffXue" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WebPageTest"><span class="nav-number">1.</span> <span class="nav-text">WebPageTest</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web-Server"><span class="nav-number">2.</span> <span class="nav-text">Web Server</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装配置webpagetest"><span class="nav-number">2.1.</span> <span class="nav-text">安装配置webpagetest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx"><span class="nav-number">2.2.</span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP"><span class="nav-number">2.3.</span> <span class="nav-text">PHP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查依赖"><span class="nav-number">2.4.</span> <span class="nav-text">检查依赖</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Agent"><span class="nav-number">3.</span> <span class="nav-text">Agent</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行测试"><span class="nav-number">4.</span> <span class="nav-text">运行测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指定URL"><span class="nav-number">4.1.</span> <span class="nav-text">指定URL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用script"><span class="nav-number">4.2.</span> <span class="nav-text">使用script</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Xue</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
