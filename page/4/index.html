@@ -254,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/18/tomcat-native编译安装/">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/07/22/《高性能网站建设指南》/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Xue">
@@ -271,7 +271,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/04/18/tomcat-native编译安装/" class="post-title-link" itemprop="url">tomcat-native编译安装</a>
+                <a href="/2016/07/22/《高性能网站建设指南》/" class="post-title-link" itemprop="url">《高性能网站建设指南》</a>
               
             
           </h1>
@@ -290,7 +290,7 @@
                 
               
 
-              <time title="Created: 2016-04-18 20:09:03" itemprop="dateCreated datePublished" datetime="2016-04-18T20:09:03+08:00">2016-04-18</time>
+              <time title="Created: 2016-07-22 22:02:11" itemprop="dateCreated datePublished" datetime="2016-07-22T22:02:11+08:00">2016-07-22</time>
             </span>
           
             
@@ -303,7 +303,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 14:35:47" itemprop="dateModified" datetime="2020-01-19T14:35:47+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 15:00:11" itemprop="dateModified" datetime="2020-01-19T15:00:11+08:00">2020-01-19</time>
               </span>
             
           
@@ -315,7 +315,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书/" itemprop="url" rel="index"><span itemprop="name">读书</span></a></span>
 
                 
                 
@@ -334,19 +334,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Tomcat-Native概述"><a href="#Tomcat-Native概述" class="headerlink" title="Tomcat Native概述"></a>Tomcat Native概述</h1><p>The Apache Tomcat Native Library is an optional component for use with Apache Tomcat that allows Tomcat to use certain native resources for performance, compatibility, etc.</p>
-<p>Specifically, the Apache Tomcat Native Library gives Tomcat access to the Apache Portable Runtime (APR) library’s network connection (socket) implementation and random-number generator. See the Apache Tomcat documentation for more information on how to configure Tomcat to use the APR connector.</p>
-<p>Features of the APR connector:</p>
-<ul>
-<li>Non-blocking I/O for Keep-Alive requests (between requests)</li>
-<li>Uses OpenSSL for TLS/SSL capabilities (if supported by linked APR library)</li>
-<li>FIPS 140-2 support for TLS/SSL (if supported by linked OpenSSL library)</li>
+          <h1 id="14条性能规则"><a href="#14条性能规则" class="headerlink" title="14条性能规则"></a>14条性能规则</h1><ul>
+<li>规则1：减少HTTP请求，介绍为什么额外的HTTP请求会对性能产生巨大的影响，并介绍了减少HTTP请求的 方法，包括图片地图，CSS Spries， 使用data:模式的URL内联图片，以及合并脚本和样式表</li>
+<li>规则2：使用内容发布网络（CDN），强调使用内容分发网络的优势</li>
+<li>规则3：添加Expires头，研究一个简单的HTTP头是如何通过使用浏览器缓存来戏剧性地改善Web页面性能</li>
+<li>规则4：压缩组件，解析压缩是如何工作的，以及如何为Web服务器启用压缩，并讨论了现今存在的一些兼容性问题</li>
+<li>规则5：将样式表放在顶部，展示脚本是如何影响呈现的</li>
+<li>规则6：将脚本放在底部，展示脚本是如何影响呈现的，以及脚本是如何下载到浏览器中的</li>
+<li>规则7：避免CSS表达式，讨论CSS表达式的使用和度量其影响的重要性</li>
+<li>规则8：使用外部javascript和css，介绍如何权衡内联javascript和css，还是将他们放在外部文件中</li>
+<li>规则9：减少DNS查找，强调解析域名是的频繁查找所产生的影响</li>
+<li>规则10：精简javascript，量化从javascript中移除空白字符所带来的收益</li>
+<li>规则11：避免重定向，使用重定向提出了警示，并给出了可替代的方法</li>
+<li>规则12：移除重复脚本，展示如果一个页面中包含了两处相同的脚本会发生什么情况</li>
+<li>规则13：配置ETag，介绍ETag是如何工作的，以及为什么对于任何拥有多余一台Web服务器的网站来说，默认的实现都是不好的</li>
+<li>规则14： 使Ajax可缓存，强调在使用Ajax时牢记这些性能规则的重要性</li>
 </ul>
-<p>可见以下<a href="https://raw.githubusercontent.com/JeffXue/common_scripts/master/install_tomcat_native1.2.5.sh" target="_blank" rel="noopener">安装脚本</a></p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2016/04/18/tomcat-native编译安装/#more" rel="contents">
+              <a class="btn" href="/2016/07/22/《高性能网站建设指南》/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -378,7 +385,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/18/tomcat7安装配置详细说明/">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/07/21/如何看懂Debian源/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Xue">
@@ -395,7 +402,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/04/18/tomcat7安装配置详细说明/" class="post-title-link" itemprop="url">tomcat7安装配置详细说明</a>
+                <a href="/2016/07/21/如何看懂Debian源/" class="post-title-link" itemprop="url">如何看懂Debian源</a>
               
             
           </h1>
@@ -414,7 +421,7 @@
                 
               
 
-              <time title="Created: 2016-04-18 20:06:21" itemprop="dateCreated datePublished" datetime="2016-04-18T20:06:21+08:00">2016-04-18</time>
+              <time title="Created: 2016-07-21 23:14:46" itemprop="dateCreated datePublished" datetime="2016-07-21T23:14:46+08:00">2016-07-21</time>
             </span>
           
             
@@ -427,7 +434,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 14:35:20" itemprop="dateModified" datetime="2020-01-19T14:35:20+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 14:33:48" itemprop="dateModified" datetime="2020-01-19T14:33:48+08:00">2020-01-19</time>
               </span>
             
           
@@ -458,18 +465,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>Tomcat不需要安装，直接解压到对应的目录即可，需提前解压安装JDK1.7，并配置环境变量</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar xvzf apache-tomcat-7.0.68.tar.gz -C /usr/<span class="built_in">local</span></span><br><span class="line"></span><br><span class="line">mv /usr/<span class="built_in">local</span>/apache-tomcat-7.0.68 /usr/<span class="built_in">local</span>/tomcat</span><br></pre></td></tr></table></figure>
+          <h1 id="etc-apt-source-list"><a href="#etc-apt-source-list" class="headerlink" title="/etc/apt/source.list"></a>/etc/apt/source.list</h1><p>source.list列出了所包含的源，一般情况下采用以下的格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb http://site.example.com/debian distribution component1 component2 component3</span><br><span class="line">deb-src http://site.example.com/debian distribution component1 component2 component3</span><br></pre></td></tr></table></figure>
 
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="配置JAVA-HOME"><a href="#配置JAVA-HOME" class="headerlink" title="配置JAVA_HOME"></a>配置JAVA_HOME</h2><p>启动的时候，启动脚本会加载setenv.sh，以下为catalina.sh截取代码<br>(同样会自动加载setclasspath.sh)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -r <span class="string">"<span class="variable">$CATALINA_BASE</span>/bin/setenv.sh"</span> ]; <span class="keyword">then</span></span><br><span class="line">     . <span class="string">"<span class="variable">$CATALINA_BASE</span>/bin/setenv.sh"</span></span><br><span class="line"><span class="keyword">elif</span> [ -r <span class="string">"<span class="variable">$CATALINA_HOME</span>/bin/setenv.sh"</span> ]; <span class="keyword">then</span></span><br><span class="line">     . <span class="string">"<span class="variable">$CATALINA_HOME</span>/bin/setenv.sh"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<p>/usr/local/tomcat/bin/setenv.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/<span class="built_in">local</span>/jdk1.7.0_79</span><br></pre></td></tr></table></figure>
+<h2 id="deb与deb-src"><a href="#deb与deb-src" class="headerlink" title="deb与deb-src"></a>deb与deb-src</h2><p>deb和deb-src代表了不同的源存档类型</p>
+<ul>
+<li>deb代表预编译好的二进制的包</li>
+<li>deb-src代表源码包</li>
+</ul>
+<h2 id="仓库URL"><a href="#仓库URL" class="headerlink" title="仓库URL"></a>仓库URL</h2><p><a href="http://site.example.com/debian" target="_blank" rel="noopener">http://site.example.com/debian</a>  代表仓库的URL，debian的仓库镜像可见<a href="https://www.debian.org/mirror/list" target="_blank" rel="noopener">mirror list</a></p>
+<p>如果你不知道使用哪个源，可以使用<code>http://httpredir.debian.org/debian</code>，会动态的重定向最合适的源地址</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2016/04/18/tomcat7安装配置详细说明/#more" rel="contents">
+              <a class="btn" href="/2016/07/21/如何看懂Debian源/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -501,7 +510,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/15/redis-benchmark使用详解/">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/07/10/《问题解决的系统思考》培训摘录/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Xue">
@@ -518,7 +527,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/04/15/redis-benchmark使用详解/" class="post-title-link" itemprop="url">redis-benchmark使用详解</a>
+                <a href="/2016/07/10/《问题解决的系统思考》培训摘录/" class="post-title-link" itemprop="url">《问题解决的系统思考》培训摘录</a>
               
             
           </h1>
@@ -537,7 +546,7 @@
                 
               
 
-              <time title="Created: 2016-04-15 23:05:59" itemprop="dateCreated datePublished" datetime="2016-04-15T23:05:59+08:00">2016-04-15</time>
+              <time title="Created: 2016-07-10 22:04:10" itemprop="dateCreated datePublished" datetime="2016-07-10T22:04:10+08:00">2016-07-10</time>
             </span>
           
             
@@ -550,7 +559,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 14:36:05" itemprop="dateModified" datetime="2020-01-19T14:36:05+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 14:31:09" itemprop="dateModified" datetime="2020-01-19T14:31:09+08:00">2020-01-19</time>
               </span>
             
           
@@ -562,7 +571,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/思考/" itemprop="url" rel="index"><span itemprop="name">思考</span></a></span>
 
                 
                 
@@ -581,12 +590,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="redis-benchmark"><a href="#redis-benchmark" class="headerlink" title="redis-benchmark"></a>redis-benchmark</h1><p>redis-benchmark是redis自带的一个工具，可用于测试redis的性能</p>
-<h1 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Usage: redis-benchmark [-h &lt;host&gt;] [-p &lt;port&gt;] [-c &lt;clients&gt;] [-n &lt;requests]&gt; [-k &lt;boolean&gt;]</span><br><span class="line"></span><br><span class="line"> -h &lt;hostname&gt;      Server hostname (default 127.0.0.1) <span class="comment">#所要连接的机器</span></span><br><span class="line"> -p &lt;port&gt;          Server port (default 6379) <span class="comment">#服务端口</span></span><br><span class="line"> -s &lt;socket&gt;        Server socket (overrides host and port)</span><br><span class="line"> -a &lt;password&gt;      Password <span class="keyword">for</span> Redis Auth <span class="comment">#认证密码</span></span><br><span class="line"> -c &lt;clients&gt;       Number of parallel connections (default 50) <span class="comment">#并发连接数</span></span><br><span class="line"> -n &lt;requests&gt;      Total number of requests (default 10000) <span class="comment">#总的请求数量</span></span><br><span class="line"> -d &lt;size&gt;          Data size of SET/GET value <span class="keyword">in</span> bytes (default 2) <span class="comment">#SET和GET value的大小</span></span><br><span class="line"> -dbnum &lt;db&gt;        SELECT the specified db number (default 0) <span class="comment">#选择db number</span></span><br><span class="line"> -k &lt;boolean&gt;       1=keep alive 0=reconnect (default 1) <span class="comment"># 设置是否开启keepalive</span></span><br><span class="line"> -r &lt;keyspacelen&gt;   Use random keys <span class="keyword">for</span> SET/GET/INCR, random values <span class="keyword">for</span> SADD</span><br><span class="line">  Using this option the benchmark will expand the string __rand_int__</span><br><span class="line">  inside an argument with a 12 digits number <span class="keyword">in</span> the specified range</span><br><span class="line">  from 0 to keyspacelen-1. The substitution changes every time a <span class="built_in">command</span></span><br><span class="line">  is executed. Default tests use this to hit random keys <span class="keyword">in</span> the</span><br><span class="line">  specified range.</span><br><span class="line"> -P &lt;numreq&gt;        Pipeline &lt;numreq&gt; requests. Default 1 (no pipeline).</span><br><span class="line"> -q                 Quiet. Just show query/sec values <span class="comment"># 静态模式运行</span></span><br><span class="line"> --csv              Output <span class="keyword">in</span> CSV format <span class="comment"># 输出csv</span></span><br><span class="line"> -l                 Loop. Run the tests forever <span class="comment">#一直运行</span></span><br><span class="line"> -t &lt;tests&gt;         Only run the comma separated list of tests. The <span class="built_in">test</span></span><br><span class="line">                    names are the same as the ones produced as output. <span class="comment"># 设置测试项</span></span><br><span class="line"> -I                 Idle mode. Just open N idle connections and <span class="built_in">wait</span>. <span class="comment"># 空闲模式，只创建连接</span></span><br></pre></td></tr></table></figure>
+          <p>培训日期：2016-07-09~2016-07-10</p>
+<ul>
+<li><p>系统思考是实操性的</p>
+</li>
+<li><p>执行力往往是系统思考的杀手</p>
+</li>
+<li><p>组织学习的7项障碍</p>
+<ul>
+<li>局限思考（本位主义）</li>
+<li>归罪于外（自我中心）</li>
+<li>缺乏整体思考的主动性（积极思考不等于积极行动）</li>
+<li>专注于个别的事情（单个短期事情充斥着一切）</li>
+<li>对缓慢致命危险不敏感（温水煮青蛙的故事）</li>
+<li>从经验学习的错觉（走出经验学习的时空误区）</li>
+<li>管理团队的迷失（避免“熟练的无能”）</li>
+</ul>
+</li>
+<li><p>任何问题至少有3种解决问题的方法</p>
+</li>
+<li><p>相同的做法不会得到不同的结果</p>
+</li>
+<li><p>预见未来的最好的方法就是创造未来</p>
+</li>
+<li><p>主动找到市场的突破口</p>
+</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2016/04/15/redis-benchmark使用详解/#more" rel="contents">
+              <a class="btn" href="/2016/07/10/《问题解决的系统思考》培训摘录/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -618,7 +651,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/15/redis2-8编译安装/">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/07/07/《从0到1-开启商业与未来的秘密》/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Xue">
@@ -635,7 +668,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/04/15/redis2-8编译安装/" class="post-title-link" itemprop="url">redis2.8编译安装</a>
+                <a href="/2016/07/07/《从0到1-开启商业与未来的秘密》/" class="post-title-link" itemprop="url">《从0到1:开启商业与未来的秘密》</a>
               
             
           </h1>
@@ -654,7 +687,7 @@
                 
               
 
-              <time title="Created: 2016-04-15 23:04:32" itemprop="dateCreated datePublished" datetime="2016-04-15T23:04:32+08:00">2016-04-15</time>
+              <time title="Created: 2016-07-07 22:20:06" itemprop="dateCreated datePublished" datetime="2016-07-07T22:20:06+08:00">2016-07-07</time>
             </span>
           
             
@@ -667,125 +700,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 14:36:01" itemprop="dateModified" datetime="2020-01-19T14:36:01+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster.<br>You can run atomic operations on these types, like appending to a string; incrementing the value in a hash; pushing an element to a list; computing set intersection, union and difference; or getting the member with highest ranking in a sorted set.<br>In order to achieve its outstanding performance, Redis works with an in-memory dataset. Depending on your use case, you can persist it either by dumping the dataset to disk every once in a while, or by appending each command to a log. Persistence can be optionally disabled, if you just need a feature-rich, networked, in-memory cache.<br>Redis also supports trivial-to-setup master-slave asynchronous replication, with very fast non-blocking first synchronization, auto-reconnection with partial resynchronization on net split.</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>具体可见<a href="https://raw.githubusercontent.com/JeffXue/common_scripts/master/install_redis2.8.sh" target="_blank" rel="noopener">安装脚本</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tar xvzf redis-2.8.24.tar.gz -C /usr/<span class="built_in">local</span>/</span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/redis-2.8.24</span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">mkdir /usr/<span class="built_in">local</span>/redis</span><br><span class="line">cp redis.conf sentinel.conf /usr/<span class="built_in">local</span>/redis</span><br><span class="line"><span class="built_in">cd</span> src</span><br><span class="line">cp redis-benchmark redis-server redis-cli redis-sentinel /usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/04/15/redis2-8编译安装/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/06/《重新定义公司：谷歌是如何运营的》摘录/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/04/06/《重新定义公司：谷歌是如何运营的》摘录/" class="post-title-link" itemprop="url">《重新定义公司：谷歌是如何运营的》摘录</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-04-06 23:42:33" itemprop="dateCreated datePublished" datetime="2016-04-06T23:42:33+08:00">2016-04-06</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:12:03" itemprop="dateModified" datetime="2020-01-19T14:12:03+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 14:59:24" itemprop="dateModified" datetime="2020-01-19T14:59:24+08:00">2020-01-19</time>
               </span>
             
           
@@ -817,23 +732,19 @@
 
       
           <ul>
-<li>在每周五下午举办人人都可以畅所欲言的“TGIF”（thank god， it’s firday）大会，并在大会上与大家对话</li>
-<li>谷歌管理公司资源的首选工具竟然是一张电子表格，这张表格上列着谷歌最重要的100个项目，以供大家浏览并在半个季度一次的会议上讨论。这些半季度会议用来进行公司近况沟通，资源分配和头脑风暴</li>
-<li>用经济术语来说，如果某行业产品主要要素的成本曲线下降，那么该行业必将会出现剧变</li>
-<li>所谓创意精英：不仅拥有过硬的专业知识，懂得如何使用专业工具，还需具备充足的实践经验</li>
-<li>创意精英有分析头脑，他们对数据运用自如，可以利用数据做出决策，同时也懂得数据的误导性。因此不会沉迷其中。他们认为，数据对做判断大有帮助，但绝不会被数据牵着鼻子走</li>
-<li>如果我给你1便士，那么你就多了1便士，我就少了1便士。但如果我给你一个构想，你就收获了一个新构想，而我依然拥有我的构想</li>
-<li>所有的创意精英都必须具备商业头脑，专业知识，创造力以及实践经验，这些都是基本特质</li>
-<li>问一问你的团队：我们重视什么？我们的信念是什么？我们想要成为什么样的企业？我们希望企业在实际行动和制定策略时采取什么样的方式？</li>
-<li>如果你不能时常传达你的目标，不能通过奖励巩固你的目标，那么，你的愿景还不如打印愿景的纸有价值</li>
-<li>办公状态应鼓励大家多交流，让大家在喧闹拥挤的办公室里畅所欲言，激情碰撞。在参与完团队活动后，员工可以到清净之地换换脑子</li>
-<li>混乱往往是自我表达和创意的衍生品，因此可以算是一种好事吧</li>
-<li>在谷歌，我们要求每位管理者的桌上至少要放7份直接报告</li>
+<li>在什么重要问题上你与其他人有不同看法？</li>
+<li>从小处看，未来只是还没有到来的时刻的集合。但是真正使未来如何独特和重要的并非因为未来没有发生，而是未来的世界会与此刻不同</li>
+<li>垂直进步，也称深入进步，意思是要探索新的道路–从0到1的进步。垂直进步较难想象，人们需要尝试从未做过的事</li>
+<li>初创公司遵守这样一个原则，你需要和其他人合作来完成工作，但也需要控制规模，使组织有效运转</li>
+<li>一个新公司最重要的力量是新思想，新思想甚至比灵活性更重要，而规模小才有思考的空间</li>
+<li>最反主流的行动不是抵制潮流，而是在潮流中不丢弃自己的独立思考</li>
+<li>非垄断者通过把他们的市场定义成各种更小市场的交集来夸大自己的独特性，相反，垄断者通过把自己市场描述成若干大市场的并集来伪装他们的垄断性</li>
+<li>有创意的垄断企业不仅对外界社会没有坏影响，相反，它们是使社会更美好的推动力</li>
 </ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2016/04/06/《重新定义公司：谷歌是如何运营的》摘录/#more" rel="contents">
+              <a class="btn" href="/2016/07/07/《从0到1-开启商业与未来的秘密》/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -865,7 +776,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/29/nginx请求头中自定义域默认不支持下划线/">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/06/12/mysql单机双实例/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Xue">
@@ -882,7 +793,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/03/29/nginx请求头中自定义域默认不支持下划线/" class="post-title-link" itemprop="url">nginx请求头中自定义域默认不支持下划线</a>
+                <a href="/2016/06/12/mysql单机双实例/" class="post-title-link" itemprop="url">mysql单机双实例</a>
               
             
           </h1>
@@ -901,7 +812,7 @@
                 
               
 
-              <time title="Created: 2016-03-29 16:50:02" itemprop="dateCreated datePublished" datetime="2016-03-29T16:50:02+08:00">2016-03-29</time>
+              <time title="Created: 2016-06-12 16:43:38" itemprop="dateCreated datePublished" datetime="2016-06-12T16:43:38+08:00">2016-06-12</time>
             </span>
           
             
@@ -914,7 +825,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 14:36:35" itemprop="dateModified" datetime="2020-01-19T14:36:35+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 14:36:54" itemprop="dateModified" datetime="2020-01-19T14:36:54+08:00">2020-01-19</time>
               </span>
             
           
@@ -945,136 +856,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-            <p>生产环境更换nginx之后，sdk发起的请求返回了一个内部定义的401错误，导致用户投诉，跟踪后发现请求中缺失了部分域内容access_token，最终发现nginx会屏蔽掉不合法的请求头，而默认情况下请求头是不支持下划线的。</p>
-<p>可以通过使用underscores_in_headers指令开启支持下划线：</p>
-<blockquote>
-<p>Syntax:    underscores_in_headers on | off;<br>Default:    underscores_in_headers off;<br>Context:    http, server</p>
-</blockquote>
-<p>同样可以使用ignore_invalid_headers指令把忽略无效的头限制关闭掉，有效的头可以有英文字母，数字，连接符，下划线（受underscores_in_headers指令控制）</p>
-<blockquote>
-<p>Syntax:    ignore_invalid_headers on | off;<br>Default:    ignore_invalid_headers on;<br>Context:    http, server</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/25/隐藏Apache的版本号及其它敏感信息/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/25/隐藏Apache的版本号及其它敏感信息/" class="post-title-link" itemprop="url">隐藏Apache的版本号及其它敏感信息</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-25 11:41:25" itemprop="dateCreated datePublished" datetime="2016-03-25T11:41:25+08:00">2016-03-25</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:33:20" itemprop="dateModified" datetime="2020-01-19T14:33:20+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <ul>
-<li><p>主配置中启动httpd-default.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Include conf/extra/httpd-default.conf</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改httpd-default.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ServerTokens Prod</span><br><span class="line">ServerSignature off</span><br></pre></td></tr></table></figure>
+          <p>由于后续进行数据库读写分离，需要在开发环境中部署主从数据库，为了节省资源，主从数据库将部署在同一台服务器中，因此针对单机双实例场景配置进行说明。</p>
+<p>此处并不对如何安装mysql进行说明，具体可见<a href="https://raw.githubusercontent.com/JeffXue/common_scripts/master/install_mysql5.6.sh" target="_blank" rel="noopener">github脚本</a></p>
+<p>实际上单机多实例，只需要对配置进行修改即可轻松实现：</p>
+<ul>
+<li>创建主从数据库数据目录<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/<span class="built_in">local</span>/mysql/data</span><br><span class="line">mkdir /usr/<span class="built_in">local</span>/mysql/data_slave</span><br><span class="line">chown -R mysql:mysql /usr/<span class="built_in">local</span>/mysql/data</span><br><span class="line">chown -R mysql:mysql /usr/<span class="built_in">local</span>/mysql/data_slave</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/06/12/mysql单机双实例/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1101,7 +899,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/24/Loadrunner发送https请求报错GENERAL-MSG-CAT-SSL-ERROR/">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/06/12/redis主从-Sentinel高可用方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Xue">
@@ -1118,7 +916,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/03/24/Loadrunner发送https请求报错GENERAL-MSG-CAT-SSL-ERROR/" class="post-title-link" itemprop="url">Loadrunner发送https请求报错GENERAL_MSG_CAT_SSL_ERROR</a>
+                <a href="/2016/06/12/redis主从-Sentinel高可用方案/" class="post-title-link" itemprop="url">redis主从+Sentinel高可用方案</a>
               
             
           </h1>
@@ -1137,7 +935,7 @@
                 
               
 
-              <time title="Created: 2016-03-24 10:10:36" itemprop="dateCreated datePublished" datetime="2016-03-24T10:10:36+08:00">2016-03-24</time>
+              <time title="Created: 2016-06-12 15:12:12" itemprop="dateCreated datePublished" datetime="2016-06-12T15:12:12+08:00">2016-06-12</time>
             </span>
           
             
@@ -1150,232 +948,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 14:37:06" itemprop="dateModified" datetime="2020-01-19T14:37:06+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/性能/" itemprop="url" rel="index"><span itemprop="name">性能</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>Loadrunner默认情况下使用ssl2/3，一般情况下后端反向代理会禁用SSLv2和SSLv3，因为SSLv2是不安全的，TLS 1.0在遭受到降级攻击时，会允许攻击者强制连接使用SSLv3，因此Loadrunner采用默认配置发送https的情况下会出现握手失败的情况</p>
-<p>可以通过修改所采用的协议来解决</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">web_set_sockets_option(<span class="string">"SSL_VERSION"</span>,<span class="string">"TLS"</span>);</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/23/3年计划_2016~2019/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/23/3年计划_2016~2019/" class="post-title-link" itemprop="url">3年计划Plan B(打脸)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-23 21:57:58" itemprop="dateCreated datePublished" datetime="2016-03-23T21:57:58+08:00">2016-03-23</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:30:56" itemprop="dateModified" datetime="2020-01-19T14:30:56+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/思考/" itemprop="url" rel="index"><span itemprop="name">思考</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="第一年"><a href="#第一年" class="headerlink" title="第一年"></a>第一年</h1><p>时间区间：2016.4～2017.3<br>主要内容：掌握后端开发及部分前端开发的必要知识，可以独立搭建后台和前端页面，独立运营网站，并掌握网站相关运营技巧</p>
-<h1 id="第二年"><a href="#第二年" class="headerlink" title="第二年"></a>第二年</h1><p>时间区间：2017.4～2018.3<br>主要内容：掌握ios app开发及android app开发的必要知识，可以独立搭建app应用，上架到商城中进行发布运营，掌握相关app运营技巧</p>
-<h1 id="第三年"><a href="#第三年" class="headerlink" title="第三年"></a>第三年</h1><p>时间区间：2018.4～2019.3<br>主要内容：根据前期的积累逐步成为一名独立开发者</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-limit-req-module模块使用说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/22/ngx-http-limit-req-module模块使用说明/" class="post-title-link" itemprop="url">ngx_http_limit_req_module模块使用说明</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-22 20:39:40" itemprop="dateCreated datePublished" datetime="2016-03-22T20:39:40+08:00">2016-03-22</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:36:21" itemprop="dateModified" datetime="2020-01-19T14:36:21+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 14:35:59" itemprop="dateModified" datetime="2020-01-19T14:35:59+08:00">2020-01-19</time>
               </span>
             
           
@@ -1406,23 +979,503 @@
     <div class="post-body" itemprop="articleBody">
 
       
+          <p>生产环境redis一直处于单节点运行模式，如果出现故障，则会无法提供服务，因此需要提高redis服务的高可用性，因为本身访问量并不是十分大，另外并无运维人力投入进行维护，因此并不考虑集群方案。通过综合考虑研究采用redis主从，加上redis sentinel组件搭建高可用的redis方案。</p>
+<p>redis主从保证了数据的可靠性，而redis sentinel可以提升其可用性。redis sentinel为redis主从集群提供了：1)master存活检测、2)集群主从服务监控、3) 自动故障转移<br>一般情况下,最小redis主从集群单元由一个maste和slave组成,当master失效后,sentinel可以帮助我们自动将slave提升为master；有了sentinel组件,可以减少系统管理员的人工切换slave的操作过程。</p>
+<p>但是一般情况下，主从分别部署在不同的服务器上，对外服务IP不同，当sentinel进行了主从切换后，应用程序如何切换访问新的master。而实际上应用程序可以通过访问sentinel获取最新master，从而达到无缝的切换（Jedis提供了JedisSentinelPool，但在主从切换后需主动重新获取新的连接；而spring-data-redis中使用RedisTemplates进行调用不会有该问题，具体见后面章节）</p>
+          <!--noindex-->
           
-            <p>ngx_http_limit_req_module用于限制指定key的并发请求数。例如可以限制单个IP地址的请求速率。限制是使用漏桶算法的方法来实现。</p>
-<p>例子：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    ＃ Sets parameters <span class="keyword">for</span> a shared memory zone that will keep states <span class="keyword">for</span> various keys</span><br><span class="line">    limit_req_zone <span class="variable">$binary_remote_addr</span> zone=one:10m rate=1r/s;</span><br><span class="line">    <span class="comment"># 设置拒绝请求返回的请求码</span></span><br><span class="line">    limit_req_status 503;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        location /search/ &#123;</span><br><span class="line">            <span class="comment"># sets the shared memory zone and the maximum burst size of requests</span></span><br><span class="line">            limit_req zone=one burst=5;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/06/12/redis主从-Sentinel高可用方案/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
 
-<h1 id="limit-req指令"><a href="#limit-req指令" class="headerlink" title="limit_req指令"></a>limit_req指令</h1><blockquote>
-<p>Syntax:    limit_req zone=name [burst=number] [nodelay];<br>Default:   —<br>Context:   http, server, location</p>
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/06/12/redis集群方案比较/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/06/12/redis集群方案比较/" class="post-title-link" itemprop="url">redis集群方案比较</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-06-12 11:15:09" itemprop="dateCreated datePublished" datetime="2016-06-12T11:15:09+08:00">2016-06-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:35:56" itemprop="dateModified" datetime="2020-01-19T14:35:56+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Redis常见集群实现方式"><a href="#Redis常见集群实现方式" class="headerlink" title="Redis常见集群实现方式"></a>Redis常见集群实现方式</h1><p>本章节为引用内容<a href="http://www.infoq.com/cn/articles/effective-ops-part-03" target="_blank" rel="noopener">http://www.infoq.com/cn/articles/effective-ops-part-03</a></p>
+<h2 id="客户端分片"><a href="#客户端分片" class="headerlink" title="客户端分片"></a>客户端分片</h2><blockquote>
+<p>这种方案将分片工作放在业务程序端，程序代码根据预先设置的路由规则，直接对多个Redis实例进行分布式访问。这样的好处是，不依赖于第三方分布式中间件，实现方法和代码都自己掌控，可随时调整，不用担心踩到坑。<br>这实际上是一种静态分片技术。Redis实例的增减，都得手工调整分片程序。基于此分片机制的开源产品，现在仍不多见。<br>这种分片机制的性能比代理式更好（少了一个中间分发环节）。但缺点是升级麻烦，对研发人员的个人依赖性强——需要有较强的程序开发能力做后盾。如果主力程序员离职，可能新的负责人，会选择重写一遍。<br>所以，这种方式下，可运维性较差。出现故障，定位和解决都得研发和运维配合着解决，故障时间变长。<br>这种方案，难以进行标准化运维，不太适合中小公司（除非有足够的DevOPS）</p>
 </blockquote>
-<p>当请求速度超过了zone所配置的速度，他们的请求会被延时，就像以所设定的速度在进行请求一样。超出限制的请求数量超过了最大的burst大小，会直接返回503，默认情况下最大的burst为0.</p>
-<p>如果不希望超出的请求被延时处理，可以设置nodelay：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">limit_req zone=one burst=5 nodelay;</span><br></pre></td></tr></table></figure>
-
-<p>可以设置多个limit_req指令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    limit_req_zone <span class="variable">$binary_remote_addr</span> zone=perip:10m rate=1r/s;</span><br><span class="line">    limit_req_zone <span class="variable">$server_name</span> zone=perserver:10m rate=10r/s;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        ...</span><br><span class="line">        limit_req zone=perip burst=5 nodelay;</span><br><span class="line">        limit_req zone=perserver burst=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/06/12/redis集群方案比较/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/06/12/mysql优化案例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/06/12/mysql优化案例/" class="post-title-link" itemprop="url">mysql优化案例</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-06-12 09:28:27" itemprop="dateCreated datePublished" datetime="2016-06-12T09:28:27+08:00">2016-06-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:57" itemprop="dateModified" datetime="2020-01-19T14:36:57+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="无索引案例"><a href="#无索引案例" class="headerlink" title="无索引案例"></a>无索引案例</h2><p>问题描述：用户系统打开缓慢，数据库 CPU 100%<br>问题排查：发现数据库中大量的慢sql， 执行时间超过了2s<br>慢SQL：SELECT uid FROM user WHERE mo=13772556391 LIMIT 0,1;<br>执行计划</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/06/12/mysql优化案例/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/05/27/《癌症-真相-医生也在读》/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/05/27/《癌症-真相-医生也在读》/" class="post-title-link" itemprop="url">《癌症.真相:医生也在读》</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-05-27 23:33:26" itemprop="dateCreated datePublished" datetime="2016-05-27T23:33:26+08:00">2016-05-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:59:15" itemprop="dateModified" datetime="2020-01-19T14:59:15+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书/" itemprop="url" rel="index"><span itemprop="name">读书</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>第一，无论男女、癌症发病率从40岁以后就是指数增长；第二，老年男性比女性得癌症概率高，主要原因是大量男性会得前列腺癌</li>
+<li>癌症发生的根本原因是基因突变</li>
+<li>人体器官收到损伤后需要修复，而组织修复都需要靠细胞分裂完成。器官长期慢性损伤，会导致组织反复修复，细胞分裂次数a变大，就容易诱发癌症</li>
+<li>良性肿瘤不转移，属于钉子户，所以只要手术切除肿瘤本身就算治好了。而恶性肿瘤不论大小，都已经发生了转移，可能在血液系统里，可能在淋巴系统里，也可能已经到了身体的其他器官</li>
+<li>有很多癌症，由于现在还不清楚原因，会导致患者体重迅速下降，肌肉和脂肪都迅速丢失，无论患者吃多少东西，输多少蛋白质都没用，这个现象较“恶病质”。恶病质现在无药可治，是不可逆的。由于肌肉和脂肪对整个机能的能量供应、内分泌调整至关重要，出现恶病质的癌症患者很快会出现系统性衰竭而死亡</li>
+<li>毛囊细胞对头发生长至关重要，化疗药物杀死癌细胞的同时，也杀死毛囊细胞，这是为什么化疗患者头发会掉光。负责造血和维持免疫系统的造血干细胞也会被杀死，因此化疗患者的免疫系统会非常弱，极容易感染</li>
+<li>消化道上皮细胞也会被杀死，于是患者严重拉肚子，没有食欲</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/05/27/《癌症-真相-医生也在读》/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/27/安装memcached可视化管理工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/04/27/安装memcached可视化管理工具/" class="post-title-link" itemprop="url">安装memcached可视化管理工具</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-04-27 17:53:19" itemprop="dateCreated datePublished" datetime="2016-04-27T17:53:19+08:00">2016-04-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:33:30" itemprop="dateModified" datetime="2020-01-19T14:33:30+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="MemAdmin"><a href="#MemAdmin" class="headerlink" title="MemAdmin"></a>MemAdmin</h1><p>MemAdmin是一款可视化的Memcached管理与监控工具，基于 PHP5 &amp; JQuery 开发，体积小，操作简单。</p>
+<p>主要功能：</p>
+<ul>
+<li>服务器参数监控：STATS、SETTINGS、ITEMS、SLABS、SIZES实时刷新</li>
+<li>服务器性能监控：GET、DELETE、INCR、DECR、CAS等常用操作命中率实时监控</li>
+<li>支持数据遍历，方便对存储内容进行监视</li>
+<li>支持条件查询，筛选出满足条件的KEY或VALUE</li>
+<li>数组、JSON等序列化字符反序列显示</li>
+<li>兼容memcache协议的其他服务，如Tokyo Tyrant (遍历功能除外)</li>
+<li>支持服务器连接池，多服务器管理切换方便简洁</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/04/27/安装memcached可视化管理工具/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1446,7 +1499,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1482,7 +1535,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">99</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1624,7 +1677,11 @@
         
           
         
-        <span class="site-state-item-count">46</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico?v=7.3.0">
+  <link rel="mask-icon" href="/img/favicon.ico?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="在每周五下午举办人人都可以畅所欲言的“TGIF”（thank god， it’s firday）大会，并在大会上与大家对话 谷歌管理公司资源的首选工具竟然是一张电子表格，这张表格上列着谷歌最重要的100个项目，以供大家浏览并在半个季度一次的会议上讨论。这些半季度会议用来进行公司近况沟通，资源分配和头脑风暴 用经济术语来说，如果某行业产品主要要素的成本曲线下降，那么该行业必将会出现剧变 所谓创意精">
+<meta name="keywords" content="管理,google">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《重新定义公司：谷歌是如何运营的》">
+<meta property="og:url" content="http://www.jeffxue.cn/2016/04/06/《重新定义公司：谷歌是如何运营的》/index.html">
+<meta property="og:site_name" content="Blog of Jeff Xue">
+<meta property="og:description" content="在每周五下午举办人人都可以畅所欲言的“TGIF”（thank god， it’s firday）大会，并在大会上与大家对话 谷歌管理公司资源的首选工具竟然是一张电子表格，这张表格上列着谷歌最重要的100个项目，以供大家浏览并在半个季度一次的会议上讨论。这些半季度会议用来进行公司近况沟通，资源分配和头脑风暴 用经济术语来说，如果某行业产品主要要素的成本曲线下降，那么该行业必将会出现剧变 所谓创意精">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-01-19T07:00:02.400Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《重新定义公司：谷歌是如何运营的》">
+<meta name="twitter:description" content="在每周五下午举办人人都可以畅所欲言的“TGIF”（thank god， it’s firday）大会，并在大会上与大家对话 谷歌管理公司资源的首选工具竟然是一张电子表格，这张表格上列着谷歌最重要的100个项目，以供大家浏览并在半个季度一次的会议上讨论。这些半季度会议用来进行公司近况沟通，资源分配和头脑风暴 用经济术语来说，如果某行业产品主要要素的成本曲线下降，那么该行业必将会出现剧变 所谓创意精">
+  <link rel="canonical" href="http://www.jeffxue.cn/2016/04/06/《重新定义公司：谷歌是如何运营的》/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>《重新定义公司：谷歌是如何运营的》 | Blog of Jeff Xue</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96f1d393e90bf8f44a8792351515c9b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog of Jeff Xue</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-读书">
+      
+    
+
+    <a href="/categories/读书/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>读书</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-编程">
+      
+    
+
+    <a href="/categories/编程/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>编程</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-思考">
+      
+    
+
+    <a href="/categories/思考/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>思考</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/06/《重新定义公司：谷歌是如何运营的》/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">《重新定义公司：谷歌是如何运营的》
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-04-06 23:42:33" itemprop="dateCreated datePublished" datetime="2016-04-06T23:42:33+08:00">2016-04-06</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 15:00:02" itemprop="dateModified" datetime="2020-01-19T15:00:02+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书/" itemprop="url" rel="index"><span itemprop="name">读书</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>在每周五下午举办人人都可以畅所欲言的“TGIF”（thank god， it’s firday）大会，并在大会上与大家对话</li>
+<li>谷歌管理公司资源的首选工具竟然是一张电子表格，这张表格上列着谷歌最重要的100个项目，以供大家浏览并在半个季度一次的会议上讨论。这些半季度会议用来进行公司近况沟通，资源分配和头脑风暴</li>
+<li>用经济术语来说，如果某行业产品主要要素的成本曲线下降，那么该行业必将会出现剧变</li>
+<li>所谓创意精英：不仅拥有过硬的专业知识，懂得如何使用专业工具，还需具备充足的实践经验</li>
+<li>创意精英有分析头脑，他们对数据运用自如，可以利用数据做出决策，同时也懂得数据的误导性。因此不会沉迷其中。他们认为，数据对做判断大有帮助，但绝不会被数据牵着鼻子走</li>
+<li>如果我给你1便士，那么你就多了1便士，我就少了1便士。但如果我给你一个构想，你就收获了一个新构想，而我依然拥有我的构想</li>
+<li>所有的创意精英都必须具备商业头脑，专业知识，创造力以及实践经验，这些都是基本特质</li>
+<li>问一问你的团队：我们重视什么？我们的信念是什么？我们想要成为什么样的企业？我们希望企业在实际行动和制定策略时采取什么样的方式？</li>
+<li>如果你不能时常传达你的目标，不能通过奖励巩固你的目标，那么，你的愿景还不如打印愿景的纸有价值</li>
+<li>办公状态应鼓励大家多交流，让大家在喧闹拥挤的办公室里畅所欲言，激情碰撞。在参与完团队活动后，员工可以到清净之地换换脑子</li>
+<li>混乱往往是自我表达和创意的衍生品，因此可以算是一种好事吧</li>
+<li>在谷歌，我们要求每位管理者的桌上至少要放7份直接报告</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li>谷歌坚持按职能划分部门，将企业分为工程，产品，财务以及销售等部门，每个部门直接向首席执行官汇报</li>
+<li>以业务或产品线为基础的组织结构会造成”各成一家“的局势，从而对人员和信息的自由流动形成扼制</li>
+<li>谷歌会在重组过程中遵循几条原则。第一，留意不同团队的不同倾向：工程人员喜欢复杂，市场人员喜欢增加管理层，销售人员喜欢招助理。你需要从中做出权衡（实际上，能够认识到这一点已经算是跨出一大步了）。第二，把所有重组工作安排在一天内完成</li>
+<li>重组的关键，一是要速战速决，二是要在重组敲定前就开始实施</li>
+<li>组织应由小规模的团队构成</li>
+<li>找出最有影响力的人物，组织就以此人为中心，不要把岗位或经验作为选择管理者的标尺，而要看他的表现和热情</li>
+<li>最理想的企业文化会让员工无论在家或办公室都有许多有趣的事情去做，这是在鼓里大家以合理的方式”过度工作“</li>
+<li>风险投资家应永远遵守投团队而不投计划的准则。既然计划会错，那么人就得对。成功的团队懂得如何发现计划中的瑕疵，并及时做出调整</li>
+<li>一纸宣称能解决一切问题的计划得不到创意精英的信赖，他们宁愿为”不完美“的计划投入精力和热情，只要这计划在正确的基础上</li>
+<li>用基于技术洞见的创新方式解决重大难题，优化规模而非收入，让能影响每个人的优秀产品带动市场增长……时至今日，这些原则仍是互联网时代企业成功的基本指南</li>
+<li>这所谓的技术洞见，是指用创新方式应用科技或设计，以达到生产成本的显著降低或产品功能和可用性的大幅提升。依赖技术洞见生产出来的产品，可以与同类竞争产品拉开显著差距</li>
+<li>满足消费者的现有需求相比，满足消费者尚未意识到的需求更为重要</li>
+<li>无论你从事什么业务，你所在的行业都潜藏着一个巨大的技术知识库</li>
+<li>找到一个具体问题的解决方案，然后想办法对这个解决方案加以扩展，这也是寻找技术洞见的一个方法</li>
+<li>以技术洞见来支撑产品研发，你就能够避免被消费者的需求牵着鼻子走，生产出步人后尘的产品了</li>
+<li>如果你的工作只是击败那些和你套路基本相当的公司，那又何谈乐趣呢？</li>
+<li>运动员大都激情澎湃，但企业需要的，到底是独自一人打磨技术的铁人三项和马拉松运动员，还是与团队一起训练的人？你眼前的运动员是习惯一人行动还是融入集体，性格是孤傲排外还是与人打成一片</li>
+<li>在谈论自己的爱好时，人们往往会放下戒心，而你则可以利用这个机会更好地考察对方的个性</li>
+<li>如果你觉得你已经定型，那么无论环境如何，你都会一次又一次地重倒覆辙。但如果你拥有成长型思维模式，你就会相信，经过努力，你的个性是能够培养和改变的</li>
+<li>看对方是如何从错误中总结经验，思想是如何走向成熟的。</li>
+<li>我没有什么特殊天赋，只是抱有狂热的好奇心</li>
+<li>最理想的面试过程，就像友人之间的知性对话（比如 “你现在在读哪些书？”）你的问题应该深刻而广泛，而问题的答案应是开放的（以此来试探出应聘者的思维模式）。且要留出反驳的余地（这样，你就可以看看应聘者是如何捍卫和维护自己的观点的）。让不同的应聘者回答同样的问题不失为一种好方法，这样，你就可以对他们的答案有总体的把握了</li>
+<li>第一印象是双向的，你的审视别人，别人也在审视你</li>
+<li>你的任务，就是帮助他们把眼光放得长远些。对于那些下决心离职的人，留在公司怎么能让他们获得更大的成就呢？他们有没有想清楚离职的决定在经济上对他们的影响呢？他们有没有指定明确的财务规划，是否了解他们放弃的机会成本有多大？聆听驱使他们离职的理由，看看能不能找一种方式，在挽留他们的同时帮他们充满能量。在此之后，就帮他们制订一个如果才能在公司得到发展的职业规划。这不仅能表现出你对公司利益的重视，更能彰显你对这些员工个人利益的关心</li>
+<li>即使是在信息共享或头脑风暴这种不必制定决策的会议上，也应明确指定会议的主人</li>
+<li>所有的会议都应该设立一个目标，假如会议目标不明确或会议没能达到既定的目标，那么这场会议也许并不必要</li>
+<li>把80%的时间花在80%的收入上</li>
+<li>OKR(objectives and key results，目标与关键成果)</li>
+<li>在决定是否要实践某个想法的时候，googlex团队会用一张简答的维恩图。第一，这个想法必须涉及一个能够影响数亿人甚至几十亿人的巨大挑战或机遇。第二，这个想法必须提供一种与市场上现存的解决方案截然不同的方法。第三，将突破性解决方案变成现实的科技至少具备可行性，且在不久的将来可以实现</li>
+<li>把70/20/10作为我们的资源配置原则，即将70%的资源配置给核心业务，20%分配给新兴产品，10%投在全新的产品上</li>
+<li>今天，我们都处在一个乐观而焦虑的时代</li>
+<li>我把注意力放在那些非问不可的问题上，这样才能把握未来会出现的问题</li>
+<li>抛弃传统智慧，放飞想象，问问自己，在接下来的5年里，你所在的行业“可能”发生什么样的变化？</li>
+<li>如果你建立的体制对一切都做了规定，人们哪里还有空间创新？</li>
+<li>只要有足够的数据，具备足够的数据处理能力，人类所面临的几乎所有问题都有解决方法</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！.</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/wechat.png" alt="Jeff Xue WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpeg" alt="Jeff Xue Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/管理/" rel="tag"># 管理</a>
+          
+            <a href="/tags/google/" rel="tag"># google</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2016/03/29/nginx请求头中自定义域默认不支持下划线/" rel="next" title="nginx请求头中自定义域默认不支持下划线">
+                <i class="fa fa-chevron-left"></i> nginx请求头中自定义域默认不支持下划线
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2016/04/15/redis2-8编译安装/" rel="prev" title="redis2.8编译安装">
+                redis2.8编译安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/img/avatar.jpeg"
+      alt="Jeff Xue">
+  <p class="site-author-name" itemprop="name">Jeff Xue</p>
+  <div class="site-description motion-element" itemprop="description">Think Bigger, Start Simple!</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/JeffXue" title="GitHub &rarr; https://github.com/JeffXue" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Xue</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

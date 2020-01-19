@@ -254,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/10/apache的MPMs详解/">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/24/Loadrunner发送https请求报错GENERAL-MSG-CAT-SSL-ERROR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Xue">
@@ -271,7 +271,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/03/10/apache的MPMs详解/" class="post-title-link" itemprop="url">apache的MPMs详解</a>
+                <a href="/2016/03/24/Loadrunner发送https请求报错GENERAL-MSG-CAT-SSL-ERROR/" class="post-title-link" itemprop="url">Loadrunner发送https请求报错GENERAL_MSG_CAT_SSL_ERROR</a>
               
             
           </h1>
@@ -290,7 +290,7 @@
                 
               
 
-              <time title="Created: 2016-03-10 09:21:25" itemprop="dateCreated datePublished" datetime="2016-03-10T09:21:25+08:00">2016-03-10</time>
+              <time title="Created: 2016-03-24 10:10:36" itemprop="dateCreated datePublished" datetime="2016-03-24T10:10:36+08:00">2016-03-24</time>
             </span>
           
             
@@ -303,7 +303,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 14:31:49" itemprop="dateModified" datetime="2020-01-19T14:31:49+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 14:37:06" itemprop="dateModified" datetime="2020-01-19T14:37:06+08:00">2020-01-19</time>
               </span>
             
           
@@ -315,7 +315,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/性能/" itemprop="url" rel="index"><span itemprop="name">性能</span></a></span>
 
                 
                 
@@ -334,18 +334,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="MPMs"><a href="#MPMs" class="headerlink" title="MPMs"></a>MPMs</h1><p>Multi-Processing Modules（MPMs）为多路处理模块，对于类UNIX系统，有三个不同的MPM可选择，不同的模式会影响apache的速度和可靠性。</p>
-<h2 id="Perfork-MPM"><a href="#Perfork-MPM" class="headerlink" title="Perfork MPM"></a>Perfork MPM</h2><p>该MPM实现了一个非线程，pre-forking的web server，每个进程均可处理请求，并且有一个父进程管理server poll。适用于没有线程安全库，需要避免线程兼容性问题的系统。每个请求之间都是相互独立，这对于那些需要隔离请求的系统来说是最好的MPM。</p>
-<p>这个MPM具有很强的自我调节能力，一般情况很少去调整配置。最重要的配置是MaxRequestWorkers，应该让该值大于你所预估的同时并发请求数，同时也应考虑是否有足够的内存。</p>
-          <!--noindex-->
           
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/03/10/apache的MPMs详解/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
+            <p>Loadrunner默认情况下使用ssl2/3，一般情况下后端反向代理会禁用SSLv2和SSLv3，因为SSLv2是不安全的，TLS 1.0在遭受到降级攻击时，会允许攻击者强制连接使用SSLv3，因此Loadrunner采用默认配置发送https的情况下会出现握手失败的情况</p>
+<p>可以通过修改所采用的协议来解决</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">web_set_sockets_option(<span class="string">"SSL_VERSION"</span>,<span class="string">"TLS"</span>);</span><br></pre></td></tr></table></figure>
+
+
           
-          <!--/noindex-->
         
       
     </div>
@@ -372,7 +367,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/08/apache使用mod_deflate模块/">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/23/3年计划_2016~2019/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Xue">
@@ -389,7 +384,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/03/08/apache使用mod_deflate模块/" class="post-title-link" itemprop="url">apache使用mod_deflate模块</a>
+                <a href="/2016/03/23/3年计划_2016~2019/" class="post-title-link" itemprop="url">3年计划Plan B(打脸)</a>
               
             
           </h1>
@@ -408,7 +403,7 @@
                 
               
 
-              <time title="Created: 2016-03-08 18:27:10" itemprop="dateCreated datePublished" datetime="2016-03-08T18:27:10+08:00">2016-03-08</time>
+              <time title="Created: 2016-03-23 21:57:58" itemprop="dateCreated datePublished" datetime="2016-03-23T21:57:58+08:00">2016-03-23</time>
             </span>
           
             
@@ -421,601 +416,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 14:31:26" itemprop="dateModified" datetime="2020-01-19T14:31:26+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="mod-deflate模块"><a href="#mod-deflate模块" class="headerlink" title="mod_deflate模块"></a>mod_deflate模块</h1><p><a href="http://www.jeffxue.cn/2016/03/07/apache2.4%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">apache2.4编译安装</a>时加入–enable-deflate，然后在httpd.conf模块中启用该模块，并添加配置</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/03/08/apache使用mod_deflate模块/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/08/apache使用mod_expires模块/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/08/apache使用mod_expires模块/" class="post-title-link" itemprop="url">apache使用mod_expires模块</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-08 18:26:56" itemprop="dateCreated datePublished" datetime="2016-03-08T18:26:56+08:00">2016-03-08</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:31:28" itemprop="dateModified" datetime="2020-01-19T14:31:28+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="mod-expires模块"><a href="#mod-expires模块" class="headerlink" title="mod_expires模块"></a>mod_expires模块</h1><p>mod_expires可以减少用户的重复请求，将特定的页面缓存到浏览器中，当浏览器请求特定资源时，并且该资源没有过期，将会访问浏览器缓存，不向服务器发出请求</p>
-<p>apache默认包含了该模块，需要在httpd.conf中启用并进行配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule expires_module modules/mod_expires.so</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/03/08/apache使用mod_expires模块/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/08/apache日志配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/08/apache日志配置/" class="post-title-link" itemprop="url">apache日志配置</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-08 17:20:17" itemprop="dateCreated datePublished" datetime="2016-03-08T17:20:17+08:00">2016-03-08</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:31:34" itemprop="dateModified" datetime="2020-01-19T14:31:34+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="日志格式"><a href="#日志格式" class="headerlink" title="日志格式"></a>日志格式</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>修改httpd.conf中的LogFormat</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;IfModule log_config_module&gt;</span><br><span class="line">    LogFormat <span class="string">"%h %l %u %t \"%r\" %&gt;s %b \"%&#123;Referer&#125;i\" \"%&#123;User-Agent&#125;i\" \"%&#123;X-Forwarded-For&#125;i\" %D \"%&#123;Host&#125;i\" "</span> combined</span><br><span class="line">    LogFormat <span class="string">"%h %l %u %t \"%r\" %&gt;s %b"</span> common</span><br><span class="line">    &lt;IfModule logio_module&gt;</span><br><span class="line">      LogFormat <span class="string">"%h %l %u %t \"%r\" %&gt;s %b \"%&#123;Referer&#125;i\" \"%&#123;User-Agent&#125;i\" %I %O"</span> combinedio</span><br><span class="line">    &lt;/IfModule&gt;</span><br><span class="line">    CustomLog <span class="string">"logs/access_log"</span> combined</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
-
-<p>修改extra/httpd-ssl.conf的CustomLog</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CustomLog <span class="string">"/usr/local/apache/logs/ssl_request_log"</span> \</span><br><span class="line">          <span class="string">"%h %l %u %t \"%r\" %&gt;s %b \"%&#123;Referer&#125;i\" \"%&#123;User-Agent&#125;i\" \"%&#123;X-Forwarded-For&#125;i\" %D \"%&#123;Host&#125;i\" %&#123;SSL_PROTOCOL&#125;x %&#123;SSL_CIPHER&#125;x</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/03/08/apache日志配置/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/08/apache2.4基本配置说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/08/apache2.4基本配置说明/" class="post-title-link" itemprop="url">apache2.4基本配置说明</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-08 15:15:31" itemprop="dateCreated datePublished" datetime="2016-03-08T15:15:31+08:00">2016-03-08</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:35:35" itemprop="dateModified" datetime="2020-01-19T14:35:35+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="httpd-conf"><a href="#httpd-conf" class="headerlink" title="httpd.conf"></a>httpd.conf</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># httpd HOME目录</span></span><br><span class="line">ServerRoot <span class="string">"/usr/local/apache"</span></span><br><span class="line"><span class="comment"># server name</span></span><br><span class="line">ServerName localhost</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监听端口</span></span><br><span class="line">Listen 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认启用的模块，注释的为较为重要的一些模块，后续会需要使用时开启</span></span><br><span class="line"><span class="comment"># 详细模块说明：https://httpd.apache.org/docs/2.4/mod/</span></span><br><span class="line">LoadModule authn_file_module modules/mod_authn_file.so</span><br><span class="line">LoadModule authn_core_module modules/mod_authn_core.so</span><br><span class="line">LoadModule authz_host_module modules/mod_authz_host.so</span><br><span class="line">LoadModule authz_groupfile_module modules/mod_authz_groupfile.so</span><br><span class="line">LoadModule authz_user_module modules/mod_authz_user.so</span><br><span class="line">LoadModule authz_core_module modules/mod_authz_core.so</span><br><span class="line">LoadModule access_compat_module modules/mod_access_compat.so</span><br><span class="line">LoadModule auth_basic_module modules/mod_auth_basic.so</span><br><span class="line"><span class="comment"># cache模块</span></span><br><span class="line"><span class="comment">#LoadModule cache_module modules/mod_cache.so</span></span><br><span class="line"><span class="comment">#LoadModule cache_disk_module modules/mod_cache_disk.so</span></span><br><span class="line"><span class="comment">#LoadModule socache_shmcb_module modules/mod_socache_shmcb.so</span></span><br><span class="line"><span class="comment">#LoadModule socache_dbm_module modules/mod_socache_dbm.so</span></span><br><span class="line"><span class="comment">#LoadModule socache_memcache_module modules/mod_socache_memcache.so</span></span><br><span class="line">LoadModule reqtimeout_module modules/mod_reqtimeout.so</span><br><span class="line">LoadModule filter_module modules/mod_filter.so</span><br><span class="line"><span class="comment"># 压缩模块</span></span><br><span class="line"><span class="comment">#LoadModule deflate_module modules/mod_deflate.so</span></span><br><span class="line">LoadModule mime_module modules/mod_mime.so</span><br><span class="line">LoadModule log_config_module modules/mod_log_config.so</span><br><span class="line">LoadModule env_module modules/mod_env.so</span><br><span class="line"><span class="comment"># expires模块</span></span><br><span class="line"><span class="comment">#LoadModule expires_module modules/mod_expires.so</span></span><br><span class="line">LoadModule headers_module modules/mod_headers.so</span><br><span class="line">LoadModule setenvif_module modules/mod_setenvif.so</span><br><span class="line">LoadModule version_module modules/mod_version.so</span><br><span class="line"><span class="comment">#LoadModule remoteip_module modules/mod_remoteip.so</span></span><br><span class="line"><span class="comment"># proxy模块</span></span><br><span class="line"><span class="comment">#LoadModule proxy_module modules/mod_proxy.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_connect_module modules/mod_proxy_connect.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_ftp_module modules/mod_proxy_ftp.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_http_module modules/mod_proxy_http.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_scgi_module modules/mod_proxy_scgi.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_fdpass_module modules/mod_proxy_fdpass.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_ajp_module modules/mod_proxy_ajp.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_balancer_module modules/mod_proxy_balancer.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_express_module modules/mod_proxy_express.so</span></span><br><span class="line"><span class="comment"># ssl模块</span></span><br><span class="line"><span class="comment">#LoadModule slotmem_shm_module modules/mod_slotmem_shm.so</span></span><br><span class="line"><span class="comment">#LoadModule slotmem_plain_module modules/mod_slotmem_plain.so</span></span><br><span class="line"><span class="comment">#LoadModule ssl_module modules/mod_ssl.so</span></span><br><span class="line"><span class="comment"># 负载均衡策略模块</span></span><br><span class="line"><span class="comment">#LoadModule lbmethod_byrequests_module modules/mod_lbmethod_byrequests.so</span></span><br><span class="line"><span class="comment">#LoadModule lbmethod_bytraffic_module modules/mod_lbmethod_bytraffic.so</span></span><br><span class="line"><span class="comment">#LoadModule lbmethod_bybusyness_module modules/mod_lbmethod_bybusyness.so</span></span><br><span class="line"><span class="comment">#LoadModule lbmethod_heartbeat_module modules/mod_lbmethod_heartbeat.so</span></span><br><span class="line">LoadModule unixd_module modules/mod_unixd.so</span><br><span class="line">LoadModule status_module modules/mod_status.so</span><br><span class="line">LoadModule autoindex_module modules/mod_autoindex.so</span><br><span class="line"><span class="comment"># info模块</span></span><br><span class="line"><span class="comment">#LoadModule info_module modules/mod_info.so</span></span><br><span class="line">LoadModule dir_module modules/mod_dir.so</span><br><span class="line">LoadModule alias_module modules/mod_alias.so</span><br><span class="line"><span class="comment"># rewrite模块</span></span><br><span class="line"><span class="comment">#LoadModule rewrite_module modules/mod_rewrite.so</span></span><br><span class="line"><span class="comment"># 支持PHP，需要手工编译安装PHP时指定apxs来生成改so</span></span><br><span class="line"><span class="comment">#LoadModule php5_module        modules/libphp5.so</span></span><br><span class="line"><span class="comment"># 指定libz.so</span></span><br><span class="line"><span class="comment">#LoadFile /usr/local/zlib/lib/libz.so</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置用户及用户组</span></span><br><span class="line">&lt;IfModule unixd_module&gt;</span><br><span class="line">User daemon</span><br><span class="line">Group daemon</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 管理员邮箱</span></span><br><span class="line">ServerAdmin you@example.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 禁止对系统文件系统进行访问</span></span><br><span class="line">&lt;Directory /&gt;</span><br><span class="line">    AllowOverride none</span><br><span class="line">    Require all denied</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主站点的路径</span></span><br><span class="line">DocumentRoot <span class="string">"/usr/local/apache/htdocs"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主站点的访问控制</span></span><br><span class="line">&lt;Directory <span class="string">"/usr/local/apache/htdocs"</span>&gt;</span><br><span class="line">    <span class="comment"># Options 配置在特定目录使用哪些特性，详情可看https://httpd.apache.org/docs/2.4/mod/core.html#options</span></span><br><span class="line">    <span class="comment"># indexes 为允许目录浏览，应移除掉</span></span><br><span class="line">    <span class="comment"># FollowSymLinks 允许文件系统使用符号连接</span></span><br><span class="line">    Options Indexes FollowSymLinks</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义对于每个目录下的 .htaccess 文件中的指含类型，根据实际情况进行开启或者禁用</span></span><br><span class="line">    AllowOverride None</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 允许所有请求</span></span><br><span class="line">    Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">&lt;IfModule dir_module&gt;</span><br><span class="line">    <span class="comment"># 设置主页</span></span><br><span class="line">    DirectoryIndex index.html</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 禁止直接访问.htaccess</span></span><br><span class="line">&lt;Files <span class="string">".ht*"</span>&gt;</span><br><span class="line">    Require all denied</span><br><span class="line">&lt;/Files&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 错误日志</span></span><br><span class="line">ErrorLog <span class="string">"logs/error_log"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志级别</span></span><br><span class="line">LogLevel warn</span><br><span class="line"></span><br><span class="line">&lt;IfModule log_config_module&gt;</span><br><span class="line">    <span class="comment"># 日志格式，详细说明见http://httpd.apache.org/docs/current/mod/mod_log_config.html</span></span><br><span class="line">    LogFormat <span class="string">"%h %l %u %t \"%r\" %&gt;s %b \"%&#123;Referer&#125;i\" \"%&#123;User-Agent&#125;i\""</span> combined</span><br><span class="line">    LogFormat <span class="string">"%h %l %u %t \"%r\" %&gt;s %b"</span> common</span><br><span class="line">    &lt;IfModule logio_module&gt;</span><br><span class="line">      LogFormat <span class="string">"%h %l %u %t \"%r\" %&gt;s %b \"%&#123;Referer&#125;i\" \"%&#123;User-Agent&#125;i\" %I %O"</span> combinedio</span><br><span class="line">    &lt;/IfModule&gt;</span><br><span class="line">    <span class="comment"># 日志，应使用rotatelogs进行日志切割</span></span><br><span class="line">    CustomLog <span class="string">"logs/access_log"</span> common</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line">&lt;IfModule alias_module&gt;</span><br><span class="line">    <span class="comment"># 设置cgi脚本目录</span></span><br><span class="line">    ScriptAlias /cgi-bin/ <span class="string">"/usr/local/apache/cgi-bin/"</span></span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line">&lt;IfModule cgid_module&gt;</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># cgi访问控制</span></span><br><span class="line">&lt;Directory <span class="string">"/usr/local/apache/cgi-bin"</span>&gt;</span><br><span class="line">    AllowOverride None</span><br><span class="line">    Options None</span><br><span class="line">    Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">&lt;IfModule mime_module&gt;</span><br><span class="line">    <span class="comment"># 设置mime（Content-Type头，它将告诉浏览器如何呈现内容）</span></span><br><span class="line">    TypesConfig conf/mime.types</span><br><span class="line">    AddType application/x-compress .Z</span><br><span class="line">    AddType application/x-gzip .gz .tgz</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 支持shtml</span></span><br><span class="line">    <span class="comment"># Filters allow you to process content before it is sent to the client</span></span><br><span class="line">    <span class="comment"># To parse .shtml files for server-side includes (SSI):</span></span><br><span class="line">    <span class="comment"># (You will also need to add "Includes" to the "Options" directive.)</span></span><br><span class="line">    <span class="comment">#AddType text/html .shtml</span></span><br><span class="line">    <span class="comment">#AddOutputFilter INCLUDES .shtml</span></span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定制Error Page</span></span><br><span class="line"><span class="comment">#ErrorDocument 500 "The server made a boo boo."</span></span><br><span class="line"><span class="comment">#ErrorDocument 404 /missing.html</span></span><br><span class="line"><span class="comment">#ErrorDocument 402 http://www.example.com/subscription_info.html</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># MPM配置</span></span><br><span class="line"><span class="comment">#Include conf/extra/httpd-mpm.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 状态配置</span></span><br><span class="line"><span class="comment">#Include conf/extra/httpd-info.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 虚拟主机配置</span></span><br><span class="line"><span class="comment">#Include conf/extra/httpd-vhosts.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure mod_proxy_html to understand HTML4/XHTML1</span></span><br><span class="line">&lt;IfModule proxy_html_module&gt;</span><br><span class="line">Include conf/extra/proxy-html.conf</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># SSL配置</span></span><br><span class="line"><span class="comment">#Include conf/extra/httpd-ssl.conf</span></span><br><span class="line"><span class="comment"># Note: The following must must be present to support</span></span><br><span class="line">&lt;IfModule ssl_module&gt;</span><br><span class="line">SSLRandomSeed startup <span class="built_in">builtin</span></span><br><span class="line">SSLRandomSeed connect <span class="built_in">builtin</span></span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Deal with user agents that deliberately violate open standards</span></span><br><span class="line">&lt;IfModule setenvif_module&gt;</span><br><span class="line">BrowserMatch <span class="string">"MSIE 10.0;"</span> bad_DNT</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line">&lt;IfModule headers_module&gt;</span><br><span class="line">RequestHeader <span class="built_in">unset</span> DNT env=bad_DNT</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/03/08/apache2.4基本配置说明/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/07/apache2.4编译安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/07/apache2.4编译安装/" class="post-title-link" itemprop="url">apache2.4编译安装</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-07 16:09:27" itemprop="dateCreated datePublished" datetime="2016-03-07T16:09:27+08:00">2016-03-07</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:31:23" itemprop="dateModified" datetime="2020-01-19T14:31:23+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>The Apache HTTP Server Project is an effort to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Windows. The goal of this project is to provide a secure, efficient and extensible server that provides HTTP services in sync with the current HTTP standards.</p>
-<p>编译安装httpd需要先安装以下包：</p>
-<ul>
-<li>apr (Apache portable Run-time libraries，Apache可移植运行库)的目的如其名称一样，主要为上层的应用程序提供一个可以跨越多操作系统平台使用的底层支持接口库。apr对于Tomcat最大的作用就是socket调度</li>
-<li>apr-util</li>
-<li>pcre  (Perl Compatible Regular Expressions)是一个Perl库，包括 perl 兼容的正则表达式库</li>
-<li>zlib  提供数据压缩用的函式库</li>
-<li>openssl   是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及SSL协议，并提供丰富的应用程序供测试或其它目的使用</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/03/07/apache2.4编译安装/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/02/28/《管理者的实践-成为优秀的管理者》培训摘录/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/02/28/《管理者的实践-成为优秀的管理者》培训摘录/" class="post-title-link" itemprop="url">《管理者的实践--成为优秀的管理者》培训摘录</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-02-28 22:04:34" itemprop="dateCreated datePublished" datetime="2016-02-28T22:04:34+08:00">2016-02-28</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:31:14" itemprop="dateModified" datetime="2020-01-19T14:31:14+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 14:30:56" itemprop="dateModified" datetime="2020-01-19T14:30:56+08:00">2020-01-19</time>
               </span>
             
           
@@ -1046,38 +447,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>培训日期：2016-02-27~2016-02-28</p>
-<ul>
-<li>管理就是有效运用组织内的各项资源，以达到企业的目标</li>
-<li>管理别人，管理自己，管理任务，管理工作</li>
-<li>行为基于角色</li>
-<li>复杂问题-&gt;分解，分类-&gt;简单分析</li>
-<li>管理自己<ul>
-<li>能力</li>
-<li>情绪</li>
-</ul>
-</li>
-<li>三环理论</li>
-<li>管理者不同身份下意识到自己的多重角色：推下，推上，推外</li>
-<li>首先反思自己的责任</li>
-<li>三个意识<ul>
-<li>使命意识</li>
-<li>责任意识</li>
-<li>创新意识</li>
-</ul>
-</li>
-<li>习惯性影响创造意识</li>
-<li>进入新领域：要找专家推荐书籍，写日记</li>
-</ul>
-          <!--noindex-->
           
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/02/28/《管理者的实践-成为优秀的管理者》培训摘录/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
+            <h1 id="第一年"><a href="#第一年" class="headerlink" title="第一年"></a>第一年</h1><p>时间区间：2016.4～2017.3<br>主要内容：掌握后端开发及部分前端开发的必要知识，可以独立搭建后台和前端页面，独立运营网站，并掌握网站相关运营技巧</p>
+<h1 id="第二年"><a href="#第二年" class="headerlink" title="第二年"></a>第二年</h1><p>时间区间：2017.4～2018.3<br>主要内容：掌握ios app开发及android app开发的必要知识，可以独立搭建app应用，上架到商城中进行发布运营，掌握相关app运营技巧</p>
+<h1 id="第三年"><a href="#第三年" class="headerlink" title="第三年"></a>第三年</h1><p>时间区间：2018.4～2019.3<br>主要内容：根据前期的积累逐步成为一名独立开发者</p>
+
           
-          <!--/noindex-->
         
       
     </div>
@@ -1104,7 +479,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/02/17/debian-ubuntu中安装配置bind9/">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/23/《HTTP权威指南》/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Xue">
@@ -1121,7 +496,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/02/17/debian-ubuntu中安装配置bind9/" class="post-title-link" itemprop="url">debian/ubuntu中安装配置bind9</a>
+                <a href="/2016/03/23/《HTTP权威指南》/" class="post-title-link" itemprop="url">HTTP权威指南</a>
               
             
           </h1>
@@ -1140,7 +515,7 @@
                 
               
 
-              <time title="Created: 2016-02-17 22:14:18" itemprop="dateCreated datePublished" datetime="2016-02-17T22:14:18+08:00">2016-02-17</time>
+              <time title="Created: 2016-03-23 15:06:14" itemprop="dateCreated datePublished" datetime="2016-03-23T15:06:14+08:00">2016-03-23</time>
             </span>
           
             
@@ -1153,131 +528,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 14:30:50" itemprop="dateModified" datetime="2020-01-19T14:30:50+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="安装bind9"><a href="#安装bind9" class="headerlink" title="安装bind9"></a>安装bind9</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install bind9 -y</span><br></pre></td></tr></table></figure>
-
-<p>安装后修改配置文件，若需要修改本地DNS，可修改/etc/resolve.conf</p>
-<h1 id="配置文件说明"><a href="#配置文件说明" class="headerlink" title="配置文件说明"></a>配置文件说明</h1><p>安装后配置文件默认在/etc/bind/目录下</p>
-<ul>
-<li>named.conf <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">include <span class="string">"/etc/bind/named.conf.options"</span>;</span><br><span class="line">include <span class="string">"/etc/bind/named.conf.local"</span>;</span><br><span class="line">include <span class="string">"/etc/bind/named.conf.default-zones"</span>;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/02/17/debian-ubuntu中安装配置bind9/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/01/13/2016书单/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/01/13/2016书单/" class="post-title-link" itemprop="url">2016书单（(打脸)）</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-01-13 23:14:26" itemprop="dateCreated datePublished" datetime="2016-01-13T23:14:26+08:00">2016-01-13</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:31:04" itemprop="dateModified" datetime="2020-01-19T14:31:04+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 15:09:38" itemprop="dateModified" datetime="2020-01-19T15:09:38+08:00">2020-01-19</time>
               </span>
             
           
@@ -1308,33 +559,52 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="技术类"><a href="#技术类" class="headerlink" title="技术类"></a>技术类</h2><ul>
-<li>(已购)MySQL排错指南  – by：斯维特·斯米尔诺娃 (Sveta Smirnova)</li>
-<li>(电子版)高性能MySQL  – by：施瓦茨</li>
-<li>高可用MySQL  – by：C.) 贝尔(Bell, M.) 肯德尔(Kindahl, L.) 塞尔曼 (Thalmann)</li>
-<li>(电子版)Google软件测试之道</li>
-<li>(电子版)HTTP权威指南</li>
-<li>网站性能监测与优化  – by：克鲁尔(Alistair Croll), 鲍尔(Sean Power), 袁菲</li>
-<li>白帽子讲Web安全  – by：吴翰清</li>
-<li>Selenium自动化测试指南  – by：赵卓</li>
-<li>(已购)高性能Linux服务器构建实战  – by：高俊峰</li>
-<li>(已购)性能之巅:洞悉系统、企业与云计算  – by：格雷格 (Gregg,B.)</li>
-<li><del>(电子版)重视大脑的学习指南:Head First Python  – by：巴里（Barry.P.）</del>(初步阅读电子版，无爱，不再进一步阅读)</li>
-<li>Python Cookbook  – by：马特利(Alex Martelli), 马特利(Anna Martelli Ravenscroft), 阿舍尔(David Ascher)</li>
-<li>(已购)利用Python进行数据分析  – by：Wes McKinney </li>
-<li>(已购)编写高质量代码：改善Python程序的91个建议  – by：张颖 赖勇浩</li>
-<li>高效程序员的45个习惯:敏捷开发修炼之道  – by：苏帕拉马尼亚姆(Venkat Subramaniam) 亨特(Andy Hunt) </li>
-<li>程序之美系列：架构之美、数据之美  – by：Diomidis Spinellis；Georgios Gousios；Toby Segaran；Jeff Hammerbacher </li>
-<li><del>(取消)Php和Mysql Web开发  – by：Luke Welling、 Laura Thomson</del></li>
-<li><del>(取消)高性能网站建设进阶指南：Web开发者性能优化最佳实践  – by：Steve Souders, 口碑网前端团队</del></li>
-<li><del>(取消)modern PHP  – by：乔希·洛克哈特 (Josh Lockhart)</del></li>
-<li><del>(取消)PHP与MySQL动态网站开发  – by：Larry UIIman</del></li>
-<li><del>(取消)PHP核心技术与最佳实践  – by：列旭松 陈文</del></li>
+          <h1 id="序"><a href="#序" class="headerlink" title="序"></a>序</h1><ol>
+<li><p>HTTP Hypertext Transfer Protocol 超文本传输协议</p>
+</li>
+<li><p>阅读人群</p>
+</li>
+</ol>
+<ul>
+<li>软硬件工程师：可以作为HTTP及相关Web技术参考书使用</li>
+<li>系统架构师和网络管理员：了解如何设计、实现并管理复杂的网络架构</li>
+<li>性能工程师和分析人员：从缓存和性能优化的相关章节获益</li>
+<li>市场营销和咨询专家：通过概念介绍更好的理解Web技术的前景</li>
+</ul>
+<hr>
+<h1 id="HTTP：Web基础"><a href="#HTTP：Web基础" class="headerlink" title="HTTP：Web基础"></a>HTTP：Web基础</h1><h2 id="HTTP概述"><a href="#HTTP概述" class="headerlink" title="HTTP概述"></a>HTTP概述</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">客户端-&gt;服务器: http请求“请将名为/index.html的文档发给我”</span><br><span class="line">服务器--&gt;客户端: “好的，这就是。文档是以HTML格式给出的，有3150字节长”</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>资源：所有类型的内容来源都是资源</p>
+</li>
+<li><p>类型：所有HTTP对象数据都会附加一个MIME类型的数据格式标签，用它来描述并标记多媒体内容，浏览器根据MIME类型去知道应该如何处理这个对象。</p>
+<ul>
+<li>MIME类型是一种文本标记，表示一种主要的对象类型和一个特定的子类型，中间由一条斜杠来分隔</li>
+</ul>
+</li>
+<li><p>URI：服务器资源名被称为<strong>统一资源标识符</strong>（Uniform Resource Identifier URI）</p>
+</li>
+<li><p>URI有两种形式：URL和URN</p>
+<ul>
+<li>URL： 统一资源定位符，是资源标识符最常见的形式，描述一台特定服务器上某资源的特定位置<ul>
+<li>第一部分http:// 被称为方案（scheme），告知web客户端怎么访问资源</li>
+<li>第二部分<a href="http://www.oreilly.com" target="_blank" rel="noopener">www.oreilly.com</a> 指的是服务器的位置</li>
+<li>第三部分是资源路径</li>
+<li>几乎所有的URI都是URL</li>
+</ul>
+</li>
+<li>URN：统一资源名，是作为特定内容的唯一名称使用的，与目前的资源所在地无关。可以将资源四处搬移和用同一个名字通过多种网络访问协议访问资源<ul>
+<li>因特网标准文档RFC 2141 用URN命名：urn:ietf:rfc:2141</li>
+<li>URN仍然处于试验阶段</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2016/01/13/2016书单/#more" rel="contents">
+              <a class="btn" href="/2016/03/23/《HTTP权威指南》/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1366,7 +636,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/01/03/使用Hexo搭建个人博客/">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-limit-req-module模块使用说明/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Xue">
@@ -1383,7 +653,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/01/03/使用Hexo搭建个人博客/" class="post-title-link" itemprop="url">使用Hexo搭建个人博客</a>
+                <a href="/2016/03/22/ngx-http-limit-req-module模块使用说明/" class="post-title-link" itemprop="url">ngx_http_limit_req_module模块使用说明</a>
               
             
           </h1>
@@ -1402,7 +672,7 @@
                 
               
 
-              <time title="Created: 2016-01-03 17:37:18" itemprop="dateCreated datePublished" datetime="2016-01-03T17:37:18+08:00">2016-01-03</time>
+              <time title="Created: 2016-03-22 20:39:40" itemprop="dateCreated datePublished" datetime="2016-03-22T20:39:40+08:00">2016-03-22</time>
             </span>
           
             
@@ -1415,7 +685,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 14:35:10" itemprop="dateModified" datetime="2020-01-19T14:35:10+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 14:36:21" itemprop="dateModified" datetime="2020-01-19T14:36:21+08:00">2020-01-19</time>
               </span>
             
           
@@ -1427,7 +697,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/博客/" itemprop="url" rel="index"><span itemprop="name">博客</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
 
                 
                 
@@ -1446,12 +716,137 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="部署Hexo"><a href="#部署Hexo" class="headerlink" title="部署Hexo"></a>部署Hexo</h2><p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br>以下说明针对debian/ubuntu环境,其他情况请参考:<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo文档</a></p>
-<h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
+          
+            <p>ngx_http_limit_req_module用于限制指定key的并发请求数。例如可以限制单个IP地址的请求速率。限制是使用漏桶算法的方法来实现。</p>
+<p>例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    ＃ Sets parameters <span class="keyword">for</span> a shared memory zone that will keep states <span class="keyword">for</span> various keys</span><br><span class="line">    limit_req_zone <span class="variable">$binary_remote_addr</span> zone=one:10m rate=1r/s;</span><br><span class="line">    <span class="comment"># 设置拒绝请求返回的请求码</span></span><br><span class="line">    limit_req_status 503;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        location /search/ &#123;</span><br><span class="line">            <span class="comment"># sets the shared memory zone and the maximum burst size of requests</span></span><br><span class="line">            limit_req zone=one burst=5;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="limit-req指令"><a href="#limit-req指令" class="headerlink" title="limit_req指令"></a>limit_req指令</h1><blockquote>
+<p>Syntax:    limit_req zone=name [burst=number] [nodelay];<br>Default:   —<br>Context:   http, server, location</p>
+</blockquote>
+<p>当请求速度超过了zone所配置的速度，他们的请求会被延时，就像以所设定的速度在进行请求一样。超出限制的请求数量超过了最大的burst大小，会直接返回503，默认情况下最大的burst为0.</p>
+<p>如果不希望超出的请求被延时处理，可以设置nodelay：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">limit_req zone=one burst=5 nodelay;</span><br></pre></td></tr></table></figure>
+
+<p>可以设置多个limit_req指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    limit_req_zone <span class="variable">$binary_remote_addr</span> zone=perip:10m rate=1r/s;</span><br><span class="line">    limit_req_zone <span class="variable">$server_name</span> zone=perserver:10m rate=10r/s;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        ...</span><br><span class="line">        limit_req zone=perip burst=5 nodelay;</span><br><span class="line">        limit_req zone=perserver burst=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-limit-conn-module模块使用说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/22/ngx-http-limit-conn-module模块使用说明/" class="post-title-link" itemprop="url">ngx_http_limit_conn_module模块使用说明</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-22 18:18:21" itemprop="dateCreated datePublished" datetime="2016-03-22T18:18:21+08:00">2016-03-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:24" itemprop="dateModified" datetime="2020-01-19T14:36:24+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>ngx_http_limit_conn_module限制指定key值的并发连接数，如限制单个IP的连接数。</p>
+<p>并不是所有连接都会统计，只有当这个请求正在被处理，并且整个请求头已经被读取的情况下，这个连接才会被统计进来。</p>
+<p>例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    <span class="comment"># Sets parameters for a shared memory zone that will keep states for various keys. </span></span><br><span class="line">    limit_conn_zone <span class="variable">$binary_remote_addr</span> zone=addr:10m;</span><br><span class="line">    <span class="comment"># 设置超过最大连接数后的返回码，默认为503</span></span><br><span class="line">    limit_conn_status 503;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        location /download/ &#123;</span><br><span class="line">            <span class="comment"># Sets the shared memory zone and the maximum allowed number of connections for a given key value</span></span><br><span class="line">            limit_conn addr 1;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2016/01/03/使用Hexo搭建个人博客/#more" rel="contents">
+              <a class="btn" href="/2016/03/22/ngx-http-limit-conn-module模块使用说明/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1476,11 +871,598 @@
   </article>
 
     
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-headers-module模块使用说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/22/ngx-http-headers-module模块使用说明/" class="post-title-link" itemprop="url">ngx_http_headers_module模块使用说明</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-22 17:59:04" itemprop="dateCreated datePublished" datetime="2016-03-22T17:59:04+08:00">2016-03-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:26" itemprop="dateModified" datetime="2020-01-19T14:36:26+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>ngx_http_headers_module 允许添加Expires和Cache-Control域和任意的域到响应头中。</p>
+<p>例子</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">expires    24h;</span><br><span class="line">expires    modified +24h;</span><br><span class="line">expires    @24h;</span><br><span class="line">expires    0;</span><br><span class="line">expires    -1;</span><br><span class="line">expires    epoch;</span><br><span class="line">expires    <span class="variable">$expires</span>;</span><br><span class="line">add_header Cache-Control private;</span><br></pre></td></tr></table></figure>
+
+<h1 id="add-header指令"><a href="#add-header指令" class="headerlink" title="add_header指令"></a>add_header指令</h1><blockquote>
+<p>Syntax:    add_header name value [always];<br>Default:   —<br>Context:   http, server, location, if in location</p>
+</blockquote>
+<p>当请求响应码为200,201,204,206,301,302,303,304或307时，该配置的域将会添加到应答头中，可以有多个add_header指令。这些指令均会继承上一层的，除非当前没有使用add_header</p>
+<h1 id="expires指令"><a href="#expires指令" class="headerlink" title="expires指令"></a>expires指令</h1><blockquote>
+<p>Syntax:    expires [modified] time;<br>                expires epoch | max | off;<br>Default:   expires off;<br>Context:   http, server, location, if in location</p>
+</blockquote>
+<p>该指令为在应答头中添加了Expires和Cache-Control域。<br>后面为负数，将添加头：Cache-Control: no-cache<br>后面为正数/0，将添加头：Cache-Control: max-age=t</p>
+<p>可以根据不同文件类型设置不同的超时时间</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">map <span class="variable">$sent_http_content_type</span>  <span class="variable">$expires</span> &#123;</span><br><span class="line">    <span class="string">"~*image/*"</span>                         7d;</span><br><span class="line">    <span class="string">"~*application/x-javascript"</span>        7d;</span><br><span class="line">    <span class="string">"~*text/css"</span>                        7d;</span><br><span class="line">    <span class="string">"~*text/javascript"</span>                 7d;</span><br><span class="line">    <span class="string">"~*application/javascript"</span>          7d;</span><br><span class="line">    <span class="string">"~*text/plain"</span>                      1d;</span><br><span class="line">    <span class="string">"~*application/x-shockwave-flash"</span>   7d;</span><br><span class="line">    <span class="string">"~*video/x-flv"</span>                     7d;</span><br><span class="line">    <span class="string">"~*application/pdf"</span>                 7d;</span><br><span class="line">    default                             off;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">expires <span class="variable">$expires</span>;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-gzip-module模块使用说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/22/ngx-http-gzip-module模块使用说明/" class="post-title-link" itemprop="url">ngx_http_gzip_module模块使用说明</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-22 17:44:56" itemprop="dateCreated datePublished" datetime="2016-03-22T17:44:56+08:00">2016-03-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:29" itemprop="dateModified" datetime="2020-01-19T14:36:29+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>ngx_http_gzip_module是一个使用gzip方法压缩响应内容的过滤器。这会减少一一半以上的传输内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启gzip</span></span><br><span class="line">gzip                on;</span><br><span class="line"><span class="comment"># 设置用于压缩的buffer数量和大小</span></span><br><span class="line">gzip_buffers        4 16k;</span><br><span class="line"><span class="comment"># 设置进行压缩的请求协议</span></span><br><span class="line">gzip_http_version   1.1;</span><br><span class="line"><span class="comment"># 设置压缩比率 1~9,1为最小化压缩（处理速度快），9为最大化压缩（处理速度慢）</span></span><br><span class="line">gzip_comp_level     6;</span><br><span class="line"><span class="comment"># 设置需要压缩的MIME类型，text/html总是会被压缩</span></span><br><span class="line">gzip_types          text/plain text/php text/xml text/css text/javascript application/javascript application/xhtml+xml application/xml application/rss+xml application/atom_xml application/x-javascript application/x-httpd-php image/svg+xml;</span><br><span class="line"><span class="comment"># 指定不需要gzip压缩的浏览器</span></span><br><span class="line">gzip_disable        <span class="string">"msie6"</span></span><br><span class="line"><span class="comment"># 启用应答头Vary:Accept-Encoding</span></span><br><span class="line">gzip_vary           on;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/nginx授权资源跨站点访问/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/22/nginx授权资源跨站点访问/" class="post-title-link" itemprop="url">nginx授权资源跨站点访问</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-22 17:19:26" itemprop="dateCreated datePublished" datetime="2016-03-22T17:19:26+08:00">2016-03-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:42" itemprop="dateModified" datetime="2020-01-19T14:36:42+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Access-Control-Allow-Origin 是html5 添加的新功能。基本上, 这是一个http的header, 用在返回资源的时候, 指定这个资源可以被哪些网域跨站访问。</p>
+<p>比方说, 你的图片都放在 res.byneil.com 这个域下, 如果在返回的头中没有设置Access-Control-Allow-Origin , 那么别的域是不能外链你的图片的。当然这要取决于浏览器的实现是否遵守规范。所以导致一些网站资源加载不进来.</p>
+<p>解决方法就是 在资源的头中 加入 Access-Control-Allow-Origin 指定你授权的域. 这里指定星号 * , 任何域都可以访问我的资源.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: *</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/03/22/nginx授权资源跨站点访问/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/nginx日志切割/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/22/nginx日志切割/" class="post-title-link" itemprop="url">nginx日志切割</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-22 17:05:26" itemprop="dateCreated datePublished" datetime="2016-03-22T17:05:26+08:00">2016-03-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:37" itemprop="dateModified" datetime="2020-01-19T14:36:37+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>由于nginx没有像apache一样自带日志切割工具（rotatelogs），但可以使用linux系统自带的工具logrotate，并配置定时任务即可实现定时日志切割</p>
+<h1 id="logrotate日志管理工具"><a href="#logrotate日志管理工具" class="headerlink" title="logrotate日志管理工具"></a>logrotate日志管理工具</h1><p>logrotate是一个日志文件管理工具。用来把旧文件轮转、压缩、删除，并且创建新的日志文件。我们可以根据日志文件的大小、天数等来转储，便于对日志文件管理，一般都是通过cron计划任务来完成的。</p>
+<h2 id="命令参数说明"><a href="#命令参数说明" class="headerlink" title="命令参数说明"></a>命令参数说明</h2><p>logrotate –help</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Usage: logrotate [OPTION...] &lt;configfile&gt;</span><br><span class="line">  -d, --debug               Don<span class="string">'t do anything, just test (implies -v)</span></span><br><span class="line"><span class="string">  -f, --force               Force file rotation</span></span><br><span class="line"><span class="string">  -m, --mail=command        Command to send mail (instead of `/usr/bin/mail'</span>)</span><br><span class="line">  -s, --state=statefile     Path of state file</span><br><span class="line">  -v, --verbose             Display messages during rotation</span><br><span class="line"></span><br><span class="line">Help options:</span><br><span class="line">  -?, --<span class="built_in">help</span>                Show this <span class="built_in">help</span> message</span><br><span class="line">      --usage               Display brief usage message</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/03/22/nginx日志切割/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/nginx-ssl配置说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/22/nginx-ssl配置说明/" class="post-title-link" itemprop="url">nginx_ssl配置说明</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-22 16:26:40" itemprop="dateCreated datePublished" datetime="2016-03-22T16:26:40+08:00">2016-03-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:51" itemprop="dateModified" datetime="2020-01-19T14:36:51+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><p>本文主要针对nginx支持HTTPS配置进行说明，详情见<a href="http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_protocols" target="_blank" rel="noopener">官方文档</a></p>
+<p>nginx.conf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务器证书， nginx无法设置CA证书，导致手机端无法通过ssl握手，把CA证书合并到该文件中即可</span></span><br><span class="line">ssl_certificate             /usr/<span class="built_in">local</span>/nginx/conf/newssl/nginx_domain.crt;</span><br><span class="line"><span class="comment"># 服务器秘钥</span></span><br><span class="line">ssl_certificate_key         /usr/<span class="built_in">local</span>/nginx/conf/newssl/your.key;</span><br><span class="line"><span class="comment"># 设置加密算法套件，不同的加密算法可能会导致不同的漏洞，根据https://linux.cn/article-5374-1.html  修改而来的ciphers</span></span><br><span class="line">ssl_ciphers                 ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4;</span><br><span class="line"><span class="comment"># 当使用SSLv3和TLS协议时，首选服务器的加密套件</span></span><br><span class="line">ssl_prefer_server_ciphers   on;</span><br><span class="line"><span class="comment"># 设置支持的协议，SSLv2 是不安全的，所以我们需要禁用它。我们也禁用 SSLv3，因为 TLS 1.0 在遭受到降级攻击时，会允许攻击者强制连接使用 SSLv3</span></span><br><span class="line">ssl_protocols               TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line"><span class="comment"># 不存储session到cache</span></span><br><span class="line">ssl_session_cache           none;</span><br><span class="line"><span class="comment"># 关闭session tickets</span></span><br><span class="line">ssl_session_tickets         off;</span><br><span class="line"><span class="comment"># 关闭验证客户端证书</span></span><br><span class="line">ssl_verify_client           off;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    <span class="comment"># 监听端口443 https协议</span></span><br><span class="line">    listen             443 ssl;</span><br><span class="line">    <span class="comment"># 访问域名</span></span><br><span class="line">    server_name  example.com;</span><br><span class="line">    <span class="comment"># 启用https</span></span><br><span class="line">    ssl                on;</span><br><span class="line">    <span class="comment"># 日志文件</span></span><br><span class="line">    access_log     <span class="built_in">log</span>/access_ssl.log  main;</span><br><span class="line">    <span class="comment"># 默认访问</span></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass   http://127.0.0.1:8080;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1516,7 +1498,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">99</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1658,7 +1640,11 @@
         
           
         
-        <span class="site-state-item-count">46</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
