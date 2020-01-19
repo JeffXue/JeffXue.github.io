@@ -172,7 +172,40 @@
       
     
 
-    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Categories</a>
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-读书">
+      
+    
+
+    <a href="/categories/读书/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>读书</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-编程">
+      
+    
+
+    <a href="/categories/编程/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>编程</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-思考">
+      
+    
+
+    <a href="/categories/思考/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>思考</a>
 
   </li>
         
@@ -183,7 +216,7 @@
       
     
 
-    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
         
@@ -194,7 +227,7 @@
       
     
 
-    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Tags</a>
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
     </ul>
@@ -214,6 +247,370 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/18/tomcat-native编译安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/04/18/tomcat-native编译安装/" class="post-title-link" itemprop="url">tomcat-native编译安装</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-04-18 20:09:03" itemprop="dateCreated datePublished" datetime="2016-04-18T20:09:03+08:00">2016-04-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:35:47" itemprop="dateModified" datetime="2020-01-19T14:35:47+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Tomcat-Native概述"><a href="#Tomcat-Native概述" class="headerlink" title="Tomcat Native概述"></a>Tomcat Native概述</h1><p>The Apache Tomcat Native Library is an optional component for use with Apache Tomcat that allows Tomcat to use certain native resources for performance, compatibility, etc.</p>
+<p>Specifically, the Apache Tomcat Native Library gives Tomcat access to the Apache Portable Runtime (APR) library’s network connection (socket) implementation and random-number generator. See the Apache Tomcat documentation for more information on how to configure Tomcat to use the APR connector.</p>
+<p>Features of the APR connector:</p>
+<ul>
+<li>Non-blocking I/O for Keep-Alive requests (between requests)</li>
+<li>Uses OpenSSL for TLS/SSL capabilities (if supported by linked APR library)</li>
+<li>FIPS 140-2 support for TLS/SSL (if supported by linked OpenSSL library)</li>
+</ul>
+<p>可见以下<a href="https://raw.githubusercontent.com/JeffXue/common_scripts/master/install_tomcat_native1.2.5.sh" target="_blank" rel="noopener">安装脚本</a></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/04/18/tomcat-native编译安装/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/18/tomcat7安装配置详细说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/04/18/tomcat7安装配置详细说明/" class="post-title-link" itemprop="url">tomcat7安装配置详细说明</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-04-18 20:06:21" itemprop="dateCreated datePublished" datetime="2016-04-18T20:06:21+08:00">2016-04-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:35:20" itemprop="dateModified" datetime="2020-01-19T14:35:20+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>Tomcat不需要安装，直接解压到对应的目录即可，需提前解压安装JDK1.7，并配置环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar xvzf apache-tomcat-7.0.68.tar.gz -C /usr/<span class="built_in">local</span></span><br><span class="line"></span><br><span class="line">mv /usr/<span class="built_in">local</span>/apache-tomcat-7.0.68 /usr/<span class="built_in">local</span>/tomcat</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="配置JAVA-HOME"><a href="#配置JAVA-HOME" class="headerlink" title="配置JAVA_HOME"></a>配置JAVA_HOME</h2><p>启动的时候，启动脚本会加载setenv.sh，以下为catalina.sh截取代码<br>(同样会自动加载setclasspath.sh)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -r <span class="string">"<span class="variable">$CATALINA_BASE</span>/bin/setenv.sh"</span> ]; <span class="keyword">then</span></span><br><span class="line">     . <span class="string">"<span class="variable">$CATALINA_BASE</span>/bin/setenv.sh"</span></span><br><span class="line"><span class="keyword">elif</span> [ -r <span class="string">"<span class="variable">$CATALINA_HOME</span>/bin/setenv.sh"</span> ]; <span class="keyword">then</span></span><br><span class="line">     . <span class="string">"<span class="variable">$CATALINA_HOME</span>/bin/setenv.sh"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>/usr/local/tomcat/bin/setenv.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/<span class="built_in">local</span>/jdk1.7.0_79</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/04/18/tomcat7安装配置详细说明/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/15/redis-benchmark使用详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/04/15/redis-benchmark使用详解/" class="post-title-link" itemprop="url">redis-benchmark使用详解</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-04-15 23:05:59" itemprop="dateCreated datePublished" datetime="2016-04-15T23:05:59+08:00">2016-04-15</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:05" itemprop="dateModified" datetime="2020-01-19T14:36:05+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="redis-benchmark"><a href="#redis-benchmark" class="headerlink" title="redis-benchmark"></a>redis-benchmark</h1><p>redis-benchmark是redis自带的一个工具，可用于测试redis的性能</p>
+<h1 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Usage: redis-benchmark [-h &lt;host&gt;] [-p &lt;port&gt;] [-c &lt;clients&gt;] [-n &lt;requests]&gt; [-k &lt;boolean&gt;]</span><br><span class="line"></span><br><span class="line"> -h &lt;hostname&gt;      Server hostname (default 127.0.0.1) <span class="comment">#所要连接的机器</span></span><br><span class="line"> -p &lt;port&gt;          Server port (default 6379) <span class="comment">#服务端口</span></span><br><span class="line"> -s &lt;socket&gt;        Server socket (overrides host and port)</span><br><span class="line"> -a &lt;password&gt;      Password <span class="keyword">for</span> Redis Auth <span class="comment">#认证密码</span></span><br><span class="line"> -c &lt;clients&gt;       Number of parallel connections (default 50) <span class="comment">#并发连接数</span></span><br><span class="line"> -n &lt;requests&gt;      Total number of requests (default 10000) <span class="comment">#总的请求数量</span></span><br><span class="line"> -d &lt;size&gt;          Data size of SET/GET value <span class="keyword">in</span> bytes (default 2) <span class="comment">#SET和GET value的大小</span></span><br><span class="line"> -dbnum &lt;db&gt;        SELECT the specified db number (default 0) <span class="comment">#选择db number</span></span><br><span class="line"> -k &lt;boolean&gt;       1=keep alive 0=reconnect (default 1) <span class="comment"># 设置是否开启keepalive</span></span><br><span class="line"> -r &lt;keyspacelen&gt;   Use random keys <span class="keyword">for</span> SET/GET/INCR, random values <span class="keyword">for</span> SADD</span><br><span class="line">  Using this option the benchmark will expand the string __rand_int__</span><br><span class="line">  inside an argument with a 12 digits number <span class="keyword">in</span> the specified range</span><br><span class="line">  from 0 to keyspacelen-1. The substitution changes every time a <span class="built_in">command</span></span><br><span class="line">  is executed. Default tests use this to hit random keys <span class="keyword">in</span> the</span><br><span class="line">  specified range.</span><br><span class="line"> -P &lt;numreq&gt;        Pipeline &lt;numreq&gt; requests. Default 1 (no pipeline).</span><br><span class="line"> -q                 Quiet. Just show query/sec values <span class="comment"># 静态模式运行</span></span><br><span class="line"> --csv              Output <span class="keyword">in</span> CSV format <span class="comment"># 输出csv</span></span><br><span class="line"> -l                 Loop. Run the tests forever <span class="comment">#一直运行</span></span><br><span class="line"> -t &lt;tests&gt;         Only run the comma separated list of tests. The <span class="built_in">test</span></span><br><span class="line">                    names are the same as the ones produced as output. <span class="comment"># 设置测试项</span></span><br><span class="line"> -I                 Idle mode. Just open N idle connections and <span class="built_in">wait</span>. <span class="comment"># 空闲模式，只创建连接</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/04/15/redis-benchmark使用详解/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
       
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -270,7 +667,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:33:24" itemprop="dateModified" datetime="2019-08-01T09:33:24+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:36:01" itemprop="dateModified" datetime="2020-01-19T14:36:01+08:00">2020-01-19</time>
               </span>
             
           
@@ -282,7 +679,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
 
                 
                 
@@ -388,7 +785,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:12:03" itemprop="dateModified" datetime="2020-01-19T14:12:03+08:00">2020-01-19</time>
               </span>
             
           
@@ -400,7 +797,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读摘录/" itemprop="url" rel="index"><span itemprop="name">阅读摘录</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书/" itemprop="url" rel="index"><span itemprop="name">读书</span></a></span>
 
                 
                 
@@ -517,7 +914,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:33:05" itemprop="dateModified" datetime="2019-08-01T09:33:05+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:36:35" itemprop="dateModified" datetime="2020-01-19T14:36:35+08:00">2020-01-19</time>
               </span>
             
           
@@ -529,7 +926,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
 
                 
                 
@@ -635,7 +1032,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:34:24" itemprop="dateModified" datetime="2019-08-01T09:34:24+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:33:20" itemprop="dateModified" datetime="2020-01-19T14:33:20+08:00">2020-01-19</time>
               </span>
             
           
@@ -647,7 +1044,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
 
                 
                 
@@ -753,7 +1150,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:37:06" itemprop="dateModified" datetime="2020-01-19T14:37:06+08:00">2020-01-19</time>
               </span>
             
           
@@ -765,7 +1162,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/性能测试/" itemprop="url" rel="index"><span itemprop="name">性能测试</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/性能/" itemprop="url" rel="index"><span itemprop="name">性能</span></a></span>
 
                 
                 
@@ -866,7 +1263,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:38:00" itemprop="dateModified" datetime="2019-08-01T09:38:00+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:30:56" itemprop="dateModified" datetime="2020-01-19T14:30:56+08:00">2020-01-19</time>
               </span>
             
           
@@ -878,7 +1275,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/思考/" itemprop="url" rel="index"><span itemprop="name">思考</span></a></span>
 
                 
                 
@@ -978,7 +1375,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:33:02" itemprop="dateModified" datetime="2019-08-01T09:33:02+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:36:21" itemprop="dateModified" datetime="2020-01-19T14:36:21+08:00">2020-01-19</time>
               </span>
             
           
@@ -990,7 +1387,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
 
                 
                 
@@ -1023,361 +1420,6 @@
 
 <p>可以设置多个limit_req指令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    limit_req_zone <span class="variable">$binary_remote_addr</span> zone=perip:10m rate=1r/s;</span><br><span class="line">    limit_req_zone <span class="variable">$server_name</span> zone=perserver:10m rate=10r/s;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        ...</span><br><span class="line">        limit_req zone=perip burst=5 nodelay;</span><br><span class="line">        limit_req zone=perserver burst=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-limit-conn-module模块使用说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/22/ngx-http-limit-conn-module模块使用说明/" class="post-title-link" itemprop="url">ngx_http_limit_conn_module模块使用说明</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-22 18:18:21" itemprop="dateCreated datePublished" datetime="2016-03-22T18:18:21+08:00">2016-03-22</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-01 09:33:03" itemprop="dateModified" datetime="2019-08-01T09:33:03+08:00">2019-08-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>ngx_http_limit_conn_module限制指定key值的并发连接数，如限制单个IP的连接数。</p>
-<p>并不是所有连接都会统计，只有当这个请求正在被处理，并且整个请求头已经被读取的情况下，这个连接才会被统计进来。</p>
-<p>例子：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    <span class="comment"># Sets parameters for a shared memory zone that will keep states for various keys. </span></span><br><span class="line">    limit_conn_zone <span class="variable">$binary_remote_addr</span> zone=addr:10m;</span><br><span class="line">    <span class="comment"># 设置超过最大连接数后的返回码，默认为503</span></span><br><span class="line">    limit_conn_status 503;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        location /download/ &#123;</span><br><span class="line">            <span class="comment"># Sets the shared memory zone and the maximum allowed number of connections for a given key value</span></span><br><span class="line">            limit_conn addr 1;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/03/22/ngx-http-limit-conn-module模块使用说明/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-headers-module模块使用说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/22/ngx-http-headers-module模块使用说明/" class="post-title-link" itemprop="url">ngx_http_headers_module模块使用说明</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-22 17:59:04" itemprop="dateCreated datePublished" datetime="2016-03-22T17:59:04+08:00">2016-03-22</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-01 09:33:03" itemprop="dateModified" datetime="2019-08-01T09:33:03+08:00">2019-08-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>ngx_http_headers_module 允许添加Expires和Cache-Control域和任意的域到响应头中。</p>
-<p>例子</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">expires    24h;</span><br><span class="line">expires    modified +24h;</span><br><span class="line">expires    @24h;</span><br><span class="line">expires    0;</span><br><span class="line">expires    -1;</span><br><span class="line">expires    epoch;</span><br><span class="line">expires    <span class="variable">$expires</span>;</span><br><span class="line">add_header Cache-Control private;</span><br></pre></td></tr></table></figure>
-
-<h1 id="add-header指令"><a href="#add-header指令" class="headerlink" title="add_header指令"></a>add_header指令</h1><blockquote>
-<p>Syntax:    add_header name value [always];<br>Default:   —<br>Context:   http, server, location, if in location</p>
-</blockquote>
-<p>当请求响应码为200,201,204,206,301,302,303,304或307时，该配置的域将会添加到应答头中，可以有多个add_header指令。这些指令均会继承上一层的，除非当前没有使用add_header</p>
-<h1 id="expires指令"><a href="#expires指令" class="headerlink" title="expires指令"></a>expires指令</h1><blockquote>
-<p>Syntax:    expires [modified] time;<br>                expires epoch | max | off;<br>Default:   expires off;<br>Context:   http, server, location, if in location</p>
-</blockquote>
-<p>该指令为在应答头中添加了Expires和Cache-Control域。<br>后面为负数，将添加头：Cache-Control: no-cache<br>后面为正数/0，将添加头：Cache-Control: max-age=t</p>
-<p>可以根据不同文件类型设置不同的超时时间</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">map <span class="variable">$sent_http_content_type</span>  <span class="variable">$expires</span> &#123;</span><br><span class="line">    <span class="string">"~*image/*"</span>                         7d;</span><br><span class="line">    <span class="string">"~*application/x-javascript"</span>        7d;</span><br><span class="line">    <span class="string">"~*text/css"</span>                        7d;</span><br><span class="line">    <span class="string">"~*text/javascript"</span>                 7d;</span><br><span class="line">    <span class="string">"~*application/javascript"</span>          7d;</span><br><span class="line">    <span class="string">"~*text/plain"</span>                      1d;</span><br><span class="line">    <span class="string">"~*application/x-shockwave-flash"</span>   7d;</span><br><span class="line">    <span class="string">"~*video/x-flv"</span>                     7d;</span><br><span class="line">    <span class="string">"~*application/pdf"</span>                 7d;</span><br><span class="line">    default                             off;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">expires <span class="variable">$expires</span>;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-gzip-module模块使用说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/22/ngx-http-gzip-module模块使用说明/" class="post-title-link" itemprop="url">ngx_http_gzip_module模块使用说明</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-22 17:44:56" itemprop="dateCreated datePublished" datetime="2016-03-22T17:44:56+08:00">2016-03-22</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-01 09:33:04" itemprop="dateModified" datetime="2019-08-01T09:33:04+08:00">2019-08-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>ngx_http_gzip_module是一个使用gzip方法压缩响应内容的过滤器。这会减少一一半以上的传输内容</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启gzip</span></span><br><span class="line">gzip                on;</span><br><span class="line"><span class="comment"># 设置用于压缩的buffer数量和大小</span></span><br><span class="line">gzip_buffers        4 16k;</span><br><span class="line"><span class="comment"># 设置进行压缩的请求协议</span></span><br><span class="line">gzip_http_version   1.1;</span><br><span class="line"><span class="comment"># 设置压缩比率 1~9,1为最小化压缩（处理速度快），9为最大化压缩（处理速度慢）</span></span><br><span class="line">gzip_comp_level     6;</span><br><span class="line"><span class="comment"># 设置需要压缩的MIME类型，text/html总是会被压缩</span></span><br><span class="line">gzip_types          text/plain text/php text/xml text/css text/javascript application/javascript application/xhtml+xml application/xml application/rss+xml application/atom_xml application/x-javascript application/x-httpd-php image/svg+xml;</span><br><span class="line"><span class="comment"># 指定不需要gzip压缩的浏览器</span></span><br><span class="line">gzip_disable        <span class="string">"msie6"</span></span><br><span class="line"><span class="comment"># 启用应答头Vary:Accept-Encoding</span></span><br><span class="line">gzip_vary           on;</span><br></pre></td></tr></table></figure>
 
 
           
@@ -1440,7 +1482,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1580,7 +1622,9 @@
         
           
         
-        <span class="site-state-item-count">45</span>
+          
+        
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

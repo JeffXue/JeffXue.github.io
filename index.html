@@ -172,7 +172,40 @@
       
     
 
-    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Categories</a>
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-读书">
+      
+    
+
+    <a href="/categories/读书/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>读书</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-编程">
+      
+    
+
+    <a href="/categories/编程/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>编程</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-思考">
+      
+    
+
+    <a href="/categories/思考/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>思考</a>
 
   </li>
         
@@ -183,7 +216,7 @@
       
     
 
-    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
         
@@ -194,7 +227,7 @@
       
     
 
-    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Tags</a>
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
     </ul>
@@ -214,6 +247,413 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2020/01/16/[0x01 编程]python应用场景指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/16/[0x01 编程]python应用场景指南/" class="post-title-link" itemprop="url">【编程】python应用场景指南</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-16 14:46:34" itemprop="dateCreated datePublished" datetime="2020-01-16T14:46:34+08:00">2020-01-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:47:38" itemprop="dateModified" datetime="2020-01-19T14:47:38+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>来源:  <a href="https://pythonguidecn.readthedocs.io/zh/latest/" target="_blank" rel="noopener">python最佳实践指南</a></p>
+<hr>
+<h1 id="网络应用"><a href="#网络应用" class="headerlink" title="网络应用"></a>网络应用</h1><ul>
+<li>requests 库</li>
+<li>分布式系统<ul>
+<li>ZeroMQ</li>
+<li>RabbitMQ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Web应用-amp-框架"><a href="#Web应用-amp-框架" class="headerlink" title="Web应用 &amp; 框架"></a>Web应用 &amp; 框架</h1><ul>
+<li>WSGI： web server gateway interface。web服务网关接口</li>
+<li>大多数web框架包含的模式和工具<ul>
+<li>URL路由（URL Routing）</li>
+<li>请求和响应对象（Request and Response Objects）</li>
+<li>模板引擎（Template Engine）</li>
+<li>Web服务器开发（Development Web Server）</li>
+</ul>
+</li>
+<li>框架<ul>
+<li>Django：是一个功能齐全的web应用框架</li>
+<li>Flask：轻量级web框架</li>
+<li>Falcon：构建快速、可扩展的REST风格API微服务<ul>
+<li>Tornado：一个异步web框架</li>
+</ul>
+</li>
+<li>Pyramid：灵活的框架，重点关注模块化</li>
+<li>Masonite：一个现代，以开发人员为中心的功能齐备的网络框架</li>
+</ul>
+</li>
+<li>Web服务器<ul>
+<li>Nginx</li>
+</ul>
+</li>
+<li>WSGI 服务器：独立WSGI服务器相比传统web服务器，使用更少的资源，并提供最高的性能<ul>
+<li>Gunicorn： 有周全的用户界面，十分易于使用和配置</li>
+<li>Waitress：具备非常可接受的性能</li>
+<li>uWSGI：用来构建全栈式的主机服务</li>
+</ul>
+</li>
+<li>服务端最佳实践： WSGI服务器为Python应用服务，它能更好的处理诸如静态文件服务、请求路由、DDoS保护和基本认证的任务。</li>
+<li>Hosting：平台及服务（Paas）是一种云计算基础设施类型，应用开发者只需关注应用代码，无须关注配置细节<ul>
+<li>Heroku：支持所有类型的Python web应用、服务器和框架。在Heroku上可以免费开发应用程序</li>
+<li>Eldarion</li>
+</ul>
+</li>
+<li>模板<ul>
+<li>JinJa2：很受欢迎的模板引擎</li>
+<li>Chameleo：</li>
+<li>Mako： 它的语法和API借鉴了其他模板语言，如Django和Jinja2中最好的部分</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/01/16/[0x01 编程]python应用场景指南/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2020/01/16/[0x01 编程]python代码最佳实践指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/16/[0x01 编程]python代码最佳实践指南/" class="post-title-link" itemprop="url">【编程】python代码最佳实践指南</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-16 14:06:58" itemprop="dateCreated datePublished" datetime="2020-01-16T14:06:58+08:00">2020-01-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:44:15" itemprop="dateModified" datetime="2020-01-19T14:44:15+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>来源:  <a href="https://pythonguidecn.readthedocs.io/zh/latest/" target="_blank" rel="noopener">python最佳实践指南</a></p>
+<hr>
+<h1 id="结构化工程"><a href="#结构化工程" class="headerlink" title="结构化工程"></a>结构化工程</h1><h2 id="仓库结构"><a href="#仓库结构" class="headerlink" title="仓库结构"></a>仓库结构</h2><p>根据项目的实际情况初始化下面的目录结构，可参考<a href="https://github.com/navdeep-G/samplemod" target="_blank" rel="noopener">GitHub samplemod</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">README.rst # 说明文档</span><br><span class="line">LICENSE # 许可证，请查看[choosealicense.com](https://choosealicense.com/)</span><br><span class="line">setup.py # 打包和发布管理</span><br><span class="line">requirements.txt # 依赖</span><br><span class="line">sample/__init__.py # 真正的项目模块</span><br><span class="line">sample/core.py              </span><br><span class="line">sample/helpers.py</span><br><span class="line">docs/conf.py # 参考配置</span><br><span class="line">docs/index.rst # 参考文档</span><br><span class="line">tests/test_basic.py # 测试套件</span><br><span class="line">tests/test_advanced.py</span><br></pre></td></tr></table></figure>
+
+<p>另外对于django的初始化项目，需要减少不必要的嵌套：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 错误的初始化操作</span><br><span class="line">django-admin.py startproject samplesite</span><br><span class="line"></span><br><span class="line"># 正确的初始化操作，注意最后有`.`，在当前目录做初始化</span><br><span class="line">django-admin.py startproject samplesite .</span><br></pre></td></tr></table></figure>
+
+<hr>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/01/16/[0x01 编程]python代码最佳实践指南/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2020/01/16/[0x01 编程]python环境隔离/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/16/[0x01 编程]python环境隔离/" class="post-title-link" itemprop="url">【编程】python环境隔离</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-16 14:05:23" itemprop="dateCreated datePublished" datetime="2020-01-16T14:05:23+08:00">2020-01-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:44:12" itemprop="dateModified" datetime="2020-01-19T14:44:12+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>来源:  <a href="https://pythonguidecn.readthedocs.io/zh/latest/" target="_blank" rel="noopener">python最佳实践指南</a></p>
+<hr>
+<h1 id="隔离环境：虚拟环境"><a href="#隔离环境：虚拟环境" class="headerlink" title="隔离环境：虚拟环境"></a>隔离环境：虚拟环境</h1><p>virtualenv 是一个创建隔绝的Python环境的 工具。virtualenv创建一个包含所有必要的可执行文件的文件夹，用来使用Python工程所需的包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 安装virtualenv</span><br><span class="line">pip install virtualenv</span><br><span class="line"></span><br><span class="line"># 创建一个虚拟环境</span><br><span class="line">cd your_project_folder</span><br><span class="line">virtualenv venv</span><br><span class="line"></span><br><span class="line"># 激活虚拟环境</span><br><span class="line">source venv/bin/activate</span><br><span class="line"></span><br><span class="line"># 安装依赖包</span><br><span class="line">pip install requests</span><br><span class="line"></span><br><span class="line"># 记录环境依赖，能帮助确保安装、部署和开发之间的一致性</span><br><span class="line">pip freeze &gt; requirements.txt</span><br><span class="line"></span><br><span class="line"># 退出虚拟环境</span><br><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
       
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -257,11 +697,21 @@
                 
               
 
-              <time title="Created: 2019-08-01 22:28:37 / Modified: 22:44:34" itemprop="dateCreated datePublished" datetime="2019-08-01T22:28:37+08:00">2019-08-01</time>
+              <time title="Created: 2019-08-01 22:28:37" itemprop="dateCreated datePublished" datetime="2019-08-01T22:28:37+08:00">2019-08-01</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:31:01" itemprop="dateModified" datetime="2020-01-19T14:31:01+08:00">2020-01-19</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -272,7 +722,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/思考/" itemprop="url" rel="index"><span itemprop="name">思考</span></a></span>
 
                 
                 
@@ -373,7 +823,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:29:06" itemprop="dateModified" datetime="2019-08-01T09:29:06+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:12:15" itemprop="dateModified" datetime="2020-01-19T14:12:15+08:00">2020-01-19</time>
               </span>
             
           
@@ -385,7 +835,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/管理/" itemprop="url" rel="index"><span itemprop="name">管理</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书/" itemprop="url" rel="index"><span itemprop="name">读书</span></a></span>
 
                 
                 
@@ -483,7 +933,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:26:24" itemprop="dateModified" datetime="2020-01-19T14:26:24+08:00">2020-01-19</time>
               </span>
             
           
@@ -495,7 +945,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/研发流程/" itemprop="url" rel="index"><span itemprop="name">研发流程</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/软件工程/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a></span>
 
                 
                 
@@ -605,7 +1055,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:34:25" itemprop="dateModified" datetime="2019-08-01T09:34:25+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:33:59" itemprop="dateModified" datetime="2020-01-19T14:33:59+08:00">2020-01-19</time>
               </span>
             
           
@@ -617,7 +1067,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
 
                 
                 
@@ -717,7 +1167,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:33:24" itemprop="dateModified" datetime="2020-01-19T14:33:24+08:00">2020-01-19</time>
               </span>
             
           
@@ -729,7 +1179,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端性能/" itemprop="url" rel="index"><span itemprop="name">前端性能</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/性能/" itemprop="url" rel="index"><span itemprop="name">性能</span></a></span>
 
                 
                 
@@ -834,7 +1284,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:33:53" itemprop="dateModified" datetime="2020-01-19T14:33:53+08:00">2020-01-19</time>
               </span>
             
           
@@ -846,7 +1296,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端性能/" itemprop="url" rel="index"><span itemprop="name">前端性能</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/性能/" itemprop="url" rel="index"><span itemprop="name">性能</span></a></span>
 
                 
                 
@@ -987,7 +1437,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:12:21" itemprop="dateModified" datetime="2020-01-19T14:12:21+08:00">2020-01-19</time>
               </span>
             
           
@@ -999,7 +1449,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读摘录/" itemprop="url" rel="index"><span itemprop="name">阅读摘录</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书/" itemprop="url" rel="index"><span itemprop="name">读书</span></a></span>
 
                 
                 
@@ -1022,371 +1472,6 @@
             <p><img src="http://www.jeffxue.cn/img/20170319_Web%E6%80%A7%E8%83%BD%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97.png" alt="tps"></p>
 
           
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2017/03/03/《谷歌和亚马逊如何做产品》摘录/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/03/03/《谷歌和亚马逊如何做产品》摘录/" class="post-title-link" itemprop="url">《谷歌和亚马逊如何做产品》摘录</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-03-03 22:17:23" itemprop="dateCreated datePublished" datetime="2017-03-03T22:17:23+08:00">2017-03-03</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读摘录/" itemprop="url" rel="index"><span itemprop="name">阅读摘录</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>所有的流程和规范最终都是为了解决实际问题的，不要贸然引入流程，除非已经碰到问题，否则尽量简化流程，提高效率。<br>要交付一个产品，其中最重要的只有3点：</p>
-<ol>
-<li>确认用户需求和预期指标</li>
-<li>以最小成本实现最主要的需求</li>
-<li>发布并获得数据反馈，确定下一个迭代目标</li>
-</ol>
-<p>在软件行业中，我们把设计、打造、发布一款符合市场需求的软件称为交付（shipping）</p>
-<hr>
-<h1 id="交付卓越产品，步步为“赢”"><a href="#交付卓越产品，步步为“赢”" class="headerlink" title="交付卓越产品，步步为“赢”"></a>交付卓越产品，步步为“赢”</h1><p>有效的交付过程，它分为7个阶段：</p>
-<ul>
-<li>阶段一：确定正确的产品方向</li>
-<li>阶段二：尽可能清晰详细地定义产品</li>
-<li>阶段三：设计用户体验</li>
-<li>阶段四：做一些基础的项目管理工作，不要太多也不要太少</li>
-<li>阶段五：开始测试</li>
-<li>阶段六： 准备发布</li>
-<li>阶段七：发布</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2017/03/03/《谷歌和亚马逊如何做产品》摘录/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2017/03/03/《进化从孤单极客到高效团队》脑图/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/03/03/《进化从孤单极客到高效团队》脑图/" class="post-title-link" itemprop="url">《进化从孤单极客到高效团队》脑图</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-03-03 22:08:01" itemprop="dateCreated datePublished" datetime="2017-03-03T22:08:01+08:00">2017-03-03</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读摘录/" itemprop="url" rel="index"><span itemprop="name">阅读摘录</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p><img src="http://www.jeffxue.cn/img/20170303_%E8%BF%9B%E5%8C%96.png" alt="tps"></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/08/10/什么是好公司？/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/08/10/什么是好公司？/" class="post-title-link" itemprop="url">什么是好公司？</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-08-10 23:29:46" itemprop="dateCreated datePublished" datetime="2016-08-10T23:29:46+08:00">2016-08-10</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-01 09:33:56" itemprop="dateModified" datetime="2019-08-01T09:33:56+08:00">2019-08-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今晚在跟朋友聊天的时候，聊到了一些关于公司的话题，突然感觉很多人在认知上觉得BAT这些公司才是比较有前景的公司。而事实上，什么是好公司了？</p>
-<p>个人认为可以从三个角度去看这个问题：</p>
-<ul>
-<li>社会的角度</li>
-<li>个人的职业规划</li>
-<li>个人的三观</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/08/10/什么是好公司？/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
         
       
     </div>
@@ -1446,7 +1531,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1586,7 +1671,9 @@
         
           
         
-        <span class="site-state-item-count">45</span>
+          
+        
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

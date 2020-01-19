@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico?v=7.3.0">
+  <link rel="mask-icon" href="/img/favicon.ico?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="来源:  python最佳实践指南  结构化工程仓库结构根据项目的实际情况初始化下面的目录结构，可参考GitHub samplemod 1234567891011README.rst # 说明文档LICENSE # 许可证，请查看[choosealicense.com](https://choosealicense.com/)setup.py # 打包和发布管理requirements.txt #">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【编程】python代码最佳实践指南">
+<meta property="og:url" content="http://www.jeffxue.cn/2020/01/19/[0x01 编程]python代码最佳实践指南/index.html">
+<meta property="og:site_name" content="Blog of Jeff Xue">
+<meta property="og:description" content="来源:  python最佳实践指南  结构化工程仓库结构根据项目的实际情况初始化下面的目录结构，可参考GitHub samplemod 1234567891011README.rst # 说明文档LICENSE # 许可证，请查看[choosealicense.com](https://choosealicense.com/)setup.py # 打包和发布管理requirements.txt #">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-01-19T06:19:53.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【编程】python代码最佳实践指南">
+<meta name="twitter:description" content="来源:  python最佳实践指南  结构化工程仓库结构根据项目的实际情况初始化下面的目录结构，可参考GitHub samplemod 1234567891011README.rst # 说明文档LICENSE # 许可证，请查看[choosealicense.com](https://choosealicense.com/)setup.py # 打包和发布管理requirements.txt #">
+  <link rel="canonical" href="http://www.jeffxue.cn/2020/01/19/[0x01 编程]python代码最佳实践指南/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【编程】python代码最佳实践指南 | Blog of Jeff Xue</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96f1d393e90bf8f44a8792351515c9b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog of Jeff Xue</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-读书">
+      
+    
+
+    <a href="/categories/读书/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>读书</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-编程">
+      
+    
+
+    <a href="/categories/编程/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>编程</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-思考">
+      
+    
+
+    <a href="/categories/思考/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>思考</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2020/01/19/[0x01 编程]python代码最佳实践指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">【编程】python代码最佳实践指南
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-19 14:06:58 / Modified: 14:19:53" itemprop="dateCreated datePublished" datetime="2020-01-19T14:06:58+08:00">2020-01-19</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>来源:  <a href="https://pythonguidecn.readthedocs.io/zh/latest/" target="_blank" rel="noopener">python最佳实践指南</a></p>
+<hr>
+<h1 id="结构化工程"><a href="#结构化工程" class="headerlink" title="结构化工程"></a>结构化工程</h1><h2 id="仓库结构"><a href="#仓库结构" class="headerlink" title="仓库结构"></a>仓库结构</h2><p>根据项目的实际情况初始化下面的目录结构，可参考<a href="https://github.com/navdeep-G/samplemod" target="_blank" rel="noopener">GitHub samplemod</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">README.rst # 说明文档</span><br><span class="line">LICENSE # 许可证，请查看[choosealicense.com](https://choosealicense.com/)</span><br><span class="line">setup.py # 打包和发布管理</span><br><span class="line">requirements.txt # 依赖</span><br><span class="line">sample/__init__.py # 真正的项目模块</span><br><span class="line">sample/core.py              </span><br><span class="line">sample/helpers.py</span><br><span class="line">docs/conf.py # 参考配置</span><br><span class="line">docs/index.rst # 参考文档</span><br><span class="line">tests/test_basic.py # 测试套件</span><br><span class="line">tests/test_advanced.py</span><br></pre></td></tr></table></figure>
+
+<p>另外对于django的初始化项目，需要减少不必要的嵌套：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 错误的初始化操作</span><br><span class="line">django-admin.py startproject samplesite</span><br><span class="line"></span><br><span class="line"># 正确的初始化操作，注意最后有`.`，在当前目录做初始化</span><br><span class="line">django-admin.py startproject samplesite .</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="糟糕的结构化特征"><a href="#糟糕的结构化特征" class="headerlink" title="糟糕的结构化特征"></a>糟糕的结构化特征</h2><ul>
+<li>多重且混乱的循环依赖关系：可以通过再方法或函数内部使用import去避免</li>
+<li>隐含耦合：某个类的变更会影响到其他类的逻辑</li>
+<li>大量使用全局变量或上下文</li>
+<li>面条式代码： 多页嵌套的if与for循环，大量复制-粘贴的过程代码，且没有合适的分割</li>
+<li>混沌代码： 上百段相似的逻辑碎片，缺乏合适结构的类或对象</li>
+</ul>
+<hr>
+<h2 id="模块导入方式"><a href="#模块导入方式" class="headerlink" title="模块导入方式"></a>模块导入方式</h2><p>模块名称要短、使用小写，并避免使用特殊符号，不推荐在模块名中使用下划线，最重要的是，不要使用下划线命名空间，而是使用子模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 好的实践</span><br><span class="line">import library.plugin.foo</span><br><span class="line"># 不好的实践</span><br><span class="line">import library.foo_plugin</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>首先理解import的原理机制，例如<code>import modu</code>语句</p>
+<ul>
+<li>寻找对应的文件<ul>
+<li>调用目录下的 modu.py 文件（如果该文件存在）</li>
+<li>如果没有找到，解析器递归在<code>PYTTHONPATH</code>环境变量中查找该文件</li>
+<li>如果仍没找到，将抛出<code>ImportError</code></li>
+</ul>
+</li>
+<li>在隔离作用域内执行模块<ul>
+<li>所有顶层语句都会被执行，包括其他引用</li>
+<li>方法与类的定义将会存储到模块的字典中</li>
+<li>模块的变量、方法和类通过命名空间暴露给调用方</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>不应该使用import的特殊形式<code>from modu import *</code>，需要尽可能的保证代码可读性，但不能过于简洁而导致简短隐晦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 差</span><br><span class="line">from modu import *</span><br><span class="line">x = sqrt(4) # sqrt是模块modu的一部分吗？ 或是内建函数？上文定义的？</span><br><span class="line"></span><br><span class="line"># 稍好</span><br><span class="line">from modu import sqrt</span><br><span class="line">x = sqrt(4) # 如果import和调用之间没有定义sqrt，sqrt也许是模块modu的一部分</span><br><span class="line"></span><br><span class="line"># 最好的做法</span><br><span class="line">import modu</span><br><span class="line">x = modu.sqrt(4) # 显然sqrt是属于modu的</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="包的init-py"><a href="#包的init-py" class="headerlink" title="包的init.py"></a>包的<strong>init</strong>.py</h2><p>任意包含 <strong>init</strong>.py 文件的目录都被认为是一个Python包，导入一个包里不同模块的方式和普通的导入模块方式相似，特别的地方是 <strong>init</strong>.py 文件将集合所有包范围内的定义</p>
+<blockquote>
+<p>会寻找包下的<strong>init</strong>.py文件，并执行其中所有顶层语句，导入模块对应定义的所有变量、方法和类在导入方命名中间中可见</p>
+</blockquote>
+<p>常见问题： <strong>init</strong>.py 加了过多的代码，随着项目复杂度增加，导入多层嵌套的子包中的某个部件需要执行所有通过路径里的<strong>init</strong>.py。<strong>因此如果包内模块和子包没有代码共享的需求，使用空白的<strong>init</strong>.py文件是正常 甚至是好的做法</strong></p>
+<p>导入深层嵌套包使用as语法替代冗长的调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import very.deep.module as mod</span><br><span class="line"># 使用mod替代very.deep.module</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="面向对象-还是-面向函数"><a href="#面向对象-还是-面向函数" class="headerlink" title="面向对象 还是 面向函数"></a>面向对象 还是 面向函数</h2><p>python中一切都是对象，并且能按对象的方式处理，python更应该理解为面向<code>对象语言</code>而非<code>面向对象编程的语言</code>，但python并没有将面向对象编程作为最主要的范式。</p>
+<p>根据项目的实际情况选择是否需要使用类和对象，还是纯函数的方式。</p>
+<blockquote>
+<p>显然在很多情况下，面向对象编程有用甚至必要，如图形桌面应用或游戏开发等</p>
+</blockquote>
+<p>纯函数在某些架构情况下比类和对象更有效率，因为他们没有任何上下文和副作用。</p>
+<ul>
+<li>使用无状态的函数是一种更好的编程范式</li>
+<li>尽量使用隐式上下文和副作用较小的函数与程序<ul>
+<li>函数的隐式上下文由内部访问到的所有全局变量与持久层对象组成</li>
+<li>副作用即函数可能使其上下文发生改变</li>
+</ul>
+</li>
+</ul>
+<p>把隐式上下文和副作用的函数与仅包含逻辑的函数（纯函数）谨慎区分开来能带来以下好处：</p>
+<ul>
+<li>纯函数的结果是确定的：给定一个输入，输出总是固定相同</li>
+<li>当需要重构或优化时，纯函数更易于更改或替换</li>
+<li>纯函数更容易做单元测试：很少需要复杂的上下文配置和之后的数据清除工作</li>
+<li>纯函数更容易操作、修饰和分发</li>
+</ul>
+<hr>
+<h2 id="使用装饰器语法"><a href="#使用装饰器语法" class="headerlink" title="使用装饰器语法"></a>使用装饰器语法</h2><blockquote>
+<p>装饰器是一个函数或类，它可以 包装(或装饰)一个函数或方法。被 ‘装饰’ 的函数或方法会替换原来的函数或方法</p>
+</blockquote>
+<p>首选<code>@decorators</code>语法进行装饰，而非手工装饰，这个机制对于分离概念和避免外部不相干逻辑污染主要逻辑很有用处</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def foo():</span><br><span class="line">    # 实现语句</span><br><span class="line"></span><br><span class="line">def decorator(func):</span><br><span class="line">    # 操作func语句</span><br><span class="line">    return func</span><br><span class="line"></span><br><span class="line">foo = decorator(foo) # 手动装饰（避免使用手动装饰）</span><br><span class="line"></span><br><span class="line"># 使用`@decorators`语法</span><br><span class="line">@decorator </span><br><span class="line">def bar():</span><br><span class="line">    # 实现语句</span><br><span class="line"># bar()被装饰了</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="上下文管理器实现原则"><a href="#上下文管理器实现原则" class="headerlink" title="上下文管理器实现原则"></a>上下文管理器实现原则</h2><p>实现上下文管理器有两种简单的方法： 使用类（实现<code>__enter__</code>和<code>__exit__</code>）或使用生成器（使用contextlib的contextmanager装饰生成器）</p>
+<p>遵循原则： 如果封装的逻辑量很大，则类的方法可能会更好。 而对于处理简单操作的情况，函数方法可能会更好</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 类实现上下文管理器例子</span><br><span class="line"></span><br><span class="line">class CustomOpen(object):</span><br><span class="line">    def __init__(self, filename):</span><br><span class="line">        self.file = open(filename)</span><br><span class="line"></span><br><span class="line">    def __enter__(self):</span><br><span class="line">        return self.file</span><br><span class="line"></span><br><span class="line">    def __exit__(self, ctx_type, ctx_value, ctx_traceback):</span><br><span class="line">        self.file.close()</span><br><span class="line"></span><br><span class="line">with CustomOpen(&apos;file&apos;) as f:</span><br><span class="line">    contents = f.read()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 生成器实现上下文管理器例子</span><br><span class="line">from contextlib import contextmanager</span><br><span class="line"></span><br><span class="line">@contextmanager</span><br><span class="line">def custom_open(filename):</span><br><span class="line">    f = open(filename)</span><br><span class="line">    try:</span><br><span class="line">        yield f</span><br><span class="line">    finally:</span><br><span class="line">        f.close()</span><br><span class="line"></span><br><span class="line">with custom_open(&apos;file&apos;) as f:</span><br><span class="line">    contents = f.read()</span><br></pre></td></tr></table></figure>
+
+<h2 id="应对动态类型特性"><a href="#应对动态类型特性" class="headerlink" title="应对动态类型特性"></a>应对动态类型特性</h2><p>应对原则：避免对不同类型的对象使用同一变量名</p>
+<blockquote>
+<p>函数编程，推荐的是从不重复对同一个变量命名赋值</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 差</span><br><span class="line">a = 1</span><br><span class="line">a = &apos;a string&apos;</span><br><span class="line">def a():</span><br><span class="line">    pass # 实现代码</span><br><span class="line"></span><br><span class="line"># 好</span><br><span class="line">count = 1</span><br><span class="line">msg = &apos;a string&apos;</span><br><span class="line">def func():</span><br><span class="line">    pass # 实现代码</span><br><span class="line"></span><br><span class="line"># 即使是相关的不同类型的对象，也更建议使用不同命名</span><br><span class="line"># 不好的实践</span><br><span class="line">items = &apos;a b c d&apos; # 首先指向字符串...</span><br><span class="line">items = items.split(&apos; &apos;) # ...变为列表</span><br><span class="line">items = set(items) # ...再变为集合</span><br></pre></td></tr></table></figure>
+
+<h2 id="可变和不可变类型"><a href="#可变和不可变类型" class="headerlink" title="可变和不可变类型"></a>可变和不可变类型</h2><p>可变类型是不’稳定’的，不能作为字典的键使用<br>字符串是不可变类型，组合字符串时，应使用列表推导的构造方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#例子： 创建将0到19连接起来的字符串 (例 &quot;012..1819&quot;)</span><br><span class="line"></span><br><span class="line"># 差</span><br><span class="line">nums = &quot;&quot;</span><br><span class="line">for n in range(20):</span><br><span class="line">    nums += str(n) # 慢且低效</span><br><span class="line">print nums</span><br><span class="line"></span><br><span class="line"># 好</span><br><span class="line">nums = []</span><br><span class="line">for n in range(20):</span><br><span class="line">    nums.append(str(n))</span><br><span class="line">print &quot;&quot;.join(nums) # 更高效</span><br><span class="line"></span><br><span class="line"># 更好</span><br><span class="line">nums = [str(n) for n in range(20)]</span><br><span class="line">print &quot;&quot;.join(nums)</span><br><span class="line"></span><br><span class="line"># 最好</span><br><span class="line">nums = map(str, range(20))</span><br><span class="line">print &quot;&quot;.join(nums)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用 join() 并不总是最好的选择。比如当用预先 确定数量的字符串创建一个新的字符串时，使用加法操作符确实更快，但在上文提到的情况 下或添加到已存在字符串的情况下，使用 join() 是更好的选择</p>
+</blockquote>
+<hr>
+<h1 id="代码风格"><a href="#代码风格" class="headerlink" title="代码风格"></a>代码风格</h1><h2 id="一般原则"><a href="#一般原则" class="headerlink" title="一般原则"></a>一般原则</h2><h3 id="使用明确的代码"><a href="#使用明确的代码" class="headerlink" title="使用明确的代码"></a>使用明确的代码</h3><p>存在各种黑魔法的python中，提倡最明确和直接的编码方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 糟糕</span><br><span class="line">def make_complex(*args):</span><br><span class="line">    x, y = args</span><br><span class="line">    return dict(**locals())</span><br><span class="line"></span><br><span class="line"># 优雅</span><br><span class="line">def make_complex(x, y):</span><br><span class="line">    return &#123;&apos;x&apos;: x, &apos;y&apos;: y&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="每行只有一个声明"><a href="#每行只有一个声明" class="headerlink" title="每行只有一个声明"></a>每行只有一个声明</h3><p>不要在一行代码中写两条独立的语句</p>
+<h3 id="函数传参原则"><a href="#函数传参原则" class="headerlink" title="函数传参原则"></a>函数传参原则</h3><p>整体原则：</p>
+<ul>
+<li><p>易读（名字和参数无需解释）</p>
+</li>
+<li><p>易改（添加新的关键字参数不会破坏代码的其他部分）</p>
+</li>
+<li><p>四种方式：</p>
+<ul>
+<li>位置参数（强制，没有默认值）： 不要去使用名称和改变顺序，使用默认的顺序传参即可</li>
+<li>关键字参数（非强制，有默认值，用于可选参数）：遵循最接近函数定义的语法</li>
+<li>任意参数列表（*args，可扩展的位置参数）：一个函数接受的参数列表具有 相同的性质，通常把它定义成一个参数</li>
+<li>任意关键字参数字典（**kwargs，可扩展的关键字参数）：不应该被用在能用更简单和更明确的结构，来足够表达函数意图 的情况</li>
+</ul>
+</li>
+</ul>
+<h3 id="避免魔法方法"><a href="#避免魔法方法" class="headerlink" title="避免魔法方法"></a>避免魔法方法</h3><p>魔法方法最主要的确定是可读性不高，使用更加直接的方式来达成目标通常是更好的方法</p>
+<blockquote>
+<p>pyline或者pyflakes，将无法解析这种魔法方法</p>
+</blockquote>
+<h3 id="约定私有方法或属性"><a href="#约定私有方法或属性" class="headerlink" title="约定私有方法或属性"></a>约定私有方法或属性</h3><p>任何不开放给客户端代码使用的方法或属性，应该有一个下划线 前缀</p>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><ul>
+<li>建议在函数体中避免使用返回多个有意义的值</li>
+<li>越早返回所发现的不正确上下文越好，这有助于扁平化的函数结构</li>
+<li>保持单个出口点可能会更好，有助于提取某些代码路径，多个出口点可能意味着需要重构</li>
+</ul>
+<h2 id="Pythonic"><a href="#Pythonic" class="headerlink" title="Pythonic"></a>Pythonic</h2><h3 id="解包"><a href="#解包" class="headerlink" title="解包"></a>解包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for index, item in enumerate(some_list):</span><br><span class="line">    # 使用index和item做一些工作</span><br><span class="line"></span><br><span class="line">a, b = b, a</span><br><span class="line"></span><br><span class="line">a, (b, c) = 1, (2, 3)</span><br><span class="line"></span><br><span class="line">a, *rest = [1, 2, 3]</span><br><span class="line"></span><br><span class="line">a, *middle, c = [1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用忽略的变量"><a href="#使用忽略的变量" class="headerlink" title="使用忽略的变量"></a>使用忽略的变量</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不需要这个变量是，使用__</span></span><br><span class="line">basename, __, ext = filename.rpartions(<span class="string">'.)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建N个对象列表-列表对象"><a href="#创建N个对象列表-列表对象" class="headerlink" title="创建N个对象列表/列表对象"></a>创建N个对象列表/列表对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">four_nones = [None] * 4</span><br><span class="line"></span><br><span class="line">four_lists = [ [] for __ in xrange(4) ]</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用列表创建字符串"><a href="#使用列表创建字符串" class="headerlink" title="使用列表创建字符串"></a>使用列表创建字符串</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">letters = [&apos;s&apos;, &apos;p&apos;, &apos;a&apos;, &apos;m&apos;]</span><br><span class="line">word = &apos;&apos;.join(letters)</span><br></pre></td></tr></table></figure>
+
+<h3 id="在集合中查找"><a href="#在集合中查找" class="headerlink" title="在集合中查找"></a>在集合中查找</h3><p>查找集合是利用python中集合的可哈希的特性，而查找列表会查看每一项知道找到匹配项。两者的查询性能是不同的<br>在下列场合使用集合或者字典，而不是列表：</p>
+<ul>
+<li>集合体中包含大量的项</li>
+<li>你将在集合体中重复查找项</li>
+<li>你没有重复的项</li>
+</ul>
+<h2 id="Python之禅（PEP-20）"><a href="#Python之禅（PEP-20）" class="headerlink" title="Python之禅（PEP 20）"></a>Python之禅（PEP 20）</h2><p>见 pep20_by_example.pdf </p>
+<h2 id="PEP8"><a href="#PEP8" class="headerlink" title="PEP8"></a>PEP8</h2><p>PEP8 是python的代码风格指南，详情见 pep8.org</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">pip install pycodestyle</span><br><span class="line"></span><br><span class="line"># 检查文件</span><br><span class="line">pycodestyle optparse.py</span><br><span class="line"></span><br><span class="line"># 自动将代码转换成PEP8 风格</span><br><span class="line">pip install autopep8</span><br><span class="line"></span><br><span class="line"># 指令格式化一个文件</span><br><span class="line">autopep8 --in-place optparse.py</span><br></pre></td></tr></table></figure>
+
+<h2 id="约定"><a href="#约定" class="headerlink" title="约定"></a>约定</h2><h3 id="检查变量是否等于常量"><a href="#检查变量是否等于常量" class="headerlink" title="检查变量是否等于常量"></a>检查变量是否等于常量</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 糟糕</span></span><br><span class="line"><span class="keyword">if</span> attr == <span class="literal">True</span>:</span><br><span class="line">    print(<span class="literal">True</span>)</span><br><span class="line"><span class="keyword">if</span> attr == <span class="literal">None</span>:</span><br><span class="line">    print(<span class="string">'attr is None'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 优雅</span></span><br><span class="line"><span class="comment"># 检查值</span></span><br><span class="line"><span class="keyword">if</span> attr:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'attr is truthy!'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者做相反的检查</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> attr:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'attr is falsey!'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># or, since None is considered false, explicitly check for it</span></span><br><span class="line"><span class="keyword">if</span> attr <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'attr is None!'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="访问字典元素"><a href="#访问字典元素" class="headerlink" title="访问字典元素"></a>访问字典元素</h3><p>不要使用dict.has_key()，应使用 x in d语法，或者将一个默认参数传递给dict.get()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;&apos;hello&apos;: &apos;world&apos;&#125;</span><br><span class="line"></span><br><span class="line">print(d.get(&apos;hello&apos;, &apos;default_value&apos;)) # 打印 &apos;world&apos;</span><br><span class="line">print(d.get(&apos;thingy&apos;, &apos;default_value&apos;)) # 打印 &apos;default_value&apos;</span><br><span class="line"></span><br><span class="line"># Or:</span><br><span class="line">if &apos;hello&apos; in d:</span><br><span class="line">    print d[&apos;hello&apos;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="维护列表"><a href="#维护列表" class="headerlink" title="维护列表"></a>维护列表</h3><ul>
+<li><p>使用列表推导式</p>
+<ul>
+<li>如果只是要遍历列表，使用迭代器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 推导创建了一个新的列表对象</span><br><span class="line">filtered_values = [value for value in sequence if value != x]</span><br><span class="line"></span><br><span class="line"># 生成器不会创建新的列表</span><br><span class="line">filtered_values = filter(lambda i: i != x, sequence)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>map()和filter()函数使用一种不同但是更简洁的语法处理列表</p>
+<ul>
+<li>filter返回的为迭代器而不是列表，如需要列表，请使用list进行包装<code>list(filter(....))</code>    </li>
+</ul>
+</li>
+<li><p>修改原始列表会产生副作用：可能会有其他变量引用原始列表，修改就会有风险</p>
+<ul>
+<li>在列表中修改值：创建一个新的列表对象并保留原始列表对象会更安全</li>
+<li>在迭代列表过程中，永远不要从列表移除元素</li>
+</ul>
+</li>
+</ul>
+<h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><p>使用with open 语法来读取文件，会为你自动关闭文件</p>
+<h3 id="行的延续"><a href="#行的延续" class="headerlink" title="行的延续"></a>行的延续</h3><p>避免使用反斜杠将一行分隔为多行，更好的方案是在元素周围使用括号，解析器会把行的结尾和下一行连接起来直到遇到闭合括号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">my_very_big_string = (</span><br><span class="line">    &quot;For a long time I used to go to bed early. Sometimes, &quot;</span><br><span class="line">    &quot;when I had put out my candle, my eyes would close so quickly &quot;</span><br><span class="line">    &quot;that I had not even time to say “I’m going to sleep.”&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">from some.deep.module.inside.a.module import (</span><br><span class="line">    a_nice_function, another_nice_function, yet_another_nice_function)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="阅读好的代码"><a href="#阅读好的代码" class="headerlink" title="阅读好的代码"></a>阅读好的代码</h1><p>推荐阅读的python项目</p>
+<ul>
+<li>Howdoi: 代码搜寻工具</li>
+<li>Flask: 是基于Werkzeug和Jinja2，Web服务微框架</li>
+<li>Diamond: 守护进程，它收集指标，并且将他们发布至Graphite或其它后端。 </li>
+<li>Werkzeug: 非常重要的WSGI实用模型</li>
+<li>Requests: HTTP库</li>
+<li>Tablib: 无格式的表格数据集库</li>
+</ul>
+<hr>
+<h1 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h1><h2 id="项目文档"><a href="#项目文档" class="headerlink" title="项目文档"></a>项目文档</h2><ul>
+<li>README： 解析项目或者库的目的，软件主要源的URL，一些基本的信用信息，为代码阅读者的主要入口</li>
+<li>INSTALL： 非必要，通常把命令放在README中即可</li>
+<li>LICENSE： 应该指定向公众开放的软件许可</li>
+<li>TODO： 位于README或者TODO，列出代码的开发计划</li>
+<li>CHANGELOG：位于README或者CHANGELOG，呈现对代码库的最新修改的简短概述</li>
+</ul>
+<h2 id="项目发布"><a href="#项目发布" class="headerlink" title="项目发布"></a>项目发布</h2><ul>
+<li>一份介绍：用一两个极其简化的用例，简短地概述产品用来做什么</li>
+<li>一份教程：展示主要的用例，要有更多细节，可一步步搭建工作原型</li>
+<li>一份API参考： 通常从代码中生产(docstrings)</li>
+<li>开发人员文档： 适用于潜在贡献者，包括代码惯例和通用设计策略</li>
+</ul>
+<h2 id="Sphine"><a href="#Sphine" class="headerlink" title="Sphine"></a>Sphine</h2><p>Sphine 最流行的python文档工具，可以把reStructured Text转换成广泛的输出格式</p>
+<p>Read The Docs 是一个很好的免费文档托管服务，可以托管你的Sphine文档</p>
+<h2 id="reStructuredText"><a href="#reStructuredText" class="headerlink" title="reStructuredText"></a>reStructuredText</h2><p>大多数Python文档是用 reStructuredText 编写的。它就像是内建了所有可选扩展的 Markdown</p>
+<h2 id="代码文档建议"><a href="#代码文档建议" class="headerlink" title="代码文档建议"></a>代码文档建议</h2><ul>
+<li>代码加入注释是为了更容易的理解代码</li>
+<li>文档字符串 用来描述模块、类、函数<code>&quot;&quot;&quot; xxxxx  &quot;&quot;&quot;</code></li>
+<li>不要用三引号去注释代码</li>
+<li>Sphine会解析文档字符串为reStructuredText，并以HTML呈现，让示例代码片段嵌入项目的文档非常简单</li>
+<li>Doctest会读取文档字符串内嵌&gt;&gt;&gt; 的内容并运行，以检查命令输出是否匹配其下行的内容，运行开发人员在源码中嵌入真实的示例和函数用法，还能确保代码被测试和工作</li>
+<li>文档字符串和块注释不能互换，函数或类的开头注释区是开发者的注解，而文档字符串描述函数或类的操作</li>
+<li>编写文档字符串取决于函数、方法或类的复杂度，详情可以查看docstrings （PEP 257）</li>
+</ul>
+<hr>
+<h1 id="测试你的代码"><a href="#测试你的代码" class="headerlink" title="测试你的代码"></a>测试你的代码</h1><p>测试代码和运行代码一起写是一种非常好的习惯。<br>测试的通用规则：</p>
+<ul>
+<li>测试单元应该集中小部分的功能，并证明是对的</li>
+<li>每个测试单元必须完全独立</li>
+<li>尽量使测试单元快速运行</li>
+<li>学习使用工具，学习如何允许一个单独的测试用例</li>
+<li>在编码前后，要运行完整的测试套件</li>
+<li>实现钩子（hook）是一个非常好的主意</li>
+<li>当您调试代码的时候，首先需要写一个精确定位bug的测试单元</li>
+<li>测试函数使用长且描述性的名称，与运行代码不一样</li>
+<li>测试代码的另外一个用处是作为新开发人员的入门介绍</li>
+</ul>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><ul>
+<li>单元测试：unittest</li>
+<li>文档测试： doctest</li>
+</ul>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
+<li>pytest</li>
+<li>Hypothesis</li>
+<li>tox</li>
+<li>mock</li>
+</ul>
+<hr>
+<h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><p>日志的目的：</p>
+<ul>
+<li>诊断日志：记录与应用程序操作相关的日志</li>
+<li>审计日志： 商业分析而记录的日志</li>
+</ul>
+<p>命令行应用，打印相对日志是更好的选择，而在其他情况，日志总能优于打印</p>
+<h2 id="库日志"><a href="#库日志" class="headerlink" title="库日志"></a>库日志</h2><p>在库中，声明日志的最佳方式是通过<strong>name</strong>全局变量。如requests库在<strong>init</strong>.py中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logging.getLogger(__name__).addHandler(logging.NullHandler())</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用程序日志"><a href="#应用程序日志" class="headerlink" title="应用程序日志"></a>应用程序日志</h2><p>配置日志至少有以下三种方式：</p>
+<ul>
+<li>INI格式文件<ul>
+<li>优点: 使用 logging.config.listen() 函数监听socket，可在运行过程中更新配置</li>
+<li>缺点: 通过源码控制日志配置较少（ 例如 子类化定制的过滤器或记录器）</li>
+</ul>
+</li>
+<li>使用字典或JSON格式文件<ul>
+<li>优点: 除了可在运行时动态更新，还可通过 json 模块从其它文件中导入配置</li>
+<li>缺点: 很难通过源码控制日志配置</li>
+</ul>
+</li>
+<li>使用源码<ul>
+<li>优点: 对配置绝对的控制</li>
+<li>缺点: 对配置的更改需要对源码进行修改</li>
+</ul>
+</li>
+</ul>
+<h3 id="通过INI文件配置"><a href="#通过INI文件配置" class="headerlink" title="通过INI文件配置"></a>通过INI文件配置</h3><p>logging_config.ini</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[loggers]</span><br><span class="line">keys=root</span><br><span class="line"></span><br><span class="line">[handlers]</span><br><span class="line">keys=stream_handler</span><br><span class="line"></span><br><span class="line">[formatters]</span><br><span class="line">keys=formatter</span><br><span class="line"></span><br><span class="line">[logger_root]</span><br><span class="line">level=DEBUG</span><br><span class="line">handlers=stream_handler</span><br><span class="line"></span><br><span class="line">[handler_stream_handler]</span><br><span class="line">class=StreamHandler</span><br><span class="line">level=DEBUG</span><br><span class="line">formatter=formatter</span><br><span class="line">args=(sys.stderr,)</span><br><span class="line"></span><br><span class="line">[formatter_formatter]</span><br><span class="line">format=%(asctime)s %(name)-12s %(levelname)-8s %(message)s</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 源码中调用</span><br><span class="line">import logging</span><br><span class="line">from logging.config import fileConfig</span><br><span class="line"></span><br><span class="line">fileConfig(&apos;logging_config.ini&apos;)</span><br><span class="line">logger = logging.getLogger()</span><br><span class="line">logger.debug(&apos;often makes a very good meal of %s&apos;, &apos;visiting tourists&apos;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过字典配置"><a href="#通过字典配置" class="headerlink" title="通过字典配置"></a>通过字典配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">from logging.config import dictConfig</span><br><span class="line"></span><br><span class="line">logging_config = dict(</span><br><span class="line">    version = 1,</span><br><span class="line">    formatters = &#123;</span><br><span class="line">        &apos;f&apos;: &#123;&apos;format&apos;:</span><br><span class="line">              &apos;%(asctime)s %(name)-12s %(levelname)-8s %(message)s&apos;&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    handlers = &#123;</span><br><span class="line">        &apos;h&apos;: &#123;&apos;class&apos;: &apos;logging.StreamHandler&apos;,</span><br><span class="line">              &apos;formatter&apos;: &apos;f&apos;,</span><br><span class="line">              &apos;level&apos;: logging.DEBUG&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    root = &#123;</span><br><span class="line">        &apos;handlers&apos;: [&apos;h&apos;],</span><br><span class="line">        &apos;level&apos;: logging.DEBUG,</span><br><span class="line">        &#125;,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">dictConfig(logging_config)</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger()</span><br><span class="line">logger.debug(&apos;often makes a very good meal of %s&apos;, &apos;visiting tourists&apos;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过源码配置"><a href="#通过源码配置" class="headerlink" title="通过源码配置"></a>通过源码配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">logger = logging.getLogger()</span><br><span class="line">handler = logging.StreamHandler()</span><br><span class="line">formatter = logging.Formatter(</span><br><span class="line">        &apos;%(asctime)s %(name)-12s %(levelname)-8s %(message)s&apos;)</span><br><span class="line">handler.setFormatter(formatter)</span><br><span class="line">logger.addHandler(handler)</span><br><span class="line">logger.setLevel(logging.DEBUG)</span><br><span class="line"></span><br><span class="line">logger.debug(&apos;often makes a very good meal of %s&apos;, &apos;visiting tourists&apos;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="常见陷阱"><a href="#常见陷阱" class="headerlink" title="常见陷阱"></a>常见陷阱</h1><h2 id="可变默认参数"><a href="#可变默认参数" class="headerlink" title="可变默认参数"></a>可变默认参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def append_to(element, to=[]):</span><br><span class="line">    to.append(element)</span><br><span class="line">    return to</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; my_list = append_to(12)</span><br><span class="line">&gt;&gt;&gt; [12]</span><br><span class="line">&gt;&gt;&gt; my_other_list = append_to(42)</span><br><span class="line">&gt;&gt;&gt; [12, 42]</span><br></pre></td></tr></table></figure>
+
+<p>函数被定义时，一个新的列表被创建，而且这个列表在后续的每次调用中都被使用</p>
+<p>正确的做法是： to=None，None通常是一个好的选择</p>
+<h2 id="延迟绑定闭包"><a href="#延迟绑定闭包" class="headerlink" title="延迟绑定闭包"></a>延迟绑定闭包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def create_multipliers():</span><br><span class="line">    return [lambda x : i * x for i in range(3)]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for multiplier in create_multipliers():</span><br><span class="line">    print(multiplier(2))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 实际输出 </span><br><span class="line"># 8</span><br><span class="line"># 8</span><br><span class="line"># 8</span><br></pre></td></tr></table></figure>
+
+<p>python的闭包时 延迟绑定，意味着闭包中用到的变量，是在内部函数被调用时查询得到的。<br>不论 任何 返回的函数是如何被调用的， i 的值是调用时在周围作用域中查询到的。 接着，循环完成， i 的值最终变成了4。</p>
+<p>取巧的做法： <code>[lambda x, i=i : i * x for i in range(5)]</code> 创建一个立即绑定参数的闭包</p>
+<h3 id="屏蔽pyc文件"><a href="#屏蔽pyc文件" class="headerlink" title="屏蔽pyc文件"></a>屏蔽pyc文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 禁用pyc文件</span><br><span class="line">export PYTHONDONTWRITEBYTECODE=1</span><br><span class="line"></span><br><span class="line"># 删除所有pyc文件</span><br><span class="line">find . -type f -name &quot;*.py[co]&quot; -delete -or -type d -name &quot;__pycache__&quot; -delete</span><br><span class="line"></span><br><span class="line"># 版本控制忽略pyc文件</span><br><span class="line">*.py[cod] # 将匹配 .pyc、.pyo 和 .pyd文件</span><br><span class="line">__pycache__/ # 排除整个文件夹</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！.</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/wechat.png" alt="Jeff Xue WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpeg" alt="Jeff Xue Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/01/19/[0x01 编程]python环境隔离/" rel="next" title="【编程】python环境隔离">
+                <i class="fa fa-chevron-left"></i> 【编程】python环境隔离
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/img/avatar.jpeg"
+      alt="Jeff Xue">
+  <p class="site-author-name" itemprop="name">Jeff Xue</p>
+  <div class="site-description motion-element" itemprop="description">Think Bigger, Start Simple!</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/JeffXue" title="GitHub &rarr; https://github.com/JeffXue" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#结构化工程"><span class="nav-number">1.</span> <span class="nav-text">结构化工程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#仓库结构"><span class="nav-number">1.1.</span> <span class="nav-text">仓库结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#糟糕的结构化特征"><span class="nav-number">1.2.</span> <span class="nav-text">糟糕的结构化特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块导入方式"><span class="nav-number">1.3.</span> <span class="nav-text">模块导入方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包的init-py"><span class="nav-number">1.4.</span> <span class="nav-text">包的init.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象-还是-面向函数"><span class="nav-number">1.5.</span> <span class="nav-text">面向对象 还是 面向函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用装饰器语法"><span class="nav-number">1.6.</span> <span class="nav-text">使用装饰器语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上下文管理器实现原则"><span class="nav-number">1.7.</span> <span class="nav-text">上下文管理器实现原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应对动态类型特性"><span class="nav-number">1.8.</span> <span class="nav-text">应对动态类型特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可变和不可变类型"><span class="nav-number">1.9.</span> <span class="nav-text">可变和不可变类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码风格"><span class="nav-number">2.</span> <span class="nav-text">代码风格</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一般原则"><span class="nav-number">2.1.</span> <span class="nav-text">一般原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用明确的代码"><span class="nav-number">2.1.1.</span> <span class="nav-text">使用明确的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#每行只有一个声明"><span class="nav-number">2.1.2.</span> <span class="nav-text">每行只有一个声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数传参原则"><span class="nav-number">2.1.3.</span> <span class="nav-text">函数传参原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免魔法方法"><span class="nav-number">2.1.4.</span> <span class="nav-text">避免魔法方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#约定私有方法或属性"><span class="nav-number">2.1.5.</span> <span class="nav-text">约定私有方法或属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">2.1.6.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pythonic"><span class="nav-number">2.2.</span> <span class="nav-text">Pythonic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解包"><span class="nav-number">2.2.1.</span> <span class="nav-text">解包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用忽略的变量"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用忽略的变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建N个对象列表-列表对象"><span class="nav-number">2.2.3.</span> <span class="nav-text">创建N个对象列表/列表对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用列表创建字符串"><span class="nav-number">2.2.4.</span> <span class="nav-text">使用列表创建字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在集合中查找"><span class="nav-number">2.2.5.</span> <span class="nav-text">在集合中查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之禅（PEP-20）"><span class="nav-number">2.3.</span> <span class="nav-text">Python之禅（PEP 20）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PEP8"><span class="nav-number">2.4.</span> <span class="nav-text">PEP8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约定"><span class="nav-number">2.5.</span> <span class="nav-text">约定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查变量是否等于常量"><span class="nav-number">2.5.1.</span> <span class="nav-text">检查变量是否等于常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问字典元素"><span class="nav-number">2.5.2.</span> <span class="nav-text">访问字典元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维护列表"><span class="nav-number">2.5.3.</span> <span class="nav-text">维护列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取文件"><span class="nav-number">2.5.4.</span> <span class="nav-text">读取文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行的延续"><span class="nav-number">2.5.5.</span> <span class="nav-text">行的延续</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#阅读好的代码"><span class="nav-number">3.</span> <span class="nav-text">阅读好的代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文档"><span class="nav-number">4.</span> <span class="nav-text">文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目文档"><span class="nav-number">4.1.</span> <span class="nav-text">项目文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目发布"><span class="nav-number">4.2.</span> <span class="nav-text">项目发布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sphine"><span class="nav-number">4.3.</span> <span class="nav-text">Sphine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reStructuredText"><span class="nav-number">4.4.</span> <span class="nav-text">reStructuredText</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码文档建议"><span class="nav-number">4.5.</span> <span class="nav-text">代码文档建议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试你的代码"><span class="nav-number">5.</span> <span class="nav-text">测试你的代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础"><span class="nav-number">5.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具"><span class="nav-number">5.2.</span> <span class="nav-text">工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日志"><span class="nav-number">6.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#库日志"><span class="nav-number">6.1.</span> <span class="nav-text">库日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用程序日志"><span class="nav-number">6.2.</span> <span class="nav-text">应用程序日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过INI文件配置"><span class="nav-number">6.2.1.</span> <span class="nav-text">通过INI文件配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过字典配置"><span class="nav-number">6.2.2.</span> <span class="nav-text">通过字典配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过源码配置"><span class="nav-number">6.2.3.</span> <span class="nav-text">通过源码配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见陷阱"><span class="nav-number">7.</span> <span class="nav-text">常见陷阱</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可变默认参数"><span class="nav-number">7.1.</span> <span class="nav-text">可变默认参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延迟绑定闭包"><span class="nav-number">7.2.</span> <span class="nav-text">延迟绑定闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#屏蔽pyc文件"><span class="nav-number">7.2.1.</span> <span class="nav-text">屏蔽pyc文件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Xue</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

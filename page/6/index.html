@@ -172,7 +172,40 @@
       
     
 
-    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Categories</a>
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-读书">
+      
+    
+
+    <a href="/categories/读书/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>读书</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-编程">
+      
+    
+
+    <a href="/categories/编程/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>编程</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-思考">
+      
+    
+
+    <a href="/categories/思考/" rel="section"><i class="menu-item-icon fa fa-fw fa-none"></i> <br>思考</a>
 
   </li>
         
@@ -183,7 +216,7 @@
       
     
 
-    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Archives</a>
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
         
@@ -194,7 +227,7 @@
       
     
 
-    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Tags</a>
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
     </ul>
@@ -214,6 +247,358 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/10/apache的MPMs详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/10/apache的MPMs详解/" class="post-title-link" itemprop="url">apache的MPMs详解</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-10 09:21:25" itemprop="dateCreated datePublished" datetime="2016-03-10T09:21:25+08:00">2016-03-10</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:31:49" itemprop="dateModified" datetime="2020-01-19T14:31:49+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="MPMs"><a href="#MPMs" class="headerlink" title="MPMs"></a>MPMs</h1><p>Multi-Processing Modules（MPMs）为多路处理模块，对于类UNIX系统，有三个不同的MPM可选择，不同的模式会影响apache的速度和可靠性。</p>
+<h2 id="Perfork-MPM"><a href="#Perfork-MPM" class="headerlink" title="Perfork MPM"></a>Perfork MPM</h2><p>该MPM实现了一个非线程，pre-forking的web server，每个进程均可处理请求，并且有一个父进程管理server poll。适用于没有线程安全库，需要避免线程兼容性问题的系统。每个请求之间都是相互独立，这对于那些需要隔离请求的系统来说是最好的MPM。</p>
+<p>这个MPM具有很强的自我调节能力，一般情况很少去调整配置。最重要的配置是MaxRequestWorkers，应该让该值大于你所预估的同时并发请求数，同时也应考虑是否有足够的内存。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/03/10/apache的MPMs详解/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/08/apache使用mod_deflate模块/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/08/apache使用mod_deflate模块/" class="post-title-link" itemprop="url">apache使用mod_deflate模块</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-08 18:27:10" itemprop="dateCreated datePublished" datetime="2016-03-08T18:27:10+08:00">2016-03-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:31:26" itemprop="dateModified" datetime="2020-01-19T14:31:26+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="mod-deflate模块"><a href="#mod-deflate模块" class="headerlink" title="mod_deflate模块"></a>mod_deflate模块</h1><p><a href="http://www.jeffxue.cn/2016/03/07/apache2.4%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">apache2.4编译安装</a>时加入–enable-deflate，然后在httpd.conf模块中启用该模块，并添加配置</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/03/08/apache使用mod_deflate模块/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/08/apache使用mod_expires模块/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/08/apache使用mod_expires模块/" class="post-title-link" itemprop="url">apache使用mod_expires模块</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-08 18:26:56" itemprop="dateCreated datePublished" datetime="2016-03-08T18:26:56+08:00">2016-03-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:31:28" itemprop="dateModified" datetime="2020-01-19T14:31:28+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="mod-expires模块"><a href="#mod-expires模块" class="headerlink" title="mod_expires模块"></a>mod_expires模块</h1><p>mod_expires可以减少用户的重复请求，将特定的页面缓存到浏览器中，当浏览器请求特定资源时，并且该资源没有过期，将会访问浏览器缓存，不向服务器发出请求</p>
+<p>apache默认包含了该模块，需要在httpd.conf中启用并进行配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule expires_module modules/mod_expires.so</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/03/08/apache使用mod_expires模块/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
       
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -270,7 +655,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:30:50" itemprop="dateModified" datetime="2019-08-01T09:30:50+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:31:34" itemprop="dateModified" datetime="2020-01-19T14:31:34+08:00">2020-01-19</time>
               </span>
             
           
@@ -282,7 +667,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
 
                 
                 
@@ -390,7 +775,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:30:48" itemprop="dateModified" datetime="2019-08-01T09:30:48+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:35:35" itemprop="dateModified" datetime="2020-01-19T14:35:35+08:00">2020-01-19</time>
               </span>
             
           
@@ -402,7 +787,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
 
                 
                 
@@ -506,7 +891,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:30:25" itemprop="dateModified" datetime="2019-08-01T09:30:25+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:31:23" itemprop="dateModified" datetime="2020-01-19T14:31:23+08:00">2020-01-19</time>
               </span>
             
           
@@ -518,7 +903,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
 
                 
                 
@@ -630,7 +1015,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:31:14" itemprop="dateModified" datetime="2020-01-19T14:31:14+08:00">2020-01-19</time>
               </span>
             
           
@@ -642,7 +1027,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/培训摘录/" itemprop="url" rel="index"><span itemprop="name">培训摘录</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/思考/" itemprop="url" rel="index"><span itemprop="name">思考</span></a></span>
 
                 
                 
@@ -768,7 +1153,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:31:13" itemprop="dateModified" datetime="2019-08-01T09:31:13+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:30:50" itemprop="dateModified" datetime="2020-01-19T14:30:50+08:00">2020-01-19</time>
               </span>
             
           
@@ -780,7 +1165,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
 
                 
                 
@@ -892,7 +1277,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:38:07" itemprop="dateModified" datetime="2019-08-01T09:38:07+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:31:04" itemprop="dateModified" datetime="2020-01-19T14:31:04+08:00">2020-01-19</time>
               </span>
             
           
@@ -904,7 +1289,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书/" itemprop="url" rel="index"><span itemprop="name">读书</span></a></span>
 
                 
                 
@@ -1030,7 +1415,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-01 09:34:02" itemprop="dateModified" datetime="2019-08-01T09:34:02+08:00">2019-08-01</time>
+                <time title="Modified: 2020-01-19 14:35:10" itemprop="dateModified" datetime="2020-01-19T14:35:10+08:00">2020-01-19</time>
               </span>
             
           
@@ -1042,7 +1427,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/博客/" itemprop="url" rel="index"><span itemprop="name">博客</span></a></span>
 
                 
                 
@@ -1072,336 +1457,6 @@
             </div>
           
           <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2015/03/16/Raspberry-Pi-2初体验/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2015/03/16/Raspberry-Pi-2初体验/" class="post-title-link" itemprop="url">Raspberry Pi 2初体验</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2015-03-16 23:48:00" itemprop="dateCreated datePublished" datetime="2015-03-16T23:48:00+08:00">2015-03-16</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>Raspberry Pi 2发布时备受关注，一直等到年后才有充足的货源，其实在一代火热的时候是有入手的想法，但是看着性能一般，觉得可玩性不高，并没有入手。而这次的二代性能上得到了很大的提升，因此果断入手，但是入手后对其感觉一般，刷了官方网站上的镜像，启动速度，体验还是不错的，但是在网上搜索了大量的资料，基本都是老旧的资料，对于接触linux系统较多的人来说，都是一些忽悠的项目。后面来说说我对网上一些所谓的创意项目的看法。<br>（1）如果将Raspberry Pi 2当作娱乐使用，那你得花费Raspberry Pi 2较多的时间去研究了，网上搜刮到的无非就是XMBC媒体中心+国内视频网站插件的方案，官方网站上的旧镜像似乎不支持Raspberry Pi 2（RASPBIAN可正常运行），另外对于这种使用方法还不如直接网站查看或者使用现代的网络机顶盒更加方便，并且这种项目对于本人而言暂无吸引力（虽然之前搜到一个模拟GOOGLE TV的项目还不错，但是似乎没有人再进行下去）<br>（2）如果想将其当作一般电脑使用，个人认为只能用于查看文档罢了，为什么？因为体验不好，开个网站慢，本人在安装chromium和flash进行体验，效果极差，chromium经常十分容易出现崩溃情况，并且打开自带应用速度较慢<br>（3）所谓的Web服务器或者用于学习linux之类的更加不利，由于平台为arm架构，缺乏自编译源码能力的人而言，将无法使用十分多的好软件，不如直接租用云服务器进行Web服务器构建，而学习linux，直接在PC机中安装Ubuntu学习即可<br>（4）对于一些家庭自动化，电子相框，GPS跟踪器不如使用单片机或者ardurio实现，成本更低，可DIY性更高。而另外一些Tor中继，NAS服务，检查流量状态，流量监控更加忽悠<br>国内大部分项目帖子均是那些论坛翻译国外的一些原创过来的，并且都是千篇一律，暂无发现一些引起兴趣的项目。希望后续能有所发现</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2013/10/22/STM32L-Reset-and-clock-control-RCC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2013/10/22/STM32L-Reset-and-clock-control-RCC/" class="post-title-link" itemprop="url">STM32L--Reset and clock control (RCC)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2013-10-22 12:38:00" itemprop="dateCreated datePublished" datetime="2013-10-22T12:38:00+08:00">2013-10-22</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>旧博文地址：<a href="http://blog.csdn.net/kaijiexue/article/details/12946065" target="_blank" rel="noopener">http://blog.csdn.net/kaijiexue/article/details/12946065</a></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2013/10/19/STM32L-Pow-control-PWR/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2013/10/19/STM32L-Pow-control-PWR/" class="post-title-link" itemprop="url">STM32L--Pow control (PWR)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2013-10-19 21:19:00" itemprop="dateCreated datePublished" datetime="2013-10-19T21:19:00+08:00">2013-10-19</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>旧博文地址：<a href="http://blog.csdn.net/kaijiexue/article/details/12875245" target="_blank" rel="noopener">http://blog.csdn.net/kaijiexue/article/details/12875245</a></p>
-
-          
         
       
     </div>
@@ -1461,7 +1516,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1601,7 +1656,9 @@
         
           
         
-        <span class="site-state-item-count">45</span>
+          
+        
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
