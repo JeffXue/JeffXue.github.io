@@ -254,6 +254,125 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/nginx日志切割/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/22/nginx日志切割/" class="post-title-link" itemprop="url">nginx日志切割</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-22 17:05:26" itemprop="dateCreated datePublished" datetime="2016-03-22T17:05:26+08:00">2016-03-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:37" itemprop="dateModified" datetime="2020-01-19T14:36:37+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>由于nginx没有像apache一样自带日志切割工具（rotatelogs），但可以使用linux系统自带的工具logrotate，并配置定时任务即可实现定时日志切割</p>
+<h1 id="logrotate日志管理工具"><a href="#logrotate日志管理工具" class="headerlink" title="logrotate日志管理工具"></a>logrotate日志管理工具</h1><p>logrotate是一个日志文件管理工具。用来把旧文件轮转、压缩、删除，并且创建新的日志文件。我们可以根据日志文件的大小、天数等来转储，便于对日志文件管理，一般都是通过cron计划任务来完成的。</p>
+<h2 id="命令参数说明"><a href="#命令参数说明" class="headerlink" title="命令参数说明"></a>命令参数说明</h2><p>logrotate –help</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Usage: logrotate [OPTION...] &lt;configfile&gt;</span><br><span class="line">  -d, --debug               Don<span class="string">'t do anything, just test (implies -v)</span></span><br><span class="line"><span class="string">  -f, --force               Force file rotation</span></span><br><span class="line"><span class="string">  -m, --mail=command        Command to send mail (instead of `/usr/bin/mail'</span>)</span><br><span class="line">  -s, --state=statefile     Path of state file</span><br><span class="line">  -v, --verbose             Display messages during rotation</span><br><span class="line"></span><br><span class="line">Help options:</span><br><span class="line">  -?, --<span class="built_in">help</span>                Show this <span class="built_in">help</span> message</span><br><span class="line">      --usage               Display brief usage message</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/03/22/nginx日志切割/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/nginx-ssl配置说明/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1324,127 +1443,11 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/08/apache2.4基本配置说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/08/apache2.4基本配置说明/" class="post-title-link" itemprop="url">apache2.4基本配置说明</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-08 15:15:31" itemprop="dateCreated datePublished" datetime="2016-03-08T15:15:31+08:00">2016-03-08</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:35:35" itemprop="dateModified" datetime="2020-01-19T14:35:35+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="httpd-conf"><a href="#httpd-conf" class="headerlink" title="httpd.conf"></a>httpd.conf</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># httpd HOME目录</span></span><br><span class="line">ServerRoot <span class="string">"/usr/local/apache"</span></span><br><span class="line"><span class="comment"># server name</span></span><br><span class="line">ServerName localhost</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监听端口</span></span><br><span class="line">Listen 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认启用的模块，注释的为较为重要的一些模块，后续会需要使用时开启</span></span><br><span class="line"><span class="comment"># 详细模块说明：https://httpd.apache.org/docs/2.4/mod/</span></span><br><span class="line">LoadModule authn_file_module modules/mod_authn_file.so</span><br><span class="line">LoadModule authn_core_module modules/mod_authn_core.so</span><br><span class="line">LoadModule authz_host_module modules/mod_authz_host.so</span><br><span class="line">LoadModule authz_groupfile_module modules/mod_authz_groupfile.so</span><br><span class="line">LoadModule authz_user_module modules/mod_authz_user.so</span><br><span class="line">LoadModule authz_core_module modules/mod_authz_core.so</span><br><span class="line">LoadModule access_compat_module modules/mod_access_compat.so</span><br><span class="line">LoadModule auth_basic_module modules/mod_auth_basic.so</span><br><span class="line"><span class="comment"># cache模块</span></span><br><span class="line"><span class="comment">#LoadModule cache_module modules/mod_cache.so</span></span><br><span class="line"><span class="comment">#LoadModule cache_disk_module modules/mod_cache_disk.so</span></span><br><span class="line"><span class="comment">#LoadModule socache_shmcb_module modules/mod_socache_shmcb.so</span></span><br><span class="line"><span class="comment">#LoadModule socache_dbm_module modules/mod_socache_dbm.so</span></span><br><span class="line"><span class="comment">#LoadModule socache_memcache_module modules/mod_socache_memcache.so</span></span><br><span class="line">LoadModule reqtimeout_module modules/mod_reqtimeout.so</span><br><span class="line">LoadModule filter_module modules/mod_filter.so</span><br><span class="line"><span class="comment"># 压缩模块</span></span><br><span class="line"><span class="comment">#LoadModule deflate_module modules/mod_deflate.so</span></span><br><span class="line">LoadModule mime_module modules/mod_mime.so</span><br><span class="line">LoadModule log_config_module modules/mod_log_config.so</span><br><span class="line">LoadModule env_module modules/mod_env.so</span><br><span class="line"><span class="comment"># expires模块</span></span><br><span class="line"><span class="comment">#LoadModule expires_module modules/mod_expires.so</span></span><br><span class="line">LoadModule headers_module modules/mod_headers.so</span><br><span class="line">LoadModule setenvif_module modules/mod_setenvif.so</span><br><span class="line">LoadModule version_module modules/mod_version.so</span><br><span class="line"><span class="comment">#LoadModule remoteip_module modules/mod_remoteip.so</span></span><br><span class="line"><span class="comment"># proxy模块</span></span><br><span class="line"><span class="comment">#LoadModule proxy_module modules/mod_proxy.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_connect_module modules/mod_proxy_connect.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_ftp_module modules/mod_proxy_ftp.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_http_module modules/mod_proxy_http.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_scgi_module modules/mod_proxy_scgi.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_fdpass_module modules/mod_proxy_fdpass.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_ajp_module modules/mod_proxy_ajp.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_balancer_module modules/mod_proxy_balancer.so</span></span><br><span class="line"><span class="comment">#LoadModule proxy_express_module modules/mod_proxy_express.so</span></span><br><span class="line"><span class="comment"># ssl模块</span></span><br><span class="line"><span class="comment">#LoadModule slotmem_shm_module modules/mod_slotmem_shm.so</span></span><br><span class="line"><span class="comment">#LoadModule slotmem_plain_module modules/mod_slotmem_plain.so</span></span><br><span class="line"><span class="comment">#LoadModule ssl_module modules/mod_ssl.so</span></span><br><span class="line"><span class="comment"># 负载均衡策略模块</span></span><br><span class="line"><span class="comment">#LoadModule lbmethod_byrequests_module modules/mod_lbmethod_byrequests.so</span></span><br><span class="line"><span class="comment">#LoadModule lbmethod_bytraffic_module modules/mod_lbmethod_bytraffic.so</span></span><br><span class="line"><span class="comment">#LoadModule lbmethod_bybusyness_module modules/mod_lbmethod_bybusyness.so</span></span><br><span class="line"><span class="comment">#LoadModule lbmethod_heartbeat_module modules/mod_lbmethod_heartbeat.so</span></span><br><span class="line">LoadModule unixd_module modules/mod_unixd.so</span><br><span class="line">LoadModule status_module modules/mod_status.so</span><br><span class="line">LoadModule autoindex_module modules/mod_autoindex.so</span><br><span class="line"><span class="comment"># info模块</span></span><br><span class="line"><span class="comment">#LoadModule info_module modules/mod_info.so</span></span><br><span class="line">LoadModule dir_module modules/mod_dir.so</span><br><span class="line">LoadModule alias_module modules/mod_alias.so</span><br><span class="line"><span class="comment"># rewrite模块</span></span><br><span class="line"><span class="comment">#LoadModule rewrite_module modules/mod_rewrite.so</span></span><br><span class="line"><span class="comment"># 支持PHP，需要手工编译安装PHP时指定apxs来生成改so</span></span><br><span class="line"><span class="comment">#LoadModule php5_module        modules/libphp5.so</span></span><br><span class="line"><span class="comment"># 指定libz.so</span></span><br><span class="line"><span class="comment">#LoadFile /usr/local/zlib/lib/libz.so</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置用户及用户组</span></span><br><span class="line">&lt;IfModule unixd_module&gt;</span><br><span class="line">User daemon</span><br><span class="line">Group daemon</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 管理员邮箱</span></span><br><span class="line">ServerAdmin you@example.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 禁止对系统文件系统进行访问</span></span><br><span class="line">&lt;Directory /&gt;</span><br><span class="line">    AllowOverride none</span><br><span class="line">    Require all denied</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主站点的路径</span></span><br><span class="line">DocumentRoot <span class="string">"/usr/local/apache/htdocs"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主站点的访问控制</span></span><br><span class="line">&lt;Directory <span class="string">"/usr/local/apache/htdocs"</span>&gt;</span><br><span class="line">    <span class="comment"># Options 配置在特定目录使用哪些特性，详情可看https://httpd.apache.org/docs/2.4/mod/core.html#options</span></span><br><span class="line">    <span class="comment"># indexes 为允许目录浏览，应移除掉</span></span><br><span class="line">    <span class="comment"># FollowSymLinks 允许文件系统使用符号连接</span></span><br><span class="line">    Options Indexes FollowSymLinks</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义对于每个目录下的 .htaccess 文件中的指含类型，根据实际情况进行开启或者禁用</span></span><br><span class="line">    AllowOverride None</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 允许所有请求</span></span><br><span class="line">    Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">&lt;IfModule dir_module&gt;</span><br><span class="line">    <span class="comment"># 设置主页</span></span><br><span class="line">    DirectoryIndex index.html</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 禁止直接访问.htaccess</span></span><br><span class="line">&lt;Files <span class="string">".ht*"</span>&gt;</span><br><span class="line">    Require all denied</span><br><span class="line">&lt;/Files&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 错误日志</span></span><br><span class="line">ErrorLog <span class="string">"logs/error_log"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志级别</span></span><br><span class="line">LogLevel warn</span><br><span class="line"></span><br><span class="line">&lt;IfModule log_config_module&gt;</span><br><span class="line">    <span class="comment"># 日志格式，详细说明见http://httpd.apache.org/docs/current/mod/mod_log_config.html</span></span><br><span class="line">    LogFormat <span class="string">"%h %l %u %t \"%r\" %&gt;s %b \"%&#123;Referer&#125;i\" \"%&#123;User-Agent&#125;i\""</span> combined</span><br><span class="line">    LogFormat <span class="string">"%h %l %u %t \"%r\" %&gt;s %b"</span> common</span><br><span class="line">    &lt;IfModule logio_module&gt;</span><br><span class="line">      LogFormat <span class="string">"%h %l %u %t \"%r\" %&gt;s %b \"%&#123;Referer&#125;i\" \"%&#123;User-Agent&#125;i\" %I %O"</span> combinedio</span><br><span class="line">    &lt;/IfModule&gt;</span><br><span class="line">    <span class="comment"># 日志，应使用rotatelogs进行日志切割</span></span><br><span class="line">    CustomLog <span class="string">"logs/access_log"</span> common</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line">&lt;IfModule alias_module&gt;</span><br><span class="line">    <span class="comment"># 设置cgi脚本目录</span></span><br><span class="line">    ScriptAlias /cgi-bin/ <span class="string">"/usr/local/apache/cgi-bin/"</span></span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line">&lt;IfModule cgid_module&gt;</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># cgi访问控制</span></span><br><span class="line">&lt;Directory <span class="string">"/usr/local/apache/cgi-bin"</span>&gt;</span><br><span class="line">    AllowOverride None</span><br><span class="line">    Options None</span><br><span class="line">    Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">&lt;IfModule mime_module&gt;</span><br><span class="line">    <span class="comment"># 设置mime（Content-Type头，它将告诉浏览器如何呈现内容）</span></span><br><span class="line">    TypesConfig conf/mime.types</span><br><span class="line">    AddType application/x-compress .Z</span><br><span class="line">    AddType application/x-gzip .gz .tgz</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 支持shtml</span></span><br><span class="line">    <span class="comment"># Filters allow you to process content before it is sent to the client</span></span><br><span class="line">    <span class="comment"># To parse .shtml files for server-side includes (SSI):</span></span><br><span class="line">    <span class="comment"># (You will also need to add "Includes" to the "Options" directive.)</span></span><br><span class="line">    <span class="comment">#AddType text/html .shtml</span></span><br><span class="line">    <span class="comment">#AddOutputFilter INCLUDES .shtml</span></span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定制Error Page</span></span><br><span class="line"><span class="comment">#ErrorDocument 500 "The server made a boo boo."</span></span><br><span class="line"><span class="comment">#ErrorDocument 404 /missing.html</span></span><br><span class="line"><span class="comment">#ErrorDocument 402 http://www.example.com/subscription_info.html</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># MPM配置</span></span><br><span class="line"><span class="comment">#Include conf/extra/httpd-mpm.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 状态配置</span></span><br><span class="line"><span class="comment">#Include conf/extra/httpd-info.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 虚拟主机配置</span></span><br><span class="line"><span class="comment">#Include conf/extra/httpd-vhosts.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure mod_proxy_html to understand HTML4/XHTML1</span></span><br><span class="line">&lt;IfModule proxy_html_module&gt;</span><br><span class="line">Include conf/extra/proxy-html.conf</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># SSL配置</span></span><br><span class="line"><span class="comment">#Include conf/extra/httpd-ssl.conf</span></span><br><span class="line"><span class="comment"># Note: The following must must be present to support</span></span><br><span class="line">&lt;IfModule ssl_module&gt;</span><br><span class="line">SSLRandomSeed startup <span class="built_in">builtin</span></span><br><span class="line">SSLRandomSeed connect <span class="built_in">builtin</span></span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Deal with user agents that deliberately violate open standards</span></span><br><span class="line">&lt;IfModule setenvif_module&gt;</span><br><span class="line">BrowserMatch <span class="string">"MSIE 10.0;"</span> bad_DNT</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line">&lt;IfModule headers_module&gt;</span><br><span class="line">RequestHeader <span class="built_in">unset</span> DNT env=bad_DNT</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/03/08/apache2.4基本配置说明/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1480,7 +1483,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
