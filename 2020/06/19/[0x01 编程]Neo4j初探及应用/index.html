@@ -71,7 +71,7 @@
 <meta property="og:image" content="http://www.jeffxue.cn/img/30552b5d-ad8e-4971-901c-00262f900508.png">
 <meta property="og:image" content="http://www.jeffxue.cn/img/eeb12bac-6d79-4027-a493-730922aa189f.png">
 <meta property="og:image" content="http://www.jeffxue.cn/img/37411228.png">
-<meta property="og:updated_time" content="2020-06-19T02:49:22.766Z">
+<meta property="og:updated_time" content="2020-06-19T02:58:47.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Neo4j初探及应用">
 <meta name="twitter:description" content="什么是图数据库维基百科定义：   在计算机科学中，图数据库是一个使用图结构进行语义查询的数据库，它使用节点、边和属性来表示和存储数据。  图数据库并非是存储图片的数据库，而是面向或基于图的数据库（与其底层存储方式有关），属于非关系型数据库，即NoSQL的范畴。它直接将存储中的属性、节点和节点间表示关系的边相关联。这些关系允许直接将数据链接在一起，并且在很多的情况下可以通过一个操作进行快速搜索。 图">
@@ -298,7 +298,7 @@
                 
               
 
-              <time title="Created: 2020-06-19 10:43:51 / Modified: 10:49:22" itemprop="dateCreated datePublished" datetime="2020-06-19T10:43:51+08:00">2020-06-19</time>
+              <time title="Created: 2020-06-19 10:43:51 / Modified: 10:58:47" itemprop="dateCreated datePublished" datetime="2020-06-19T10:43:51+08:00">2020-06-19</time>
             </span>
           
             
@@ -367,7 +367,39 @@
 <p>当面向一个更复杂的关系网络中，就会突显图数据库的作用，例如你需要在以下的网状关系中找到与某个节点存在某种关系的其他节点，你会采用什么方式实现？</p>
 <p><img src="http://www.jeffxue.cn/img/902e3c49-1c4f-4a7a-b7e5-4294069da6eb.png" alt="902e3c49-1c4f-4a7a-b7e5-4294069da6eb.png"></p>
 <hr>
-<h2 id="Neo4j介绍及基础使用"><a href="#Neo4j介绍及基础使用" class="headerlink" title="Neo4j介绍及基础使用"></a>Neo4j介绍及基础使用</h2><h3 id="Neo4j介绍"><a href="#Neo4j介绍" class="headerlink" title="Neo4j介绍"></a>Neo4j介绍</h3><p>简单介绍Neo4j的特性：<br>| 特性 | Neo4j |<br>| — | — |<br>| 是否开源 | 社区版开源，企业版收费 |<br>| 技术特点 | 一站式服务、工具齐全 |<br>| 查询语言 | Cypher |<br>| 开发语言 | Java |<br>| 集群 | 企业版支持，社区版不支持 |<br>| 量级 | 轻量级 |</p>
+<h2 id="Neo4j介绍及基础使用"><a href="#Neo4j介绍及基础使用" class="headerlink" title="Neo4j介绍及基础使用"></a>Neo4j介绍及基础使用</h2><h3 id="Neo4j介绍"><a href="#Neo4j介绍" class="headerlink" title="Neo4j介绍"></a>Neo4j介绍</h3><p>简单介绍Neo4j的特性：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Neo4j</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>是否开源</td>
+<td>社区版开源，企业版收费</td>
+</tr>
+<tr>
+<td>技术特点</td>
+<td>一站式服务、工具齐全</td>
+</tr>
+<tr>
+<td>查询语言</td>
+<td>Cypher</td>
+</tr>
+<tr>
+<td>开发语言</td>
+<td>Java</td>
+</tr>
+<tr>
+<td>集群</td>
+<td>企业版支持，社区版不支持</td>
+</tr>
+<tr>
+<td>量级</td>
+<td>轻量级</td>
+</tr>
+</tbody></table>
 <p>从上面的特性可以看出，如果需要在生产环境使用Neo4j，为了保证可用性需要使用付费的企业版。社区版并不支持集群模式，除非自己实现双读双写的HA逻辑。但其一站式服务和工具极大的降低了使用上手的成本，并且提供了成熟的UI客户端，提供多语言SDK接入。</p>
 <p>市面上也存在多款新生代的图数据库，为什么选择Neo4j进行研究试用呢？实际是在不太严谨的调研下，做出的尝试使用neo4j的决定：</p>
 <ul>
