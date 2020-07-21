@@ -254,6 +254,135 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2012/12/01/RVDS2-2配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2012/12/01/RVDS2-2配置/" class="post-title-link" itemprop="url">RVDS2.2配置</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2012-12-01 11:57:00" itemprop="dateCreated datePublished" datetime="2012-12-01T11:57:00+08:00">2012-12-01</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-01 09:13:19" itemprop="dateModified" datetime="2019-08-01T09:13:19+08:00">2019-08-01</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <ol>
+<li><p>进入CodeWarrior for RVDS</p>
+</li>
+<li><p>选择菜单edit–Debug Settings</p>
+</li>
+<li><p>修改RealView Assembler 下的 Architecture or Processor 为ARM1176JZF-S（根据不同CPU进行修改）</p>
+</li>
+<li><p>修改RealView Compiler 下的 Architecture or Processor 为ARM1176JZF-S（根据不同CPU进行修改）</p>
+</li>
+<li><p>修改RealView Linker 下的 R0 Base （程序所要下载要的内存地址）</p>
+</li>
+<li><p>修改RealView FromELF 下的 output format（Plain binary） 和output file name （xxx.axf/xxx.bin）</p>
+</li>
+<li><p>进入AXD</p>
+</li>
+<li><p>进入菜单Options–configure target（启动时或许会提示缺少某一个.dll文件，只需要在jlink安装目录下找到相关dll文件拷贝到对应的目录下即可）</p>
+</li>
+<li><p>点击Add，添加jlink安装目录下的JlinkRDI.dll 点击OK即可</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2012/11/30/RVDS2-2安装步骤/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1354,123 +1483,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2012/11/19/linux应用程序设计基础-GDB调试/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2012/11/19/linux应用程序设计基础-GDB调试/" class="post-title-link" itemprop="url">linux应用程序设计基础--GDB调试</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2012-11-19 17:46:00" itemprop="dateCreated datePublished" datetime="2012-11-19T17:46:00+08:00">2012-11-19</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:32:39" itemprop="dateModified" datetime="2020-01-19T14:32:39+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="GDB作用"><a href="#GDB作用" class="headerlink" title="GDB作用"></a>GDB作用</h1><p>（1）启动被调试程序<br>（2）让程序在指定位置停止<br>（3）可检查程序状态（如变量值）</p>
-<h1 id="启动GDB"><a href="#启动GDB" class="headerlink" title="启动GDB"></a>启动GDB</h1><p>gdb test</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2012/11/19/linux应用程序设计基础-GDB调试/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1511,7 +1523,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-count">102</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
