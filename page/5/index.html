@@ -254,6 +254,124 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/06/12/redis主从-Sentinel高可用方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/06/12/redis主从-Sentinel高可用方案/" class="post-title-link" itemprop="url">redis主从+Sentinel高可用方案</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-06-12 15:12:12" itemprop="dateCreated datePublished" datetime="2016-06-12T15:12:12+08:00">2016-06-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:35:59" itemprop="dateModified" datetime="2020-01-19T14:35:59+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>生产环境redis一直处于单节点运行模式，如果出现故障，则会无法提供服务，因此需要提高redis服务的高可用性，因为本身访问量并不是十分大，另外并无运维人力投入进行维护，因此并不考虑集群方案。通过综合考虑研究采用redis主从，加上redis sentinel组件搭建高可用的redis方案。</p>
+<p>redis主从保证了数据的可靠性，而redis sentinel可以提升其可用性。redis sentinel为redis主从集群提供了：1)master存活检测、2)集群主从服务监控、3) 自动故障转移<br>一般情况下,最小redis主从集群单元由一个maste和slave组成,当master失效后,sentinel可以帮助我们自动将slave提升为master；有了sentinel组件,可以减少系统管理员的人工切换slave的操作过程。</p>
+<p>但是一般情况下，主从分别部署在不同的服务器上，对外服务IP不同，当sentinel进行了主从切换后，应用程序如何切换访问新的master。而实际上应用程序可以通过访问sentinel获取最新master，从而达到无缝的切换（Jedis提供了JedisSentinelPool，但在主从切换后需主动重新获取新的连接；而spring-data-redis中使用RedisTemplates进行调用不会有该问题，具体见后面章节）</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/06/12/redis主从-Sentinel高可用方案/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/06/12/redis集群方案比较/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1586,123 +1704,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/15/redis-benchmark使用详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/04/15/redis-benchmark使用详解/" class="post-title-link" itemprop="url">redis-benchmark使用详解</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-04-15 23:05:59" itemprop="dateCreated datePublished" datetime="2016-04-15T23:05:59+08:00">2016-04-15</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:36:05" itemprop="dateModified" datetime="2020-01-19T14:36:05+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="redis-benchmark"><a href="#redis-benchmark" class="headerlink" title="redis-benchmark"></a>redis-benchmark</h1><p>redis-benchmark是redis自带的一个工具，可用于测试redis的性能</p>
-<h1 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Usage: redis-benchmark [-h &lt;host&gt;] [-p &lt;port&gt;] [-c &lt;clients&gt;] [-n &lt;requests]&gt; [-k &lt;boolean&gt;]</span><br><span class="line"></span><br><span class="line"> -h &lt;hostname&gt;      Server hostname (default 127.0.0.1) <span class="comment">#所要连接的机器</span></span><br><span class="line"> -p &lt;port&gt;          Server port (default 6379) <span class="comment">#服务端口</span></span><br><span class="line"> -s &lt;socket&gt;        Server socket (overrides host and port)</span><br><span class="line"> -a &lt;password&gt;      Password <span class="keyword">for</span> Redis Auth <span class="comment">#认证密码</span></span><br><span class="line"> -c &lt;clients&gt;       Number of parallel connections (default 50) <span class="comment">#并发连接数</span></span><br><span class="line"> -n &lt;requests&gt;      Total number of requests (default 10000) <span class="comment">#总的请求数量</span></span><br><span class="line"> -d &lt;size&gt;          Data size of SET/GET value <span class="keyword">in</span> bytes (default 2) <span class="comment">#SET和GET value的大小</span></span><br><span class="line"> -dbnum &lt;db&gt;        SELECT the specified db number (default 0) <span class="comment">#选择db number</span></span><br><span class="line"> -k &lt;boolean&gt;       1=keep alive 0=reconnect (default 1) <span class="comment"># 设置是否开启keepalive</span></span><br><span class="line"> -r &lt;keyspacelen&gt;   Use random keys <span class="keyword">for</span> SET/GET/INCR, random values <span class="keyword">for</span> SADD</span><br><span class="line">  Using this option the benchmark will expand the string __rand_int__</span><br><span class="line">  inside an argument with a 12 digits number <span class="keyword">in</span> the specified range</span><br><span class="line">  from 0 to keyspacelen-1. The substitution changes every time a <span class="built_in">command</span></span><br><span class="line">  is executed. Default tests use this to hit random keys <span class="keyword">in</span> the</span><br><span class="line">  specified range.</span><br><span class="line"> -P &lt;numreq&gt;        Pipeline &lt;numreq&gt; requests. Default 1 (no pipeline).</span><br><span class="line"> -q                 Quiet. Just show query/sec values <span class="comment"># 静态模式运行</span></span><br><span class="line"> --csv              Output <span class="keyword">in</span> CSV format <span class="comment"># 输出csv</span></span><br><span class="line"> -l                 Loop. Run the tests forever <span class="comment">#一直运行</span></span><br><span class="line"> -t &lt;tests&gt;         Only run the comma separated list of tests. The <span class="built_in">test</span></span><br><span class="line">                    names are the same as the ones produced as output. <span class="comment"># 设置测试项</span></span><br><span class="line"> -I                 Idle mode. Just open N idle connections and <span class="built_in">wait</span>. <span class="comment"># 空闲模式，只创建连接</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/04/15/redis-benchmark使用详解/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1743,7 +1744,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1924,7 +1925,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

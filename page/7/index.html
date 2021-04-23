@@ -254,6 +254,130 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-headers-module模块使用说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/03/22/ngx-http-headers-module模块使用说明/" class="post-title-link" itemprop="url">ngx_http_headers_module模块使用说明</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-22 17:59:04" itemprop="dateCreated datePublished" datetime="2016-03-22T17:59:04+08:00">2016-03-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:26" itemprop="dateModified" datetime="2020-01-19T14:36:26+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>ngx_http_headers_module 允许添加Expires和Cache-Control域和任意的域到响应头中。</p>
+<p>例子</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">expires    24h;</span><br><span class="line">expires    modified +24h;</span><br><span class="line">expires    @24h;</span><br><span class="line">expires    0;</span><br><span class="line">expires    -1;</span><br><span class="line">expires    epoch;</span><br><span class="line">expires    <span class="variable">$expires</span>;</span><br><span class="line">add_header Cache-Control private;</span><br></pre></td></tr></table></figure>
+
+<h1 id="add-header指令"><a href="#add-header指令" class="headerlink" title="add_header指令"></a>add_header指令</h1><blockquote>
+<p>Syntax:    add_header name value [always];<br>Default:   —<br>Context:   http, server, location, if in location</p>
+</blockquote>
+<p>当请求响应码为200,201,204,206,301,302,303,304或307时，该配置的域将会添加到应答头中，可以有多个add_header指令。这些指令均会继承上一层的，除非当前没有使用add_header</p>
+<h1 id="expires指令"><a href="#expires指令" class="headerlink" title="expires指令"></a>expires指令</h1><blockquote>
+<p>Syntax:    expires [modified] time;<br>                expires epoch | max | off;<br>Default:   expires off;<br>Context:   http, server, location, if in location</p>
+</blockquote>
+<p>该指令为在应答头中添加了Expires和Cache-Control域。<br>后面为负数，将添加头：Cache-Control: no-cache<br>后面为正数/0，将添加头：Cache-Control: max-age=t</p>
+<p>可以根据不同文件类型设置不同的超时时间</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">map <span class="variable">$sent_http_content_type</span>  <span class="variable">$expires</span> &#123;</span><br><span class="line">    <span class="string">"~*image/*"</span>                         7d;</span><br><span class="line">    <span class="string">"~*application/x-javascript"</span>        7d;</span><br><span class="line">    <span class="string">"~*text/css"</span>                        7d;</span><br><span class="line">    <span class="string">"~*text/javascript"</span>                 7d;</span><br><span class="line">    <span class="string">"~*application/javascript"</span>          7d;</span><br><span class="line">    <span class="string">"~*text/plain"</span>                      1d;</span><br><span class="line">    <span class="string">"~*application/x-shockwave-flash"</span>   7d;</span><br><span class="line">    <span class="string">"~*video/x-flv"</span>                     7d;</span><br><span class="line">    <span class="string">"~*application/pdf"</span>                 7d;</span><br><span class="line">    default                             off;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">expires <span class="variable">$expires</span>;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-gzip-module模块使用说明/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1320,122 +1444,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/08/apache使用mod_deflate模块/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/08/apache使用mod_deflate模块/" class="post-title-link" itemprop="url">apache使用mod_deflate模块</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-08 18:27:10" itemprop="dateCreated datePublished" datetime="2016-03-08T18:27:10+08:00">2016-03-08</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:31:26" itemprop="dateModified" datetime="2020-01-19T14:31:26+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="mod-deflate模块"><a href="#mod-deflate模块" class="headerlink" title="mod_deflate模块"></a>mod_deflate模块</h1><p><a href="http://www.jeffxue.cn/2016/03/07/apache2.4%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">apache2.4编译安装</a>时加入–enable-deflate，然后在httpd.conf模块中启用该模块，并添加配置</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/03/08/apache使用mod_deflate模块/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1476,7 +1484,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1657,7 +1665,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

@@ -254,6 +254,125 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/08/02/JVM堆内存配置导致的一次异常/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/08/02/JVM堆内存配置导致的一次异常/" class="post-title-link" itemprop="url">JVM堆内存配置导致的一次异常</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-08-02 15:39:30" itemprop="dateCreated datePublished" datetime="2016-08-02T15:39:30+08:00">2016-08-02</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:41:02" itemprop="dateModified" datetime="2020-01-19T14:41:02+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/性能/" itemprop="url" rel="index"><span itemprop="name">性能</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h1><p>今天在压测一个接口的情况下，突然发现运行一段时间后，整体性能出现了激剧下降，响应时间出现飙升</p>
+<p>如下图中TPS在运行11分钟后出现了一个下降，后续又出现了一个急速的下降，然后再开始恢复的过程<br><img src="http://www.jeffxue.cn/img/20160729_tps.png" alt="tps"><br>对应的响应时间也出现了响应的变化<br><img src="http://www.jeffxue.cn/img/20160729_trs.png" alt="trs"></p>
+<h1 id="查找原因"><a href="#查找原因" class="headerlink" title="查找原因"></a>查找原因</h1><ul>
+<li>检查应用日志，没有异常</li>
+<li>检查资源情况，没有异常</li>
+<li>检查jvm的监视，发现异常<br>当时jvisualvm刚好是开启着监控，因此观察到了这次异常，对应是11点25分的看到堆内存从1G突增到了2G，同时CPU也飙升了上去，初步断定JVM在分配内存的时候，会导致应用的性能激剧下降。<br><img src="http://www.jeffxue.cn/img/20160729_jvm.png" alt="jvm"></li>
+</ul>
+<h1 id="改进方案"><a href="#改进方案" class="headerlink" title="改进方案"></a>改进方案</h1><p>将初始化的堆大小设置为最大的堆大小，在启动时即可将内存分配好，减少这种异常的情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms2048m -Xmx2048m</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/08/01/《高性能网站建设进阶指南：Web开发者性能优化最佳指南》/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1410,124 +1529,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/06/12/redis主从-Sentinel高可用方案/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/06/12/redis主从-Sentinel高可用方案/" class="post-title-link" itemprop="url">redis主从+Sentinel高可用方案</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-06-12 15:12:12" itemprop="dateCreated datePublished" datetime="2016-06-12T15:12:12+08:00">2016-06-12</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:35:59" itemprop="dateModified" datetime="2020-01-19T14:35:59+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>生产环境redis一直处于单节点运行模式，如果出现故障，则会无法提供服务，因此需要提高redis服务的高可用性，因为本身访问量并不是十分大，另外并无运维人力投入进行维护，因此并不考虑集群方案。通过综合考虑研究采用redis主从，加上redis sentinel组件搭建高可用的redis方案。</p>
-<p>redis主从保证了数据的可靠性，而redis sentinel可以提升其可用性。redis sentinel为redis主从集群提供了：1)master存活检测、2)集群主从服务监控、3) 自动故障转移<br>一般情况下,最小redis主从集群单元由一个maste和slave组成,当master失效后,sentinel可以帮助我们自动将slave提升为master；有了sentinel组件,可以减少系统管理员的人工切换slave的操作过程。</p>
-<p>但是一般情况下，主从分别部署在不同的服务器上，对外服务IP不同，当sentinel进行了主从切换后，应用程序如何切换访问新的master。而实际上应用程序可以通过访问sentinel获取最新master，从而达到无缝的切换（Jedis提供了JedisSentinelPool，但在主从切换后需主动重新获取新的连接；而spring-data-redis中使用RedisTemplates进行调用不会有该问题，具体见后面章节）</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/06/12/redis主从-Sentinel高可用方案/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1568,7 +1569,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1749,7 +1750,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

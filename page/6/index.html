@@ -254,6 +254,123 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/15/redis-benchmark使用详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Xue">
+      <meta itemprop="description" content="Think Bigger, Start Simple!">
+      <meta itemprop="image" content="/img/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of Jeff Xue">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/04/15/redis-benchmark使用详解/" class="post-title-link" itemprop="url">redis-benchmark使用详解</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-04-15 23:05:59" itemprop="dateCreated datePublished" datetime="2016-04-15T23:05:59+08:00">2016-04-15</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 14:36:05" itemprop="dateModified" datetime="2020-01-19T14:36:05+08:00">2020-01-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="redis-benchmark"><a href="#redis-benchmark" class="headerlink" title="redis-benchmark"></a>redis-benchmark</h1><p>redis-benchmark是redis自带的一个工具，可用于测试redis的性能</p>
+<h1 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Usage: redis-benchmark [-h &lt;host&gt;] [-p &lt;port&gt;] [-c &lt;clients&gt;] [-n &lt;requests]&gt; [-k &lt;boolean&gt;]</span><br><span class="line"></span><br><span class="line"> -h &lt;hostname&gt;      Server hostname (default 127.0.0.1) <span class="comment">#所要连接的机器</span></span><br><span class="line"> -p &lt;port&gt;          Server port (default 6379) <span class="comment">#服务端口</span></span><br><span class="line"> -s &lt;socket&gt;        Server socket (overrides host and port)</span><br><span class="line"> -a &lt;password&gt;      Password <span class="keyword">for</span> Redis Auth <span class="comment">#认证密码</span></span><br><span class="line"> -c &lt;clients&gt;       Number of parallel connections (default 50) <span class="comment">#并发连接数</span></span><br><span class="line"> -n &lt;requests&gt;      Total number of requests (default 10000) <span class="comment">#总的请求数量</span></span><br><span class="line"> -d &lt;size&gt;          Data size of SET/GET value <span class="keyword">in</span> bytes (default 2) <span class="comment">#SET和GET value的大小</span></span><br><span class="line"> -dbnum &lt;db&gt;        SELECT the specified db number (default 0) <span class="comment">#选择db number</span></span><br><span class="line"> -k &lt;boolean&gt;       1=keep alive 0=reconnect (default 1) <span class="comment"># 设置是否开启keepalive</span></span><br><span class="line"> -r &lt;keyspacelen&gt;   Use random keys <span class="keyword">for</span> SET/GET/INCR, random values <span class="keyword">for</span> SADD</span><br><span class="line">  Using this option the benchmark will expand the string __rand_int__</span><br><span class="line">  inside an argument with a 12 digits number <span class="keyword">in</span> the specified range</span><br><span class="line">  from 0 to keyspacelen-1. The substitution changes every time a <span class="built_in">command</span></span><br><span class="line">  is executed. Default tests use this to hit random keys <span class="keyword">in</span> the</span><br><span class="line">  specified range.</span><br><span class="line"> -P &lt;numreq&gt;        Pipeline &lt;numreq&gt; requests. Default 1 (no pipeline).</span><br><span class="line"> -q                 Quiet. Just show query/sec values <span class="comment"># 静态模式运行</span></span><br><span class="line"> --csv              Output <span class="keyword">in</span> CSV format <span class="comment"># 输出csv</span></span><br><span class="line"> -l                 Loop. Run the tests forever <span class="comment">#一直运行</span></span><br><span class="line"> -t &lt;tests&gt;         Only run the comma separated list of tests. The <span class="built_in">test</span></span><br><span class="line">                    names are the same as the ones produced as output. <span class="comment"># 设置测试项</span></span><br><span class="line"> -I                 Idle mode. Just open N idle connections and <span class="built_in">wait</span>. <span class="comment"># 空闲模式，只创建连接</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/04/15/redis-benchmark使用详解/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/04/15/redis2-8编译安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1354,130 +1471,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jeffxue.cn/2016/03/22/ngx-http-headers-module模块使用说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Xue">
-      <meta itemprop="description" content="Think Bigger, Start Simple!">
-      <meta itemprop="image" content="/img/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of Jeff Xue">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/22/ngx-http-headers-module模块使用说明/" class="post-title-link" itemprop="url">ngx_http_headers_module模块使用说明</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-22 17:59:04" itemprop="dateCreated datePublished" datetime="2016-03-22T17:59:04+08:00">2016-03-22</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 14:36:26" itemprop="dateModified" datetime="2020-01-19T14:36:26+08:00">2020-01-19</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>ngx_http_headers_module 允许添加Expires和Cache-Control域和任意的域到响应头中。</p>
-<p>例子</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">expires    24h;</span><br><span class="line">expires    modified +24h;</span><br><span class="line">expires    @24h;</span><br><span class="line">expires    0;</span><br><span class="line">expires    -1;</span><br><span class="line">expires    epoch;</span><br><span class="line">expires    <span class="variable">$expires</span>;</span><br><span class="line">add_header Cache-Control private;</span><br></pre></td></tr></table></figure>
-
-<h1 id="add-header指令"><a href="#add-header指令" class="headerlink" title="add_header指令"></a>add_header指令</h1><blockquote>
-<p>Syntax:    add_header name value [always];<br>Default:   —<br>Context:   http, server, location, if in location</p>
-</blockquote>
-<p>当请求响应码为200,201,204,206,301,302,303,304或307时，该配置的域将会添加到应答头中，可以有多个add_header指令。这些指令均会继承上一层的，除非当前没有使用add_header</p>
-<h1 id="expires指令"><a href="#expires指令" class="headerlink" title="expires指令"></a>expires指令</h1><blockquote>
-<p>Syntax:    expires [modified] time;<br>                expires epoch | max | off;<br>Default:   expires off;<br>Context:   http, server, location, if in location</p>
-</blockquote>
-<p>该指令为在应答头中添加了Expires和Cache-Control域。<br>后面为负数，将添加头：Cache-Control: no-cache<br>后面为正数/0，将添加头：Cache-Control: max-age=t</p>
-<p>可以根据不同文件类型设置不同的超时时间</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">map <span class="variable">$sent_http_content_type</span>  <span class="variable">$expires</span> &#123;</span><br><span class="line">    <span class="string">"~*image/*"</span>                         7d;</span><br><span class="line">    <span class="string">"~*application/x-javascript"</span>        7d;</span><br><span class="line">    <span class="string">"~*text/css"</span>                        7d;</span><br><span class="line">    <span class="string">"~*text/javascript"</span>                 7d;</span><br><span class="line">    <span class="string">"~*application/javascript"</span>          7d;</span><br><span class="line">    <span class="string">"~*text/plain"</span>                      1d;</span><br><span class="line">    <span class="string">"~*application/x-shockwave-flash"</span>   7d;</span><br><span class="line">    <span class="string">"~*video/x-flv"</span>                     7d;</span><br><span class="line">    <span class="string">"~*application/pdf"</span>                 7d;</span><br><span class="line">    default                             off;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">expires <span class="variable">$expires</span>;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1518,7 +1511,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1699,7 +1692,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
